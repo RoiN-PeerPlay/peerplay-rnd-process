@@ -419,6 +419,58 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
 .arch-name{font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:800}
 .arch-mcp{font-size:7.5px;padding:1px 4px;border-radius:3px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.36);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-left:1px}
 
+
+/* ═══ V3 ═══ */
+
+/* SLIDE 7 — zone labels left, absolute positioned */
+#s7{padding:22px 60px}
+#s7 h2{margin-bottom:6px}
+.vt3-wrap{width:100%;max-width:940px;display:flex;flex-direction:column;gap:8px}
+.vt3-zone{position:relative;padding-left:46px;border-radius:14px}
+.vt3-zlbl{position:absolute;left:0;top:0;bottom:0;width:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.vt3-zlbl-text{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Bricolage Grotesque',sans-serif;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;white-space:nowrap}
+.vt3-rows{padding-left:8px}
+.vt3-row{display:flex;gap:0;align-items:stretch}
+.vt3-nc{display:flex;flex-direction:column;align-items:center;width:38px;flex-shrink:0;padding-top:12px}
+.vt3-num{width:33px;height:33px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:900;border:2.5px solid;background:var(--navy);flex-shrink:0}
+.vt3-vl{width:2px;flex:1;min-height:6px;margin-top:2px;border-radius:1px}
+.vt3-content{flex:1;display:flex;align-items:center;gap:14px;padding:12px 0 12px 12px;border-bottom:1px solid rgba(255,255,255,.055)}
+.vt3-row:last-child .vt3-content{border-bottom:none}
+.vt3-row:last-child .vt3-vl{display:none}
+.vt3-icon{font-size:24px;flex-shrink:0;width:32px;text-align:center}
+.vt3-label{font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;line-height:1.2}
+.vt3-badge{font-size:9.5px;font-weight:700;padding:2px 9px;border-radius:6px;text-transform:uppercase;letter-spacing:.05em;display:inline-block;margin-top:4px}
+.vt3-sub{font-size:10.5px;color:var(--muted);margin-top:2px}
+
+/* SLIDE 8 — title higher, larger fonts */
+#s8{padding:20px 32px}
+#s8 h2{margin-bottom:7px;font-size:clamp(24px,2.6vw,38px)}
+.bf1box{min-height:88px!important;border-radius:14px!important;padding:13px 4px!important}
+.bf1icon{font-size:22px!important}
+.bf1num{font-size:9px!important}
+.bf1label{font-size:12px!important;letter-spacing:.02em!important}
+.bf1arr{font-size:14px!important}
+.bf1alt{margin-top:36px!important}
+
+/* SLIDE 9 — pipeline redesign */
+#s9{padding:22px 52px}
+#s9 h2{margin-bottom:10px;font-size:clamp(24px,2.6vw,38px)}
+.eco2-wrap{width:100%;max-width:1020px;display:flex;flex-direction:column;gap:12px}
+.eco2-claude{background:linear-gradient(135deg,rgba(59,158,245,.18),rgba(59,158,245,.06));border:1.5px solid rgba(59,158,245,.45);border-radius:16px;padding:13px 22px;display:flex;align-items:center;gap:16px;box-shadow:0 0 28px rgba(59,158,245,.1)}
+.eco2-claude-icon{font-size:28px;flex-shrink:0}
+.eco2-claude-main{flex:1}
+.eco2-claude-title{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:900;color:var(--blue);margin-bottom:2px}
+.eco2-claude-desc{font-size:11.5px;color:var(--muted);line-height:1.4}
+.eco2-mcps{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.eco2-mcp{font-size:9px;font-weight:700;padding:2px 8px;border-radius:5px;background:rgba(59,158,245,.14);color:rgba(59,158,245,.85);text-transform:uppercase;letter-spacing:.05em;border:1px solid rgba(59,158,245,.2)}
+.eco2-pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.eco2-col{border-radius:14px;padding:13px 12px;display:flex;flex-direction:column;gap:8px}
+.eco2-col-hdr{font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.09);display:flex;align-items:center;gap:7px}
+.eco2-tool{border-radius:10px;padding:9px 11px;display:flex;align-items:flex-start;gap:9px}
+.eco2-ti{font-size:17px;flex-shrink:0;margin-top:1px}
+.eco2-tn{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;line-height:1.2}
+.eco2-td{font-size:10px;color:var(--muted);line-height:1.35;margin-top:2px}
+
 </style>
 </head>
 <body>
@@ -695,97 +747,149 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
 
 <!-- ══════ SLIDE 7 — RELEASE TIMELINE ══════ -->
 <div class="slide" id="s7">
-  <div class="label">Release Process · Option A</div>
+  <div class="label">Release Process</div>
   <h2>The Release Flow</h2>
-  <div class="vt-outer">
+  <div class="vt3-wrap">
 
-    <div class="vt-line-col">
-      <div class="vt-num" style="border-color:var(--blue);color:var(--blue)">1</div>
-      <div class="vt-connector"></div>
-      <div class="vt-num" style="border-color:var(--blue);color:var(--blue)">2</div>
-      <div class="vt-connector"></div>
-      <div class="vt-num" style="border-color:var(--blue);color:var(--blue)">3</div>
-      <div class="vt-connector"></div>
-      <div class="vt-num" style="border-color:var(--blue);color:var(--blue)">4</div>
-      <div class="vt-connector" style="background:linear-gradient(180deg,var(--blue),var(--yellow));opacity:.45;min-height:20px;max-height:20px"></div>
-      <div class="vt-num" style="border-color:var(--yellow);color:var(--yellow)">5</div>
-      <div class="vt-connector"></div>
-      <div class="vt-num" style="border-color:var(--yellow);color:var(--yellow)">6</div>
-      <div class="vt-connector" style="background:linear-gradient(180deg,var(--yellow),var(--green));opacity:.45;min-height:20px;max-height:20px"></div>
-      <div class="vt-num" style="border-color:var(--green);color:var(--green)">7</div>
-      <div class="vt-connector"></div>
-      <div class="vt-num" style="border-color:var(--green);color:var(--green);box-shadow:0 0 12px rgba(109,200,75,.3)">8</div>
+    <!-- ── DEV ENVIRONMENT (steps 1–4) ── -->
+    <div class="vt3-zone" style="background:rgba(59,158,245,.045);border:1px solid rgba(59,158,245,.15);padding-bottom:4px">
+      <div class="vt3-zlbl" style="background:rgba(59,158,245,.15);border:1px solid rgba(59,158,245,.25)">
+        <span class="vt3-zlbl-text" style="color:var(--blue)">Dev Environment</span>
+      </div>
+      <div class="vt3-rows">
+    <div class="vt3-row">
+      <div class="vt3-nc">
+        <div class="vt3-num" style="border-color:var(--blue);color:var(--blue)">1</div>
+        <div class="vt3-vl" style="background:#3B9EF5;opacity:.4"></div>
+      </div>
+      <div class="vt3-content">
+        <span class="vt3-icon">&#x1F4CB;</span>
+        <div>
+          <div class="vt3-label" style="color:var(--blue)">PRD Ready</div>
+          <div class="vt3-badge" style="background:var(--blue)22;color:var(--blue);border:1px solid var(--blue)44">Product</div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="vt3-row">
+      <div class="vt3-nc">
+        <div class="vt3-num" style="border-color:var(--blue);color:var(--blue)">2</div>
+        <div class="vt3-vl" style="background:#3B9EF5;opacity:.4"></div>
+      </div>
+      <div class="vt3-content">
+        <span class="vt3-icon">&#x1F333;</span>
+        <div>
+          <div class="vt3-label" style="color:var(--blue)">Branch from Master</div>
+          <div class="vt3-badge" style="background:var(--blue)22;color:var(--blue);border:1px solid var(--blue)44">Dev</div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="vt3-row">
+      <div class="vt3-nc">
+        <div class="vt3-num" style="border-color:var(--blue);color:var(--blue)">3</div>
+        <div class="vt3-vl" style="background:#3B9EF5;opacity:.4"></div>
+      </div>
+      <div class="vt3-content">
+        <span class="vt3-icon">&#x1F528;&#x1F9EA;</span>
+        <div>
+          <div class="vt3-label" style="color:var(--blue)">Build on Dev + QA Testing in parallel</div>
+          <div class="vt3-badge" style="background:var(--blue)22;color:var(--blue);border:1px solid var(--blue)44">Dev + QA</div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="vt3-row">
+      <div class="vt3-nc">
+        <div class="vt3-num" style="border-color:var(--blue);color:var(--blue)">4</div>
+        <div class="vt3-vl" style="background:#3B9EF5;opacity:.4"></div>
+      </div>
+      <div class="vt3-content">
+        <span class="vt3-icon">&#x2705;</span>
+        <div>
+          <div class="vt3-label" style="color:var(--blue)">E2E Tests Complete on Dev</div>
+          <div class="vt3-badge" style="background:var(--blue)22;color:var(--blue);border:1px solid var(--blue)44">QA</div>
+          
+        </div>
+      </div>
+    </div>
+      </div>
     </div>
 
-    <div class="vt-steps">
-
-      <div style="font-size:8.5px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);background:rgba(59,158,245,.1);border:1px solid rgba(59,158,245,.2);padding:4px 12px;border-radius:6px;display:inline-block;margin-bottom:2px;align-self:flex-start">&#x1F535; Dev Environment</div>
-
-      <div class="vt-step">
-        <span class="vt-icon">&#x1F4CB;</span>
-        <div class="vt-info">
-          <div class="vt-label" style="color:var(--blue)">PRD Ready</div>
-          <div class="vt-badge" style="background:rgba(59,158,245,.15);color:var(--blue)">Product</div>
+    <!-- ── STAGING (steps 5–6) ── -->
+    <div class="vt3-zone" style="background:rgba(245,166,35,.04);border:1px solid rgba(245,166,35,.16);padding-bottom:4px">
+      <div class="vt3-zlbl" style="background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.28)">
+        <span class="vt3-zlbl-text" style="color:var(--yellow)">Staging</span>
+      </div>
+      <div class="vt3-rows">
+    <div class="vt3-row">
+      <div class="vt3-nc">
+        <div class="vt3-num" style="border-color:var(--yellow);color:var(--yellow)">5</div>
+        <div class="vt3-vl" style="background:#F5A623;opacity:.4"></div>
+      </div>
+      <div class="vt3-content">
+        <span class="vt3-icon">&#x1F4E6;</span>
+        <div>
+          <div class="vt3-label" style="color:var(--yellow)">Release Candidate &#x2192; Staging</div>
+          <div class="vt3-badge" style="background:var(--yellow)22;color:var(--yellow);border:1px solid var(--yellow)44">Dev</div>
+          
         </div>
       </div>
-      <div class="vt-step">
-        <span class="vt-icon">&#x1F333;</span>
-        <div class="vt-info">
-          <div class="vt-label" style="color:var(--blue)">Branch from Master</div>
-          <div class="vt-badge" style="background:rgba(59,158,245,.12);color:var(--blue)">Dev</div>
-        </div>
-      </div>
-      <div class="vt-step">
-        <span class="vt-icon">&#x1F528;&#x1F9EA;</span>
-        <div class="vt-info">
-          <div class="vt-label" style="color:var(--blue)">Build on Dev + QA Testing in parallel</div>
-          <div class="vt-badge" style="background:rgba(59,158,245,.1);color:rgba(59,158,245,.85)">Dev + QA</div>
-        </div>
-      </div>
-      <div class="vt-step">
-        <span class="vt-icon">&#x2705;</span>
-        <div class="vt-info">
-          <div class="vt-label" style="color:var(--blue)">E2E Tests Complete on Dev</div>
-          <div class="vt-badge" style="background:rgba(59,158,245,.12);color:var(--blue)">QA</div>
-        </div>
-      </div>
-
-      <div style="font-size:8.5px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--yellow);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);padding:4px 12px;border-radius:6px;display:inline-block;margin:6px 0 2px;align-self:flex-start">&#x1F7E1; Staging</div>
-
-      <div class="vt-step">
-        <span class="vt-icon">&#x1F4E6;</span>
-        <div class="vt-info">
-          <div class="vt-label" style="color:var(--yellow)">Release Candidate &#x2192; Staging</div>
-          <div class="vt-badge" style="background:rgba(245,166,35,.15);color:var(--yellow)">Dev</div>
-        </div>
-      </div>
-      <div class="vt-step">
-        <span class="vt-icon">&#x1F50D;</span>
-        <div class="vt-info">
-          <div class="vt-label" style="color:var(--yellow)">Staging QA &#x2014; E2E, Sanity, Smoke</div>
-          <div class="vt-badge" style="background:rgba(245,166,35,.12);color:var(--yellow)">QA</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:2px">Build number increments on each fix</div>
-        </div>
-      </div>
-
-      <div style="font-size:8.5px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--green);background:rgba(109,200,75,.1);border:1px solid rgba(109,200,75,.2);padding:4px 12px;border-radius:6px;display:inline-block;margin:6px 0 2px;align-self:flex-start">&#x1F7E2; Production</div>
-
-      <div class="vt-step">
-        <span class="vt-icon">&#x1F44D;</span>
-        <div class="vt-info">
-          <div class="vt-label" style="color:var(--green)">Release Sign-off</div>
-          <div class="vt-badge" style="background:rgba(109,200,75,.15);color:var(--green)">Product</div>
-        </div>
-      </div>
-      <div class="vt-step">
-        <span class="vt-icon">&#x1F680;</span>
-        <div class="vt-info">
-          <div class="vt-label" style="color:var(--green)">Production Build &#x2014; Smoke test &#x2192; Ship!</div>
-          <div class="vt-badge" style="background:rgba(109,200,75,.18);color:var(--green)">Dev + QA</div>
-        </div>
-      </div>
-
     </div>
+    <div class="vt3-row">
+      <div class="vt3-nc">
+        <div class="vt3-num" style="border-color:var(--yellow);color:var(--yellow)">6</div>
+        <div class="vt3-vl" style="background:#F5A623;opacity:.4"></div>
+      </div>
+      <div class="vt3-content">
+        <span class="vt3-icon">&#x1F50D;</span>
+        <div>
+          <div class="vt3-label" style="color:var(--yellow)">Staging QA &#x2014; E2E, Sanity, Smoke</div>
+          <div class="vt3-badge" style="background:var(--yellow)22;color:var(--yellow);border:1px solid var(--yellow)44">QA</div>
+          <div class="vt3-sub">Build number increments on each fix</div>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+
+    <!-- ── PRODUCTION (steps 7–8) ── -->
+    <div class="vt3-zone" style="background:rgba(109,200,75,.04);border:1px solid rgba(109,200,75,.16);padding-bottom:4px">
+      <div class="vt3-zlbl" style="background:rgba(109,200,75,.15);border:1px solid rgba(109,200,75,.28)">
+        <span class="vt3-zlbl-text" style="color:var(--green)">Production</span>
+      </div>
+      <div class="vt3-rows">
+    <div class="vt3-row">
+      <div class="vt3-nc">
+        <div class="vt3-num" style="border-color:var(--green);color:var(--green)">7</div>
+        <div class="vt3-vl" style="background:#6DC84B;opacity:.4"></div>
+      </div>
+      <div class="vt3-content">
+        <span class="vt3-icon">&#x1F44D;</span>
+        <div>
+          <div class="vt3-label" style="color:var(--green)">Release Sign-off</div>
+          <div class="vt3-badge" style="background:var(--green)22;color:var(--green);border:1px solid var(--green)44">Product</div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="vt3-row">
+      <div class="vt3-nc">
+        <div class="vt3-num" style="border-color:var(--green);color:var(--green)">8</div>
+        <div class="vt3-vl" style="background:#6DC84B;opacity:.4"></div>
+      </div>
+      <div class="vt3-content">
+        <span class="vt3-icon">&#x1F680;</span>
+        <div>
+          <div class="vt3-label" style="color:var(--green)">Production Build &#x2014; Smoke test &#x2192; Ship to players!</div>
+          <div class="vt3-badge" style="background:var(--green)22;color:var(--green);border:1px solid var(--green)44">Dev + QA</div>
+          
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -854,113 +958,88 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
 <div class="slide" id="s9">
   <div class="label">Tooling</div>
   <h2>Our Tools Ecosystem</h2>
-  <div class="tw-wrap">
-    <div style="position:relative;width:100%;height:370px">
+  <div class="eco2-wrap">
 
-      <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1" viewBox="0 0 960 370" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <defs>
-          <marker id="ah-b2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="rgba(59,158,245,.5)"/></marker>
-          <marker id="ah-g2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="rgba(109,200,75,.5)"/></marker>
-          <marker id="ah-y2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="rgba(245,166,35,.5)"/></marker>
-          <marker id="ah-p2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="rgba(232,67,90,.45)"/></marker>
-          <marker id="ah-w2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="rgba(255,255,255,.35)"/></marker>
-        </defs>
+    <!-- Claude top bar -->
+    <div class="eco2-claude">
+      <span class="eco2-claude-icon">&#x2728;</span>
+      <div class="eco2-claude-main">
+        <div class="eco2-claude-title">Claude AI &#x2014; Orchestrator</div>
+        <div class="eco2-claude-desc">Single AI layer that connects all tools via MCPs &#x2014; queries data, creates tickets, generates tests, reads designs, and more</div>
+        <div class="eco2-mcps">
+          <span class="eco2-mcp">Notion MCP</span>
+          <span class="eco2-mcp">Jira MCP</span>
+          <span class="eco2-mcp">Slack MCP</span>
+          <span class="eco2-mcp">GitHub API</span>
+          <span class="eco2-mcp">Testomatio MCP</span>
+          <span class="eco2-mcp">BigQuery MCP</span>
+          <span class="eco2-mcp">Figma MCP</span>
+          <span class="eco2-mcp">Calendar MCP</span>
+        </div>
+      </div>
+    </div>
 
-        <!-- Notion (12%,14%) → Claude (50%,52%) -->
-        <path d="M 168 56 C 250 120 370 168 453 192" stroke="rgba(255,255,255,.22)" stroke-width="1.8" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-w2)"/>
-        <text x="270" y="110" fill="rgba(255,255,255,.35)" font-size="9.5" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">MCP</text>
+    <!-- 4-column pipeline -->
+    <div class="eco2-pipeline">
 
-        <!-- Testomatio (88%,14%) → Claude -->
-        <path d="M 792 56 C 710 120 590 168 508 192" stroke="rgba(109,200,75,.35)" stroke-width="1.8" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-g2)"/>
-        <text x="680" y="110" fill="rgba(109,200,75,.5)" font-size="9.5" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">MCP</text>
-
-        <!-- Jira (50%,88%) → Claude -->
-        <path d="M 480 325 L 480 228" stroke="rgba(59,158,245,.45)" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-b2)"/>
-        <text x="490" y="288" fill="rgba(59,158,245,.6)" font-size="9.5" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">MCP</text>
-
-        <!-- Slack (20%,88%) → Claude -->
-        <path d="M 230 325 C 280 280 380 248 453 220" stroke="rgba(245,166,35,.35)" stroke-width="1.8" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-y2)"/>
-
-        <!-- BigQuery (50%,10%) → Claude -->
-        <path d="M 480 42 L 480 185" stroke="rgba(232,67,90,.35)" stroke-width="1.8" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-p2)"/>
-        <text x="490" y="118" fill="rgba(232,67,90,.5)" font-size="9.5" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">MCP</text>
-
-        <!-- GitHub (88%,52%) → Jira -->
-        <path d="M 834 196 C 790 270 640 320 508 326" stroke="rgba(245,166,35,.4)" stroke-width="1.8" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-y2)"/>
-        <text x="720" y="268" fill="rgba(245,166,35,.55)" font-size="9.5" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">PRs linked</text>
-
-        <!-- Bugs Bot (12%,52%) → Jira -->
-        <path d="M 126 196 C 170 270 320 318 450 326" stroke="rgba(109,200,75,.32)" stroke-width="1.6" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-g2)"/>
-
-        <!-- Notion arc to Testomatio — AI test gen -->
-        <path d="M 174 42 C 340 0 620 0 786 42" stroke="rgba(109,200,75,.38)" stroke-width="1.8" fill="none" stroke-dasharray="6,4" marker-end="url(#ah-g2)"/>
-        <text x="480" y="8" text-anchor="middle" fill="rgba(109,200,75,.55)" font-size="9.5" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">AI generates tests from PRD &amp; TLD</text>
-
-        <!-- GitHub → Environments (78%,88%) -->
-        <path d="M 856 218 C 870 280 820 316 758 328" stroke="rgba(232,67,90,.35)" stroke-width="1.6" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-p2)"/>
-      </svg>
-
-      <!-- Notion top-left -->
-      <div class="tw-node" style="left:12%;top:14%;background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.2)">
-        <div class="tw-icon">&#x1F4DD;</div>
-        <div class="tw-title">Notion</div>
-        <div class="tw-desc">PRD &amp; TLD<br>Planning docs</div>
+      <!-- Plan -->
+      <div class="eco2-col" style="background:rgba(59,158,245,.06);border:1px solid rgba(59,158,245,.16)">
+        <div class="eco2-col-hdr" style="color:var(--blue)">&#x1F4D0; Plan</div>
+        <div class="eco2-tool" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)">
+          <span class="eco2-ti">&#x1F4DD;</span>
+          <div><div class="eco2-tn">Notion</div><div class="eco2-td">PRD &amp; TLD<br>Planning docs</div></div>
+        </div>
+        <div class="eco2-tool" style="background:rgba(59,158,245,.06);border:1px solid rgba(59,158,245,.15)">
+          <span class="eco2-ti">&#x1F3A8;</span>
+          <div><div class="eco2-tn">Figma</div><div class="eco2-td">Design specs<br>&amp; UI references</div></div>
+        </div>
+        <div class="eco2-tool" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)">
+          <span class="eco2-ti">&#x1F4C5;</span>
+          <div><div class="eco2-tn">Calendar</div><div class="eco2-td">Sprint planning<br>&amp; review scheduling</div></div>
+        </div>
       </div>
 
-      <!-- BigQuery top-center -->
-      <div class="tw-node" style="left:50%;top:10%;background:rgba(232,67,90,.1);border:1.5px solid rgba(232,67,90,.32)">
-        <div class="tw-icon">&#x1F4CA;</div>
-        <div class="tw-title" style="color:var(--pink)">BigQuery</div>
-        <div class="tw-desc">Analytics<br>Data warehouse</div>
+      <!-- Build -->
+      <div class="eco2-col" style="background:rgba(245,166,35,.05);border:1px solid rgba(245,166,35,.15)">
+        <div class="eco2-col-hdr" style="color:var(--yellow)">&#x1F4BB; Build</div>
+        <div class="eco2-tool" style="background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.2)">
+          <span class="eco2-ti">&#x1F4BB;</span>
+          <div><div class="eco2-tn">GitHub</div><div class="eco2-td">Feature branches,<br>PRs &amp; code reviews</div></div>
+        </div>
+        <div class="eco2-tool" style="background:rgba(232,67,90,.06);border:1px solid rgba(232,67,90,.15)">
+          <span class="eco2-ti">&#x1F5A5;&#xFE0F;</span>
+          <div><div class="eco2-tn">Environments</div><div class="eco2-td">Dev &#x2022; Staging<br>&#x2022; Production</div></div>
+        </div>
       </div>
 
-      <!-- Testomatio top-right -->
-      <div class="tw-node" style="left:88%;top:14%;background:rgba(109,200,75,.11);border:1.5px solid rgba(109,200,75,.34)">
-        <div class="tw-icon">&#x1F9EA;</div>
-        <div class="tw-title" style="color:var(--green)">Testomatio</div>
-        <div class="tw-desc">Test mgmt<br>AI test gen</div>
+      <!-- Test -->
+      <div class="eco2-col" style="background:rgba(109,200,75,.05);border:1px solid rgba(109,200,75,.15)">
+        <div class="eco2-col-hdr" style="color:var(--green)">&#x1F9EA; Test</div>
+        <div class="eco2-tool" style="background:rgba(109,200,75,.08);border:1px solid rgba(109,200,75,.2)">
+          <span class="eco2-ti">&#x1F9EA;</span>
+          <div><div class="eco2-tn">Testomatio</div><div class="eco2-td">Test management<br>AI test generation</div></div>
+        </div>
+        <div class="eco2-tool" style="background:rgba(109,200,75,.05);border:1px solid rgba(109,200,75,.12)">
+          <span class="eco2-ti">&#x1F41B;</span>
+          <div><div class="eco2-tn">Bugs Bot</div><div class="eco2-td">Slack &#x2192; Jira<br>Bug auto-reports</div></div>
+        </div>
+        <div class="eco2-tool" style="background:rgba(245,166,35,.05);border:1px solid rgba(245,166,35,.12)">
+          <span class="eco2-ti">&#x1F4AC;</span>
+          <div><div class="eco2-tn">Slack</div><div class="eco2-td">Team comms<br>&amp; bug reporting</div></div>
+        </div>
       </div>
 
-      <!-- Claude center -->
-      <div class="tw-node" style="left:50%;top:52%;background:rgba(59,158,245,.18);border:2.5px solid rgba(59,158,245,.55);box-shadow:0 0 28px rgba(59,158,245,.18);min-width:130px">
-        <div class="tw-icon">&#x2728;</div>
-        <div class="tw-title" style="color:var(--blue)">Claude</div>
-        <div class="tw-desc">AI Orchestrator<br>All tools via MCPs</div>
-      </div>
-
-      <!-- GitHub middle-right -->
-      <div class="tw-node" style="left:88%;top:52%;background:rgba(245,166,35,.1);border:1.5px solid rgba(245,166,35,.32)">
-        <div class="tw-icon">&#x1F4BB;</div>
-        <div class="tw-title" style="color:var(--yellow)">GitHub</div>
-        <div class="tw-desc">Branches &amp; PRs<br>Code &amp; releases</div>
-      </div>
-
-      <!-- Bugs Bot middle-left -->
-      <div class="tw-node" style="left:12%;top:52%;background:rgba(109,200,75,.08);border:1.5px solid rgba(109,200,75,.26)">
-        <div class="tw-icon">&#x1F41B;</div>
-        <div class="tw-title" style="color:var(--green)">Bugs Bot</div>
-        <div class="tw-desc">Slack &#x2192; Jira<br>Bug reports</div>
-      </div>
-
-      <!-- Jira bottom-center — hub -->
-      <div class="tw-node" style="left:50%;top:88%;background:rgba(59,158,245,.15);border:2px solid rgba(59,158,245,.5);box-shadow:0 0 24px rgba(59,158,245,.16)">
-        <div class="tw-icon">&#x1F3AF;</div>
-        <div class="tw-title" style="color:var(--blue)">Jira</div>
-        <div class="tw-desc">Stories &amp; Bugs<br>Releases</div>
-      </div>
-
-      <!-- Environments bottom-right -->
-      <div class="tw-node" style="left:79%;top:88%;background:rgba(232,67,90,.1);border:1.5px solid rgba(232,67,90,.32)">
-        <div class="tw-icon">&#x1F5A5;&#xFE0F;</div>
-        <div class="tw-title" style="color:var(--pink)">Environments</div>
-        <div class="tw-desc">Dev &middot; Staging<br>Production</div>
-      </div>
-
-      <!-- Slack bottom-left -->
-      <div class="tw-node" style="left:20%;top:88%;background:rgba(245,166,35,.09);border:1.5px solid rgba(245,166,35,.28)">
-        <div class="tw-icon">&#x1F4AC;</div>
-        <div class="tw-title" style="color:var(--yellow)">Slack</div>
-        <div class="tw-desc">Communication<br>Bug reporting</div>
+      <!-- Track -->
+      <div class="eco2-col" style="background:rgba(59,158,245,.05);border:1px solid rgba(59,158,245,.14)">
+        <div class="eco2-col-hdr" style="color:var(--blue)">&#x1F4CA; Track</div>
+        <div class="eco2-tool" style="background:rgba(59,158,245,.1);border:1px solid rgba(59,158,245,.22)">
+          <span class="eco2-ti">&#x1F3AF;</span>
+          <div><div class="eco2-tn">Jira</div><div class="eco2-td">Stories, bugs<br>&amp; release tracking</div></div>
+        </div>
+        <div class="eco2-tool" style="background:rgba(232,67,90,.06);border:1px solid rgba(232,67,90,.14)">
+          <span class="eco2-ti">&#x1F4CA;</span>
+          <div><div class="eco2-tn">BigQuery</div><div class="eco2-td">Analytics &amp;<br>player data warehouse</div></div>
+        </div>
       </div>
 
     </div>
@@ -1049,416 +1128,6 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
   <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;color:rgba(255,255,255,.75);text-align:center;margin-top:14px">Same team. Clearer process. Better games. &#x1F3AE;</div>
 </div>
 
-<!-- ══════ SLIDE 11 — RELEASE FLOW (HORIZONTAL ALT) ══════ -->
-<div class="slide" id="s11">
-  <div class="label">Release Process · Alt View</div>
-  <h2>The Release Flow</h2>
-  <div class="tl2-wrap">
-
-    <!-- ROW 1: steps 1–4 -->
-    <div class="tl2-row">
-      <div class="tl2-step">
-        <div class="tl2-node" style="border-color:var(--blue)">📋<span class="tl2-sn" style="background:var(--blue);color:#fff">1</span></div>
-        <div class="tl2-label" style="color:var(--blue)">PRD Ready</div>
-        <div class="tl2-badge" style="background:rgba(59,158,245,.15);color:var(--blue)">Product</div>
-      </div>
-      <div class="tl2-conn" style="background:rgba(59,158,245,.4)"></div>
-      <div class="tl2-step">
-        <div class="tl2-node" style="border-color:var(--yellow)">🌳<span class="tl2-sn" style="background:var(--yellow);color:#1A1F36">2</span></div>
-        <div class="tl2-label" style="color:var(--yellow)">Branch from Master</div>
-        <div class="tl2-badge" style="background:rgba(245,166,35,.15);color:var(--yellow)">Dev</div>
-      </div>
-      <div class="tl2-conn" style="background:rgba(245,166,35,.4)"></div>
-      <div class="tl2-step">
-        <div class="tl2-node" style="border-color:var(--yellow);font-size:22px">🔨🧪<span class="tl2-sn" style="background:var(--yellow);color:#1A1F36">3</span></div>
-        <div class="tl2-label" style="color:var(--yellow)">Build + QA Testing</div>
-        <div class="tl2-badge" style="background:rgba(245,166,35,.12);color:rgba(245,166,35,.85)">Dev + QA</div>
-      </div>
-      <div class="tl2-conn" style="background:rgba(232,67,90,.35)"></div>
-      <div class="tl2-step">
-        <div class="tl2-node" style="border-color:var(--pink)">✅<span class="tl2-sn" style="background:var(--pink);color:#fff">4</span></div>
-        <div class="tl2-label" style="color:var(--pink)">E2E Complete</div>
-        <div class="tl2-badge" style="background:rgba(232,67,90,.12);color:var(--pink)">QA</div>
-      </div>
-      <div class="tl2-corner">→<br>↓</div>
-    </div>
-
-    <div style="height:10px"></div>
-
-    <!-- ROW 2: steps 5–8 -->
-    <div class="tl2-row">
-      <div class="tl2-spacer"></div>
-      <div class="tl2-step">
-        <div class="tl2-node" style="border-color:var(--yellow)">📦<span class="tl2-sn" style="background:var(--yellow);color:#1A1F36">5</span></div>
-        <div class="tl2-label" style="color:var(--yellow)">Release Candidate</div>
-        <div class="tl2-badge" style="background:rgba(245,166,35,.15);color:var(--yellow)">Dev</div>
-      </div>
-      <div class="tl2-conn" style="background:rgba(232,67,90,.35)"></div>
-      <div class="tl2-step">
-        <div class="tl2-node" style="border-color:var(--pink)">🔍<span class="tl2-sn" style="background:var(--pink);color:#fff">6</span></div>
-        <div class="tl2-label" style="color:var(--pink)">Staging Full QA</div>
-        <div class="tl2-badge" style="background:rgba(232,67,90,.12);color:var(--pink)">QA</div>
-      </div>
-      <div class="tl2-conn" style="background:rgba(59,158,245,.35)"></div>
-      <div class="tl2-step">
-        <div class="tl2-node" style="border-color:var(--blue)">👍<span class="tl2-sn" style="background:var(--blue);color:#fff">7</span></div>
-        <div class="tl2-label" style="color:var(--blue)">Release Sign-off</div>
-        <div class="tl2-badge" style="background:rgba(59,158,245,.15);color:var(--blue)">Product</div>
-      </div>
-      <div class="tl2-conn" style="background:rgba(109,200,75,.45)"></div>
-      <div class="tl2-step">
-        <div class="tl2-node" style="border-color:var(--green);box-shadow:0 0 22px rgba(109,200,75,.3)">🚀<span class="tl2-sn" style="background:var(--green);color:#1A1F36">8</span></div>
-        <div class="tl2-label" style="color:var(--green)">Prod + Smoke</div>
-        <div class="tl2-badge" style="background:rgba(109,200,75,.18);color:var(--green)">Dev + QA</div>
-      </div>
-    </div>
-
-  </div>
-  <div style="margin-top:16px;font-size:12px;color:var(--muted);text-align:center;padding:7px 18px;background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.14);border-radius:8px;display:inline-block;align-self:center">
-    <strong style="color:var(--yellow)">Release naming:</strong> Version stays fixed during Staging — only the build number increments with each fix
-  </div>
-</div>
-
-
-<!-- ══════ SLIDE 12 — S3 Option B: Cards ══════ -->
-<div class="slide" id="s12">
-  <div class="label">S3 · Option B — Cards View</div>
-  <h2>From Idea to Feature</h2>
-  <div class="s3b-trio">
-
-    <div class="s3b-card" style="background:linear-gradient(148deg,rgba(59,158,245,.16),rgba(59,158,245,.03));border:1px solid rgba(59,158,245,.3)">
-      <div class="s3b-title" style="color:var(--blue)">PRD</div>
-      <div class="s3b-name">Product Requirements Document</div>
-      <div class="s3b-row"><span class="s3b-lbl">Owner</span><span class="s3b-val">Product &#x1F3AF;</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">Review</span><span class="s3b-val">PRD Review session</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">With</span><span class="s3b-val">Dev &amp; QA &amp; Art</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">When</span><span class="s3b-val">Before dev begins</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">Output</span><span class="s3b-val">Approved requirements + acceptance criteria</span></div>
-    </div>
-
-    <div class="s3b-card" style="background:linear-gradient(148deg,rgba(109,200,75,.13),rgba(109,200,75,.02));border:1px solid rgba(109,200,75,.3)">
-      <div class="s3b-title" style="color:var(--green)">TLD</div>
-      <div class="s3b-name">Technical Design Document</div>
-      <div class="s3b-row"><span class="s3b-lbl">Owner</span><span class="s3b-val">Dev Lead &#x1F527;</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">Review</span><span class="s3b-val">TLD Review session</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">With</span><span class="s3b-val">QA &amp; Product</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">When</span><span class="s3b-val">After PRD approval</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">Output</span><span class="s3b-val">Approved architecture &amp; technical plan</span></div>
-    </div>
-
-    <div class="s3b-card" style="background:linear-gradient(148deg,rgba(232,67,90,.13),rgba(232,67,90,.02));border:1px solid rgba(232,67,90,.3)">
-      <div class="s3b-title" style="color:var(--pink)">TDR</div>
-      <div class="s3b-name">Test Design Review</div>
-      <div class="s3b-row"><span class="s3b-lbl">Owner</span><span class="s3b-val">QA &#x1F9EA;</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">Review</span><span class="s3b-val">TDR Review session</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">With</span><span class="s3b-val">Dev &amp; Product</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">When</span><span class="s3b-val">After TLD, before coding</span></div>
-      <div class="s3b-row"><span class="s3b-lbl">Output</span><span class="s3b-val">Approved test scenarios &amp; sign-off criteria</span></div>
-    </div>
-
-  </div>
-  <div class="s3b-flow">
-    <div class="s3b-fstep">
-      <div class="s3b-fnode" style="background:rgba(245,166,35,.18);border-color:var(--yellow)">&#x1F5C2;&#xFE0F;</div>
-      <div class="s3b-flbl" style="color:var(--yellow)">Stories</div>
-    </div>
-    <div class="s3b-farr">&#x2192;</div>
-    <div class="s3b-fstep">
-      <div class="s3b-fnode" style="background:rgba(232,67,90,.18);border-color:var(--pink);font-size:14px">&#x1F527;&#x1F9EA;</div>
-      <div class="s3b-flbl" style="color:var(--pink)">Dev + QA</div>
-    </div>
-    <div class="s3b-farr">&#x2192;</div>
-    <div class="s3b-fstep">
-      <div class="s3b-fnode" style="background:rgba(109,200,75,.24);border-color:var(--green)">&#x1F680;</div>
-      <div class="s3b-flbl" style="color:var(--green)">Deliver</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════ SLIDE 13 — S3 Option C: Matrix ══════ -->
-<div class="slide" id="s13">
-  <div class="label">S3 · Option C — Responsibility Matrix</div>
-  <h2>From Idea to Feature</h2>
-  <div style="width:100%;max-width:1100px">
-    <table class="s3c-table" style="width:100%;border-collapse:separate;border-spacing:4px">
-      <thead>
-        <tr>
-          <td style="width:80px"></td>
-          <th class="s3c-th" style="background:rgba(59,158,245,.12);color:var(--blue)">PRD</th>
-          <th class="s3c-th" style="background:rgba(109,200,75,.1);color:var(--green)">TLD</th>
-          <th class="s3c-th" style="background:rgba(232,67,90,.1);color:var(--pink)">TDR</th>
-          <th class="s3c-th" style="background:rgba(245,166,35,.1);color:var(--yellow)">Stories</th>
-          <th class="s3c-th" style="background:rgba(232,67,90,.08);color:var(--pink)">Dev + QA</th>
-          <th class="s3c-th" style="background:rgba(109,200,75,.12);color:var(--green)">Deliver</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="s3c-rl">Owner</td>
-          <td class="s3c-cell s3c-bl">Product &#x1F3AF;</td>
-          <td class="s3c-cell s3c-gr">Dev Lead &#x1F527;</td>
-          <td class="s3c-cell s3c-pk">QA &#x1F9EA;</td>
-          <td class="s3c-cell s3c-yl">Team</td>
-          <td class="s3c-cell s3c-pk">Dev + QA parallel</td>
-          <td class="s3c-cell s3c-gr">QA Sign-off</td>
-        </tr>
-        <tr>
-          <td class="s3c-rl">Review Type</td>
-          <td class="s3c-cell s3c-bl">PRD Review</td>
-          <td class="s3c-cell s3c-gr">TLD Review</td>
-          <td class="s3c-cell s3c-pk">TDR Review</td>
-          <td class="s3c-cell s3c-yl">Breakdown session</td>
-          <td class="s3c-cell" style="color:var(--muted)">Ongoing</td>
-          <td class="s3c-cell s3c-gr">E2E sign-off</td>
-        </tr>
-        <tr>
-          <td class="s3c-rl">Participants</td>
-          <td class="s3c-cell s3c-bl">Dev &amp; QA &amp; Art</td>
-          <td class="s3c-cell s3c-gr">QA &amp; Product</td>
-          <td class="s3c-cell s3c-pk">Dev &amp; Product</td>
-          <td class="s3c-cell s3c-yl">Full team</td>
-          <td class="s3c-cell" style="color:var(--muted)">Dev &amp; QA</td>
-          <td class="s3c-cell s3c-gr">QA &amp; Product</td>
-        </tr>
-        <tr>
-          <td class="s3c-rl">When</td>
-          <td class="s3c-cell s3c-bl">Before dev begins</td>
-          <td class="s3c-cell s3c-gr">After PRD approved</td>
-          <td class="s3c-cell s3c-pk">After TLD, before coding</td>
-          <td class="s3c-cell s3c-yl">After all 3 docs</td>
-          <td class="s3c-cell" style="color:var(--muted)">Per story</td>
-          <td class="s3c-cell s3c-gr">E2E pass on Dev</td>
-        </tr>
-        <tr>
-          <td class="s3c-rl">Output</td>
-          <td class="s3c-cell s3c-bl">Approved requirements</td>
-          <td class="s3c-cell s3c-gr">Approved tech plan</td>
-          <td class="s3c-cell s3c-pk">Approved test plan</td>
-          <td class="s3c-cell s3c-yl">Jira stories + subtasks</td>
-          <td class="s3c-cell" style="color:var(--muted)">Working feature</td>
-          <td class="s3c-cell s3c-gr">Release-ready feature</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- ══════ SLIDE 14 — S7 Option B: Env Zones Horizontal ══════ -->
-<div class="slide" id="s14">
-  <div class="label">Release Process · Option B</div>
-  <h2>The Release Flow</h2>
-  <div class="s7c-wrap">
-
-    <div class="s7c-zone" style="background:rgba(59,158,245,.07);border:1px solid rgba(59,158,245,.2)">
-      <div class="s7c-zlbl" style="color:var(--blue)">Dev Env</div>
-      <div class="s7c-steps">
-        <div class="s7c-step">
-          <div class="s7c-node" style="border-color:var(--blue)">&#x1F4CB;<span class="s7c-sn" style="background:var(--blue);color:#fff">1</span></div>
-          <div class="s7c-lbl" style="color:var(--blue)">PRD Ready</div>
-          <div class="s7c-role">Product</div>
-        </div>
-        <div class="s7c-arr">&#x2192;</div>
-        <div class="s7c-step">
-          <div class="s7c-node" style="border-color:var(--blue)">&#x1F333;<span class="s7c-sn" style="background:var(--blue);color:#fff">2</span></div>
-          <div class="s7c-lbl" style="color:var(--blue)">Branch from Master</div>
-          <div class="s7c-role">Dev</div>
-        </div>
-        <div class="s7c-arr">&#x2192;</div>
-        <div class="s7c-step">
-          <div class="s7c-node" style="border-color:var(--blue);font-size:16px">&#x1F528;&#x1F9EA;<span class="s7c-sn" style="background:var(--blue);color:#fff">3</span></div>
-          <div class="s7c-lbl" style="color:var(--blue)">Build + QA Testing</div>
-          <div class="s7c-role">Dev + QA</div>
-        </div>
-        <div class="s7c-arr">&#x2192;</div>
-        <div class="s7c-step">
-          <div class="s7c-node" style="border-color:var(--blue)">&#x2705;<span class="s7c-sn" style="background:var(--blue);color:#fff">4</span></div>
-          <div class="s7c-lbl" style="color:var(--blue)">E2E Complete on Dev</div>
-          <div class="s7c-role">QA</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="s7c-zone" style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.2)">
-      <div class="s7c-zlbl" style="color:var(--yellow)">Staging</div>
-      <div class="s7c-steps">
-        <div class="s7c-step" style="flex:none;width:25%">
-          <div class="s7c-node" style="border-color:var(--yellow)">&#x1F4E6;<span class="s7c-sn" style="background:var(--yellow);color:#1A1F36">5</span></div>
-          <div class="s7c-lbl" style="color:var(--yellow)">Release Candidate</div>
-          <div class="s7c-role">Dev</div>
-        </div>
-        <div class="s7c-arr">&#x2192;</div>
-        <div class="s7c-step" style="flex:none;width:25%">
-          <div class="s7c-node" style="border-color:var(--yellow)">&#x1F50D;<span class="s7c-sn" style="background:var(--yellow);color:#1A1F36">6</span></div>
-          <div class="s7c-lbl" style="color:var(--yellow)">Full QA &#x2014; E2E, Sanity, Smoke</div>
-          <div class="s7c-role">QA</div>
-        </div>
-        <div style="flex:1;display:flex;align-items:center;padding-left:18px">
-          <div style="font-size:10.5px;color:rgba(245,166,35,.55);padding:6px 14px;border:1px solid rgba(245,166,35,.18);border-radius:8px;line-height:1.4">
-            Version fixed &#x2022; only build # increments
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="s7c-zone" style="background:rgba(109,200,75,.07);border:1px solid rgba(109,200,75,.2)">
-      <div class="s7c-zlbl" style="color:var(--green)">Production</div>
-      <div class="s7c-steps">
-        <div class="s7c-step" style="flex:none;width:25%">
-          <div class="s7c-node" style="border-color:var(--green)">&#x1F44D;<span class="s7c-sn" style="background:var(--green);color:#1A1F36">7</span></div>
-          <div class="s7c-lbl" style="color:var(--green)">Release Sign-off</div>
-          <div class="s7c-role">Product</div>
-        </div>
-        <div class="s7c-arr">&#x2192;</div>
-        <div class="s7c-step" style="flex:none;width:25%">
-          <div class="s7c-node" style="border-color:var(--green);box-shadow:0 0 18px rgba(109,200,75,.28)">&#x1F680;<span class="s7c-sn" style="background:var(--green);color:#1A1F36">8</span></div>
-          <div class="s7c-lbl" style="color:var(--green)">Prod Build + Smoke &#x2192; Ship!</div>
-          <div class="s7c-role">Dev + QA</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ══════ SLIDE 15 — S9 Option B: Heatmap ══════ -->
-<div class="slide" id="s15">
-  <div class="label">S9 · Option B &#x2014; Tools Heatmap</div>
-  <h2>Our Tools Ecosystem</h2>
-  <div style="width:100%;max-width:1080px">
-    <table class="hm-tbl" style="width:100%;border-collapse:separate;border-spacing:4px">
-      <thead>
-        <tr>
-          <td style="width:90px"></td>
-          <th class="hm-th" style="color:var(--blue)">&#x1F4DD;<br>Planning</th>
-          <th class="hm-th" style="color:var(--yellow)">&#x1F4BB;<br>Dev / Code</th>
-          <th class="hm-th" style="color:var(--pink)">&#x1F9EA;<br>Testing</th>
-          <th class="hm-th" style="color:var(--pink)">&#x1F41B;<br>Bugs</th>
-          <th class="hm-th" style="color:var(--green)">&#x1F4E6;<br>Releases</th>
-          <th class="hm-th" style="color:var(--pink)">&#x1F4CA;<br>Analytics</th>
-          <th class="hm-th" style="color:var(--blue)">&#x2728;<br>AI / MCP</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="hm-tl">Notion</td>
-          <td class="hm-h">Primary</td><td class="hm-c">&#x2014;</td><td class="hm-m">Secondary</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-h">MCP</td>
-        </tr>
-        <tr>
-          <td class="hm-tl">Jira</td>
-          <td class="hm-m">Backlog</td><td class="hm-c">&#x2014;</td><td class="hm-h">Primary</td><td class="hm-h">Primary</td><td class="hm-h">Primary</td><td class="hm-c">&#x2014;</td><td class="hm-h">MCP</td>
-        </tr>
-        <tr>
-          <td class="hm-tl">GitHub</td>
-          <td class="hm-c">&#x2014;</td><td class="hm-h">Primary</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-h">Primary</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td>
-        </tr>
-        <tr>
-          <td class="hm-tl">Testomatio</td>
-          <td class="hm-m">Test plan</td><td class="hm-c">&#x2014;</td><td class="hm-h">Primary</td><td class="hm-m">Track</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-h">MCP</td>
-        </tr>
-        <tr>
-          <td class="hm-tl">Slack / Bugs Bot</td>
-          <td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-h">Primary</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-h">MCP</td>
-        </tr>
-        <tr>
-          <td class="hm-tl">BigQuery</td>
-          <td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-m">Trend</td><td class="hm-c">&#x2014;</td><td class="hm-h">Primary</td><td class="hm-h">MCP</td>
-        </tr>
-        <tr>
-          <td class="hm-tl">Figma</td>
-          <td class="hm-h">Design</td><td class="hm-m">Ref</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-c">&#x2014;</td><td class="hm-h">MCP</td>
-        </tr>
-        <tr>
-          <td class="hm-tl">Claude</td>
-          <td class="hm-h">Assists</td><td class="hm-h">Assists</td><td class="hm-h">Assists</td><td class="hm-h">Assists</td><td class="hm-h">Assists</td><td class="hm-h">Assists</td><td class="hm-h">Orchestrates</td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="display:flex;gap:16px;margin-top:10px;justify-content:center;align-items:center;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)"><span class="hm-h" style="display:inline-block;padding:3px 10px;font-size:10px">Primary</span> Main use case</div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)"><span class="hm-m" style="display:inline-block;padding:3px 10px;font-size:10px">Secondary</span> Supports</div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)"><span class="hm-h" style="background:rgba(59,158,245,.3);display:inline-block;padding:3px 10px;font-size:10px">MCP</span> Claude integration</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════ SLIDE 16 — S9 Option C: Layered Architecture ══════ -->
-<div class="slide" id="s16">
-  <div class="label">S9 · Option C &#x2014; Layered Architecture</div>
-  <h2>Our Tools Ecosystem</h2>
-  <div class="arch-wrap">
-
-    <div class="arch-layer" style="background:rgba(59,158,245,.1);border:1px solid rgba(59,158,245,.22)">
-      <div class="arch-llbl" style="color:var(--blue)">AI<br>Layer</div>
-      <div class="arch-tools">
-        <div class="arch-tool" style="background:rgba(59,158,245,.18);border:1.5px solid rgba(59,158,245,.4)">
-          <span class="arch-icon">&#x2728;</span>
-          <span class="arch-name" style="color:var(--blue)">Claude AI</span>
-          <span class="arch-mcp">Orchestrator</span>
-        </div>
-        <div style="font-size:11px;color:rgba(255,255,255,.35);padding:0 8px">&#x2192;</div>
-        <div style="font-size:11px;color:rgba(59,158,245,.55)">Notion MCP &nbsp;&#x2022;&nbsp; Jira MCP &nbsp;&#x2022;&nbsp; Slack MCP &nbsp;&#x2022;&nbsp; GitHub API &nbsp;&#x2022;&nbsp; BigQuery MCP &nbsp;&#x2022;&nbsp; Figma MCP &nbsp;&#x2022;&nbsp; Testomatio MCP</div>
-      </div>
-    </div>
-
-    <div class="arch-layer" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09)">
-      <div class="arch-llbl" style="color:rgba(255,255,255,.5)">Planning<br>&amp; Design</div>
-      <div class="arch-tools">
-        <div class="arch-tool" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)">
-          <span class="arch-icon">&#x1F4DD;</span><span class="arch-name">Notion</span>
-          <span class="arch-mcp">MCP</span>
-        </div>
-        <div class="arch-tool" style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.22)">
-          <span class="arch-icon">&#x1F3A8;</span><span class="arch-name" style="color:var(--yellow)">Figma</span>
-          <span class="arch-mcp">MCP</span>
-        </div>
-        <div class="arch-tool" style="background:rgba(59,158,245,.08);border:1px solid rgba(59,158,245,.18)">
-          <span class="arch-icon">&#x1F4C5;</span><span class="arch-name" style="color:var(--blue)">Calendar</span>
-          <span class="arch-mcp">MCP</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="arch-layer" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09)">
-      <div class="arch-llbl" style="color:rgba(255,255,255,.5)">Dev &amp;<br>Infra</div>
-      <div class="arch-tools">
-        <div class="arch-tool" style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.22)">
-          <span class="arch-icon">&#x1F4BB;</span><span class="arch-name" style="color:var(--yellow)">GitHub</span>
-        </div>
-        <div class="arch-tool" style="background:rgba(232,67,90,.1);border:1px solid rgba(232,67,90,.22)">
-          <span class="arch-icon">&#x1F5A5;&#xFE0F;</span><span class="arch-name" style="color:var(--pink)">Environments</span>
-          <span class="arch-mcp">Dev &middot; Staging &middot; Prod</span>
-        </div>
-        <div class="arch-tool" style="background:rgba(232,67,90,.1);border:1px solid rgba(232,67,90,.22)">
-          <span class="arch-icon">&#x1F4CA;</span><span class="arch-name" style="color:var(--pink)">BigQuery</span>
-          <span class="arch-mcp">MCP</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="arch-layer" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09)">
-      <div class="arch-llbl" style="color:rgba(255,255,255,.5)">Quality &amp;<br>Tracking</div>
-      <div class="arch-tools">
-        <div class="arch-tool" style="background:rgba(109,200,75,.1);border:1px solid rgba(109,200,75,.22)">
-          <span class="arch-icon">&#x1F9EA;</span><span class="arch-name" style="color:var(--green)">Testomatio</span>
-          <span class="arch-mcp">MCP</span>
-        </div>
-        <div class="arch-tool" style="background:rgba(59,158,245,.1);border:1px solid rgba(59,158,245,.22)">
-          <span class="arch-icon">&#x1F3AF;</span><span class="arch-name" style="color:var(--blue)">Jira</span>
-          <span class="arch-mcp">MCP</span>
-        </div>
-        <div class="arch-tool" style="background:rgba(109,200,75,.08);border:1px solid rgba(109,200,75,.18)">
-          <span class="arch-icon">&#x1F41B;</span><span class="arch-name" style="color:var(--green)">Bugs Bot</span>
-        </div>
-        <div class="arch-tool" style="background:rgba(245,166,35,.09);border:1px solid rgba(245,166,35,.2)">
-          <span class="arch-icon">&#x1F4AC;</span><span class="arch-name" style="color:var(--yellow)">Slack</span>
-          <span class="arch-mcp">MCP</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
 </div><!-- /deck -->
 
 <div class="nav">
@@ -1468,7 +1137,7 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
 </div>
 
 <script>
-const TOTAL=16;let cur=1,busy=false;
+const TOTAL=10;let cur=1,busy=false;
 function go(d){
   if(busy)return;const n=cur+d;if(n<1||n>TOTAL)return;busy=true;
   const f=document.getElementById('s'+cur),t=document.getElementById('s'+n);

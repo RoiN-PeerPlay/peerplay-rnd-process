@@ -914,6 +914,77 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
   <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;color:rgba(255,255,255,.75);text-align:center;margin-top:14px">Same team. Clearer process. Better games. 🎮</div>
 </div>
 
+
+<!-- ══════ SLIDE 11 — RELEASE FLOW (HORIZONTAL ALT) ══════ -->
+<div class="slide" id="s11">
+  <div class="label">Release Process · Alt View</div>
+  <h2>The Release Flow</h2>
+  <div class="tl2-wrap">
+
+    <!-- ROW 1: steps 1–4 -->
+    <div class="tl2-row">
+      <div class="tl2-step">
+        <div class="tl2-node" style="border-color:var(--blue)">📋<span class="tl2-sn" style="background:var(--blue);color:#fff">1</span></div>
+        <div class="tl2-label" style="color:var(--blue)">PRD Ready</div>
+        <div class="tl2-badge" style="background:rgba(59,158,245,.15);color:var(--blue)">Product</div>
+      </div>
+      <div class="tl2-conn" style="background:rgba(59,158,245,.4)"></div>
+      <div class="tl2-step">
+        <div class="tl2-node" style="border-color:var(--yellow)">🌳<span class="tl2-sn" style="background:var(--yellow);color:#1A1F36">2</span></div>
+        <div class="tl2-label" style="color:var(--yellow)">Branch from Master</div>
+        <div class="tl2-badge" style="background:rgba(245,166,35,.15);color:var(--yellow)">Dev</div>
+      </div>
+      <div class="tl2-conn" style="background:rgba(245,166,35,.4)"></div>
+      <div class="tl2-step">
+        <div class="tl2-node" style="border-color:var(--yellow);font-size:22px">🔨🧪<span class="tl2-sn" style="background:var(--yellow);color:#1A1F36">3</span></div>
+        <div class="tl2-label" style="color:var(--yellow)">Build + QA Testing</div>
+        <div class="tl2-badge" style="background:rgba(245,166,35,.12);color:rgba(245,166,35,.85)">Dev + QA</div>
+      </div>
+      <div class="tl2-conn" style="background:rgba(232,67,90,.35)"></div>
+      <div class="tl2-step">
+        <div class="tl2-node" style="border-color:var(--pink)">✅<span class="tl2-sn" style="background:var(--pink);color:#fff">4</span></div>
+        <div class="tl2-label" style="color:var(--pink)">E2E Complete</div>
+        <div class="tl2-badge" style="background:rgba(232,67,90,.12);color:var(--pink)">QA</div>
+      </div>
+      <div class="tl2-corner">→<br>↓</div>
+    </div>
+
+    <div style="height:10px"></div>
+
+    <!-- ROW 2: steps 5–8 -->
+    <div class="tl2-row">
+      <div class="tl2-spacer"></div>
+      <div class="tl2-step">
+        <div class="tl2-node" style="border-color:var(--yellow)">📦<span class="tl2-sn" style="background:var(--yellow);color:#1A1F36">5</span></div>
+        <div class="tl2-label" style="color:var(--yellow)">Release Candidate</div>
+        <div class="tl2-badge" style="background:rgba(245,166,35,.15);color:var(--yellow)">Dev</div>
+      </div>
+      <div class="tl2-conn" style="background:rgba(232,67,90,.35)"></div>
+      <div class="tl2-step">
+        <div class="tl2-node" style="border-color:var(--pink)">🔍<span class="tl2-sn" style="background:var(--pink);color:#fff">6</span></div>
+        <div class="tl2-label" style="color:var(--pink)">Staging Full QA</div>
+        <div class="tl2-badge" style="background:rgba(232,67,90,.12);color:var(--pink)">QA</div>
+      </div>
+      <div class="tl2-conn" style="background:rgba(59,158,245,.35)"></div>
+      <div class="tl2-step">
+        <div class="tl2-node" style="border-color:var(--blue)">👍<span class="tl2-sn" style="background:var(--blue);color:#fff">7</span></div>
+        <div class="tl2-label" style="color:var(--blue)">Release Sign-off</div>
+        <div class="tl2-badge" style="background:rgba(59,158,245,.15);color:var(--blue)">Product</div>
+      </div>
+      <div class="tl2-conn" style="background:rgba(109,200,75,.45)"></div>
+      <div class="tl2-step">
+        <div class="tl2-node" style="border-color:var(--green);box-shadow:0 0 22px rgba(109,200,75,.3)">🚀<span class="tl2-sn" style="background:var(--green);color:#1A1F36">8</span></div>
+        <div class="tl2-label" style="color:var(--green)">Prod + Smoke</div>
+        <div class="tl2-badge" style="background:rgba(109,200,75,.18);color:var(--green)">Dev + QA</div>
+      </div>
+    </div>
+
+  </div>
+  <div style="margin-top:16px;font-size:12px;color:var(--muted);text-align:center;padding:7px 18px;background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.14);border-radius:8px;display:inline-block;align-self:center">
+    <strong style="color:var(--yellow)">Release naming:</strong> Version stays fixed during Staging — only the build number increments with each fix
+  </div>
+</div>
+
 </div><!-- /deck -->
 
 <div class="nav">
@@ -923,7 +994,7 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
 </div>
 
 <script>
-const TOTAL=10;let cur=1,busy=false;
+const TOTAL=11;let cur=1,busy=false;
 function go(d){
   if(busy)return;const n=cur+d;if(n<1||n>TOTAL)return;busy=true;
   const f=document.getElementById('s'+cur),t=document.getElementById('s'+n);

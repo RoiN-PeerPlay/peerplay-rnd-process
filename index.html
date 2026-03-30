@@ -471,6 +471,51 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
 .eco2-tn{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;line-height:1.2}
 .eco2-td{font-size:10px;color:var(--muted);line-height:1.35;margin-top:2px}
 
+
+/* ═══ V4 ═══ */
+
+/* S3 — padded label container matches arrow spacer width */
+#s3{padding:20px 44px}
+#s3 h2{margin-bottom:18px}
+
+/* S4 — subtask rows with label only (no text) */
+.t1{min-height:44px}
+
+/* S5 — force cards equal height with pill at bottom */
+#s5 .dcols{align-items:stretch}
+.dc{height:100%}
+
+/* S7 — horizontal zone bands override */
+#s7{padding:22px 52px}
+#s7 h2{margin-bottom:16px;font-size:clamp(26px,2.8vw,40px)}
+.s7c-wrap{width:100%;max-width:1080px}
+.s7c-zone{border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.s7c-zlbl{font-family:'Bricolage Grotesque',sans-serif;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.14em;writing-mode:vertical-rl;transform:rotate(180deg);min-width:22px;text-align:center;flex-shrink:0}
+.s7c-steps{display:flex;align-items:center;flex:1;gap:0}
+.s7c-step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center}
+.s7c-node{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;border:2.5px solid;background:rgba(26,31,54,.95);margin-bottom:6px;position:relative;flex-shrink:0}
+.s7c-sn{position:absolute;top:-5px;right:-5px;width:17px;height:17px;border-radius:50%;font-size:8px;font-weight:900;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;border:1.5px solid rgba(26,31,54,.95)}
+.s7c-lbl{font-family:'Bricolage Grotesque',sans-serif;font-size:10.5px;font-weight:800;line-height:1.3;max-width:92px;text-align:center}
+.s7c-role{font-size:8.5px;color:rgba(255,255,255,.32);margin-top:3px}
+.s7c-arr{flex:0 0 16px;font-size:12px;color:rgba(255,255,255,.2);text-align:center;padding-bottom:20px;flex-shrink:0}
+
+/* S8 — larger fonts, more breathing room */
+#s8{padding:22px 36px}
+#s8 h2{margin-bottom:30px;font-size:clamp(24px,2.6vw,38px)}
+.bf1row{gap:4px!important}
+.bf1box{min-height:96px!important;border-radius:14px!important;padding:14px 5px!important;gap:5px!important}
+.bf1icon{font-size:24px!important}
+.bf1num{font-size:9.5px!important}
+.bf1label{font-size:13px!important;letter-spacing:.02em!important;line-height:1.25!important}
+.bf1arr{font-size:15px!important;flex:0 0 15px!important}
+.bf1alt{margin-top:28px!important;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+/* S9 — title tighter, no divider lines */
+#s9{padding:20px 44px}
+#s9 h2{margin-bottom:6px;font-size:clamp(24px,2.6vw,38px)}
+.eco2-col-hdr{border-bottom:none!important;padding-bottom:0!important}
+.eco2-col{gap:6px!important}
+
 </style>
 </head>
 <body>
@@ -518,51 +563,73 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
 <div class="slide" id="s3">
   <div class="label">Feature Development</div>
   <h2>From Idea to Feature</h2>
-  <div class="frow-v2">
 
-    <div class="fstep-v2">
+  <!-- Row 1: circles + arrows — perfectly centered -->
+  <div style="display:flex;align-items:center;width:100%;max-width:1140px;gap:0">
+    <div style="flex:1;display:flex;justify-content:center">
       <div class="fnode-v2" style="background:rgba(59,158,245,.18);border-color:var(--blue)">&#x1F4CB;</div>
-      <div class="flabel-v2" style="color:var(--blue)">PRD</div>
+    </div>
+    <div style="flex:0 0 32px;text-align:center;color:rgba(255,255,255,.22);font-size:18px">&#x2192;</div>
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(109,200,75,.18);border-color:var(--green)">&#x1F3D7;&#xFE0F;</div>
+    </div>
+    <div style="flex:0 0 32px;text-align:center;color:rgba(255,255,255,.22);font-size:18px">&#x2192;</div>
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(232,67,90,.18);border-color:var(--pink)">&#x1F9EA;</div>
+    </div>
+    <div style="flex:0 0 32px;text-align:center;color:rgba(255,255,255,.22);font-size:18px">&#x2192;</div>
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(245,166,35,.18);border-color:var(--yellow)">&#x1F5C2;&#xFE0F;</div>
+    </div>
+    <div style="flex:0 0 32px;text-align:center;color:rgba(255,255,255,.22);font-size:18px">&#x2192;</div>
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(232,67,90,.18);border-color:var(--pink);font-size:16px">&#x1F527;&#x1F9EA;</div>
+    </div>
+    <div style="flex:0 0 32px;text-align:center;color:rgba(255,255,255,.22);font-size:18px">&#x2192;</div>
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(109,200,75,.24);border-color:var(--green)">&#x1F680;</div>
+    </div>
+  </div>
+
+  <!-- Row 2: labels + ownership — aligned under each circle -->
+  <div style="display:flex;width:100%;max-width:1140px;margin-top:14px">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--blue);margin-top:4px">PRD</div>
       <div class="fown-owner" style="background:rgba(59,158,245,.2);color:var(--blue)">Product</div>
       <div class="fown-with">Review: Dev &amp; QA &amp; Art</div>
     </div>
-    <div class="farr-v2">&#x2192;</div>
-    <div class="fstep-v2">
-      <div class="fnode-v2" style="background:rgba(109,200,75,.18);border-color:var(--green)">&#x1F3D7;&#xFE0F;</div>
-      <div class="flabel-v2" style="color:var(--green)">TLD</div>
+    <div style="flex:0 0 32px"></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--green);margin-top:4px">TLD</div>
       <div class="fown-owner" style="background:rgba(109,200,75,.2);color:var(--green)">Dev Lead</div>
       <div class="fown-with">Review: QA &amp; Product</div>
     </div>
-    <div class="farr-v2">&#x2192;</div>
-    <div class="fstep-v2">
-      <div class="fnode-v2" style="background:rgba(232,67,90,.18);border-color:var(--pink)">&#x1F9EA;</div>
-      <div class="flabel-v2" style="color:var(--pink)">TDR</div>
+    <div style="flex:0 0 32px"></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--pink);margin-top:4px">TDR</div>
       <div class="fown-owner" style="background:rgba(232,67,90,.2);color:var(--pink)">QA</div>
       <div class="fown-with">Review: Dev &amp; Product</div>
     </div>
-    <div class="farr-v2">&#x2192;</div>
-    <div class="fstep-v2">
-      <div class="fnode-v2" style="background:rgba(245,166,35,.18);border-color:var(--yellow)">&#x1F5C2;&#xFE0F;</div>
-      <div class="flabel-v2" style="color:var(--yellow)">Stories</div>
+    <div style="flex:0 0 32px"></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--yellow);margin-top:4px">Stories</div>
       <div class="fown-owner" style="background:rgba(245,166,35,.2);color:var(--yellow)">Team</div>
       <div class="fown-with">Breakdown session</div>
     </div>
-    <div class="farr-v2">&#x2192;</div>
-    <div class="fstep-v2">
-      <div class="fnode-v2" style="background:rgba(232,67,90,.18);border-color:var(--pink);font-size:16px">&#x1F527;&#x1F9EA;</div>
-      <div class="flabel-v2" style="color:var(--pink)">Dev + QA</div>
+    <div style="flex:0 0 32px"></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--pink);margin-top:4px">Dev + QA</div>
       <div class="fown-owner" style="background:rgba(232,67,90,.18);color:var(--pink)">Parallel</div>
       <div class="fown-with">Dev builds · QA tests</div>
     </div>
-    <div class="farr-v2">&#x2192;</div>
-    <div class="fstep-v2">
-      <div class="fnode-v2" style="background:rgba(109,200,75,.24);border-color:var(--green)">&#x1F680;</div>
-      <div class="flabel-v2" style="color:var(--green)">Deliver</div>
+    <div style="flex:0 0 32px"></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--green);margin-top:4px">Deliver</div>
       <div class="fown-owner" style="background:rgba(109,200,75,.2);color:var(--green)">QA Sign-off</div>
       <div class="fown-with">E2E pass on Dev</div>
     </div>
-
   </div>
+
 </div>
 
 <!-- ══════ SLIDE 4 — STORY STRUCTURE ══════ -->
@@ -570,42 +637,36 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
   <div class="label">Story Breakdown</div>
   <h2>How We Break Down Features</h2>
   <div class="tree">
-    <!-- Story level (top level — no Epic) -->
+    <!-- Story level -->
     <div class="t0">
-      <span style="font-size:21px">📖</span>
+      <span style="font-size:21px">&#x1F4D6;</span>
       <span class="tbadge b-story">Story / Task</span>
       <span class="ttext">Business or Technical Topic</span>
       <span class="tsub">One complete topic — the top-level unit of work</span>
     </div>
-    <!-- Dev Subtask -->
+    <!-- Dev Subtask — label only -->
     <div class="t1 tdev">
-      <span style="font-size:16px">🔧</span>
-      <span class="tbadge b-dev">Dev Subtask</span>
-      <span class="ttext">Technical implementation</span>
-      <span class="tsub">⏱ Time estimate here</span>
+      <span style="font-size:16px">&#x1F527;</span>
+      <span class="tbadge b-dev">Dev Sub-Task</span>
     </div>
-    <!-- QA Subtask -->
+    <!-- QA Subtask — label only -->
     <div class="t1 tqa">
-      <span style="font-size:16px">🧪</span>
-      <span class="tbadge b-qa">QA Subtask</span>
-      <span class="ttext">Test plan + validation</span>
-      <span class="tsub">⏱ Time estimate here</span>
+      <span style="font-size:16px">&#x1F9EA;</span>
+      <span class="tbadge b-qa">QA Sub-Task</span>
     </div>
+    <!-- Bug / Story Bug -->
     <div class="t1 tbug">
       <span style="font-size:16px">&#x1F41B;</span>
-      <span class="tbadge b-bug">Bug Subtask</span>
-      <span class="ttext">Bug fix scoped to this story</span>
-      <span class="tsub">&#x23F1; Time estimate here</span>
+      <span class="tbadge b-bug">Bug / Story Bug</span>
     </div>
+    <!-- Art / 3rd Party -->
     <div class="t1 tart">
       <span style="font-size:16px">&#x1F3A8;</span>
       <span class="tbadge b-art">Art / 3rd Party</span>
-      <span class="ttext">Assets, SDK integration or external dependency</span>
-      <span class="tsub">&#x23F1; Time estimate here</span>
     </div>
     <div class="callouts">
       <div class="callout"><strong>Rule 1:</strong> Each Story = one business or technical topic. It is the top-level unit — not a subtask of anything else.</div>
-      <div class="callout"><strong>Rule 2:</strong> Time estimates live on the Dev & QA subtasks, not on the Story itself.</div>
+      <div class="callout"><strong>Rule 2:</strong> Time estimates live on the Dev &amp; QA subtasks, not on the Story itself.</div>
     </div>
   </div>
 </div>
@@ -749,144 +810,112 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px)
 <div class="slide" id="s7">
   <div class="label">Release Process</div>
   <h2>The Release Flow</h2>
-  <div class="vt3-wrap">
+  <div class="s7c-wrap" style="max-width:1080px">
 
-    <!-- ── DEV ENVIRONMENT (steps 1–4) ── -->
-    <div class="vt3-zone" style="background:rgba(59,158,245,.045);border:1px solid rgba(59,158,245,.15);padding-bottom:4px">
-      <div class="vt3-zlbl" style="background:rgba(59,158,245,.15);border:1px solid rgba(59,158,245,.25)">
-        <span class="vt3-zlbl-text" style="color:var(--blue)">Dev Environment</span>
-      </div>
-      <div class="vt3-rows">
-    <div class="vt3-row">
-      <div class="vt3-nc">
-        <div class="vt3-num" style="border-color:var(--blue);color:var(--blue)">1</div>
-        <div class="vt3-vl" style="background:#3B9EF5;opacity:.4"></div>
-      </div>
-      <div class="vt3-content">
-        <span class="vt3-icon">&#x1F4CB;</span>
-        <div>
-          <div class="vt3-label" style="color:var(--blue)">PRD Ready</div>
-          <div class="vt3-badge" style="background:var(--blue)22;color:var(--blue);border:1px solid var(--blue)44">Product</div>
-          
+    <!-- DEV ZONE — steps 1–4 -->
+    <div class="s7c-zone" style="background:rgba(59,158,245,.06);border:1px solid rgba(59,158,245,.2);margin-bottom:8px">
+      <div class="s7c-zlbl" style="color:var(--blue)">DEV</div>
+      <div class="s7c-steps">
+
+        <div class="s7c-step">
+          <div class="s7c-node" style="border-color:var(--blue)">
+            <span style="font-size:20px">&#x1F4CB;</span>
+            <div class="s7c-sn" style="background:var(--blue);color:#fff">1</div>
+          </div>
+          <div class="s7c-lbl" style="color:var(--blue)">PRD</div>
+          <div class="s7c-role">Product</div>
         </div>
-      </div>
-    </div>
-    <div class="vt3-row">
-      <div class="vt3-nc">
-        <div class="vt3-num" style="border-color:var(--blue);color:var(--blue)">2</div>
-        <div class="vt3-vl" style="background:#3B9EF5;opacity:.4"></div>
-      </div>
-      <div class="vt3-content">
-        <span class="vt3-icon">&#x1F333;</span>
-        <div>
-          <div class="vt3-label" style="color:var(--blue)">Branch from Master</div>
-          <div class="vt3-badge" style="background:var(--blue)22;color:var(--blue);border:1px solid var(--blue)44">Dev</div>
-          
+        <div class="s7c-arr">&#x2192;</div>
+
+        <div class="s7c-step">
+          <div class="s7c-node" style="border-color:var(--blue)">
+            <span style="font-size:20px">&#x1F333;</span>
+            <div class="s7c-sn" style="background:var(--blue);color:#fff">2</div>
+          </div>
+          <div class="s7c-lbl" style="color:var(--blue)">Feature Branch<br>(fork from Master)</div>
+          <div class="s7c-role">Dev</div>
         </div>
-      </div>
-    </div>
-    <div class="vt3-row">
-      <div class="vt3-nc">
-        <div class="vt3-num" style="border-color:var(--blue);color:var(--blue)">3</div>
-        <div class="vt3-vl" style="background:#3B9EF5;opacity:.4"></div>
-      </div>
-      <div class="vt3-content">
-        <span class="vt3-icon">&#x1F528;&#x1F9EA;</span>
-        <div>
-          <div class="vt3-label" style="color:var(--blue)">Build on Dev + QA Testing in parallel</div>
-          <div class="vt3-badge" style="background:var(--blue)22;color:var(--blue);border:1px solid var(--blue)44">Dev + QA</div>
-          
+        <div class="s7c-arr">&#x2192;</div>
+
+        <div class="s7c-step">
+          <div class="s7c-node" style="border-color:var(--blue)">
+            <span style="font-size:20px">&#x1F528;</span>
+            <div class="s7c-sn" style="background:var(--blue);color:#fff">3</div>
+          </div>
+          <div class="s7c-lbl" style="color:var(--blue)">Dev + QA<br>in Parallel</div>
+          <div class="s7c-role">Dev + QA</div>
         </div>
-      </div>
-    </div>
-    <div class="vt3-row">
-      <div class="vt3-nc">
-        <div class="vt3-num" style="border-color:var(--blue);color:var(--blue)">4</div>
-        <div class="vt3-vl" style="background:#3B9EF5;opacity:.4"></div>
-      </div>
-      <div class="vt3-content">
-        <span class="vt3-icon">&#x2705;</span>
-        <div>
-          <div class="vt3-label" style="color:var(--blue)">E2E Tests Complete on Dev</div>
-          <div class="vt3-badge" style="background:var(--blue)22;color:var(--blue);border:1px solid var(--blue)44">QA</div>
-          
+        <div class="s7c-arr">&#x2192;</div>
+
+        <div class="s7c-step">
+          <div class="s7c-node" style="border-color:var(--blue)">
+            <span style="font-size:20px">&#x2705;</span>
+            <div class="s7c-sn" style="background:var(--blue);color:#fff">4</div>
+          </div>
+          <div class="s7c-lbl" style="color:var(--blue)">E2E Pass<br>on Dev</div>
+          <div class="s7c-role">QA</div>
         </div>
-      </div>
-    </div>
+
       </div>
     </div>
 
-    <!-- ── STAGING (steps 5–6) ── -->
-    <div class="vt3-zone" style="background:rgba(245,166,35,.04);border:1px solid rgba(245,166,35,.16);padding-bottom:4px">
-      <div class="vt3-zlbl" style="background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.28)">
-        <span class="vt3-zlbl-text" style="color:var(--yellow)">Staging</span>
-      </div>
-      <div class="vt3-rows">
-    <div class="vt3-row">
-      <div class="vt3-nc">
-        <div class="vt3-num" style="border-color:var(--yellow);color:var(--yellow)">5</div>
-        <div class="vt3-vl" style="background:#F5A623;opacity:.4"></div>
-      </div>
-      <div class="vt3-content">
-        <span class="vt3-icon">&#x1F4E6;</span>
-        <div>
-          <div class="vt3-label" style="color:var(--yellow)">Release Candidate &#x2192; Staging</div>
-          <div class="vt3-badge" style="background:var(--yellow)22;color:var(--yellow);border:1px solid var(--yellow)44">Dev</div>
-          
+    <!-- STAGING ZONE — steps 5–6 -->
+    <div class="s7c-zone" style="background:rgba(245,166,35,.05);border:1px solid rgba(245,166,35,.22);margin-bottom:8px">
+      <div class="s7c-zlbl" style="color:var(--yellow)">STAGING</div>
+      <div class="s7c-steps">
+
+        <div class="s7c-step">
+          <div class="s7c-node" style="border-color:var(--yellow)">
+            <span style="font-size:20px">&#x1F4E6;</span>
+            <div class="s7c-sn" style="background:var(--yellow);color:#1A1F36">5</div>
+          </div>
+          <div class="s7c-lbl" style="color:var(--yellow)">Release Candidate<br>&#x2192; Staging</div>
+          <div class="s7c-role">Dev</div>
         </div>
-      </div>
-    </div>
-    <div class="vt3-row">
-      <div class="vt3-nc">
-        <div class="vt3-num" style="border-color:var(--yellow);color:var(--yellow)">6</div>
-        <div class="vt3-vl" style="background:#F5A623;opacity:.4"></div>
-      </div>
-      <div class="vt3-content">
-        <span class="vt3-icon">&#x1F50D;</span>
-        <div>
-          <div class="vt3-label" style="color:var(--yellow)">Staging QA &#x2014; E2E, Sanity, Smoke</div>
-          <div class="vt3-badge" style="background:var(--yellow)22;color:var(--yellow);border:1px solid var(--yellow)44">QA</div>
-          <div class="vt3-sub">Build number increments on each fix</div>
+        <div class="s7c-arr">&#x2192;</div>
+
+        <div class="s7c-step">
+          <div class="s7c-node" style="border-color:var(--yellow)">
+            <span style="font-size:20px">&#x1F50D;</span>
+            <div class="s7c-sn" style="background:var(--yellow);color:#1A1F36">6</div>
+          </div>
+          <div class="s7c-lbl" style="color:var(--yellow)">Staging QA<br>E2E · Sanity · Smoke</div>
+          <div class="s7c-role">QA</div>
         </div>
-      </div>
-    </div>
+
+        <!-- spacer to balance layout -->
+        <div style="flex:2"></div>
+
       </div>
     </div>
 
-    <!-- ── PRODUCTION (steps 7–8) ── -->
-    <div class="vt3-zone" style="background:rgba(109,200,75,.04);border:1px solid rgba(109,200,75,.16);padding-bottom:4px">
-      <div class="vt3-zlbl" style="background:rgba(109,200,75,.15);border:1px solid rgba(109,200,75,.28)">
-        <span class="vt3-zlbl-text" style="color:var(--green)">Production</span>
-      </div>
-      <div class="vt3-rows">
-    <div class="vt3-row">
-      <div class="vt3-nc">
-        <div class="vt3-num" style="border-color:var(--green);color:var(--green)">7</div>
-        <div class="vt3-vl" style="background:#6DC84B;opacity:.4"></div>
-      </div>
-      <div class="vt3-content">
-        <span class="vt3-icon">&#x1F44D;</span>
-        <div>
-          <div class="vt3-label" style="color:var(--green)">Release Sign-off</div>
-          <div class="vt3-badge" style="background:var(--green)22;color:var(--green);border:1px solid var(--green)44">Product</div>
-          
+    <!-- PROD ZONE — steps 7–8 -->
+    <div class="s7c-zone" style="background:rgba(109,200,75,.05);border:1px solid rgba(109,200,75,.22)">
+      <div class="s7c-zlbl" style="color:var(--green)">PROD</div>
+      <div class="s7c-steps">
+
+        <div class="s7c-step">
+          <div class="s7c-node" style="border-color:var(--green)">
+            <span style="font-size:20px">&#x1F44D;</span>
+            <div class="s7c-sn" style="background:var(--green);color:#1A1F36">7</div>
+          </div>
+          <div class="s7c-lbl" style="color:var(--green)">Release<br>Sign-off</div>
+          <div class="s7c-role">Product</div>
         </div>
-      </div>
-    </div>
-    <div class="vt3-row">
-      <div class="vt3-nc">
-        <div class="vt3-num" style="border-color:var(--green);color:var(--green)">8</div>
-        <div class="vt3-vl" style="background:#6DC84B;opacity:.4"></div>
-      </div>
-      <div class="vt3-content">
-        <span class="vt3-icon">&#x1F680;</span>
-        <div>
-          <div class="vt3-label" style="color:var(--green)">Production Build &#x2014; Smoke test &#x2192; Ship to players!</div>
-          <div class="vt3-badge" style="background:var(--green)22;color:var(--green);border:1px solid var(--green)44">Dev + QA</div>
-          
+        <div class="s7c-arr">&#x2192;</div>
+
+        <div class="s7c-step">
+          <div class="s7c-node" style="border-color:var(--green)">
+            <span style="font-size:20px">&#x1F680;</span>
+            <div class="s7c-sn" style="background:var(--green);color:#1A1F36">8</div>
+          </div>
+          <div class="s7c-lbl" style="color:var(--green)">Ship to<br>Production</div>
+          <div class="s7c-role">Dev + QA</div>
         </div>
-      </div>
-    </div>
+
+        <!-- spacer to balance layout -->
+        <div style="flex:2"></div>
+
       </div>
     </div>
 

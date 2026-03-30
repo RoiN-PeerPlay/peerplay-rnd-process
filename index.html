@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New R&D & Delivery Process — PeerPlay</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1A1F36;
+  --blue:#3B9EF5;--green:#6DC84B;--yellow:#F5A623;--pink:#E8435A;
+  --white:#fff;--muted:rgba(255,255,255,.52);
+  --card:rgba(255,255,255,.055);--border:rgba(255,255,255,.1);
+}
+html,body{width:100%;height:100%;background:var(--navy);overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif;color:#fff}
+
+#progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--blue),var(--green),var(--yellow),var(--pink));transition:width .4s ease;z-index:200}
+
+.deck{width:100vw;height:100vh;position:relative;overflow:hidden}
+
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:44px 88px;
+  opacity:0;transform:translateX(56px);
+  transition:opacity .48s cubic-bezier(.4,0,.2,1),transform .48s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all}
+.slide::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 700px 350px at 94% 6%,rgba(59,158,245,.07) 0%,transparent 60%),
+             radial-gradient(ellipse 500px 300px at 4% 96%,rgba(232,67,90,.055) 0%,transparent 55%)}
+
+.label{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px);font-weight:800;letter-spacing:-.025em;line-height:1.1;margin-bottom:32px}
+
+.nav{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;z-index:100;
+  background:rgba(255,255,255,.055);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:50px;padding:9px 18px}
+.nbtn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .18s}
+.nbtn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28)}
+.nbtn:disabled{opacity:.28;cursor:default}
+.counter{font-size:13px;font-weight:600;color:rgba(255,255,255,.65);min-width:48px;text-align:center}
+
+/* ═══ SLIDE 1 — COVER ═══ */
+#s1{text-align:center;gap:0}
+#s1 h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(38px,5vw,62px);font-weight:800;letter-spacing:-.03em;line-height:1.08;
+  background:linear-gradient(135deg,#fff 20%,rgba(255,255,255,.6) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:22px 0 14px}
+.csub{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:700;color:var(--blue);margin-bottom:20px}
+.ctag{font-size:15px;color:var(--muted);letter-spacing:.04em}
+.cdots{display:flex;justify-content:center;gap:10px;margin-top:36px}
+.cdot{width:10px;height:10px;border-radius:50%}
+
+/* ═══ SLIDE 2 — VISION ═══ */
+#s2 .vcols{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;width:100%;max-width:920px}
+.vc{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:40px 30px;text-align:center;position:relative;overflow:hidden}
+.vc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.vc:nth-child(1)::before{background:var(--blue)}
+.vc:nth-child(2)::before{background:var(--green)}
+.vc:nth-child(3)::before{background:var(--yellow)}
+.vicon{font-size:44px;margin-bottom:16px;display:block}
+.vtitle{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;margin-bottom:14px}
+.vc:nth-child(1) .vtitle{color:var(--blue)}.vc:nth-child(2) .vtitle{color:var(--green)}.vc:nth-child(3) .vtitle{color:var(--yellow)}
+.vtext{font-size:15px;color:var(--muted);line-height:1.7}
+
+/* ═══ SLIDE 3 — FEATURE FLOW ═══ */
+#s3 .frow{display:flex;align-items:center;width:100%;max-width:1040px}
+.fstep{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center}
+.fnode{width:74px;height:74px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:16px;border:2px solid}
+.farr{flex:0 0 36px;display:flex;align-items:center;justify-content:center;padding-bottom:40px}
+.flabel{font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;margin-bottom:6px}
+.fsub{font-size:12px;color:var(--muted);line-height:1.5;max-width:100px}
+
+/* ═══ SLIDE 4 — STORY STRUCTURE ═══ */
+#s4 .tree{width:100%;max-width:840px}
+.t0{background:linear-gradient(135deg,rgba(59,158,245,.18),rgba(59,158,245,.04));border:1px solid rgba(59,158,245,.38);border-radius:16px;padding:20px 26px;display:flex;align-items:center;gap:13px;margin-bottom:7px}
+.t1{margin-left:44px;border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:11px;margin-bottom:7px;position:relative}
+.t1.tdev{background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.3)}
+.t1.tqa{background:rgba(232,67,90,.11);border:1px solid rgba(232,67,90,.28)}
+.t1::before{content:'';position:absolute;left:-26px;top:50%;width:22px;height:1px;background:rgba(255,255,255,.2)}
+.tbadge{font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;flex-shrink:0}
+.b-story{background:rgba(59,158,245,.28);color:var(--blue)}
+.b-dev{background:rgba(245,166,35,.28);color:var(--yellow)}
+.b-qa{background:rgba(232,67,90,.28);color:var(--pink)}
+.ttext{font-size:15px;font-weight:600}
+.tsub{font-size:13px;color:var(--muted);margin-left:auto;padding-left:12px}
+.callouts{display:flex;gap:16px;margin-top:24px}
+.callout{flex:1;background:rgba(255,255,255,.035);border-left:3px solid var(--blue);border-radius:8px;padding:14px 18px;font-size:13.5px;color:var(--muted);line-height:1.6}
+.callout:last-child{border-left-color:var(--yellow)}
+.callout strong{color:#fff}
+
+/* ═══ SLIDE 5 — DOCUMENTS ═══ */
+#s5{padding:36px 72px}
+#s5 h2{margin-bottom:8px}
+#s5 .dcols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%;max-width:1060px}
+.dc{border-radius:18px;padding:24px 22px}
+.dc-prd{background:linear-gradient(148deg,rgba(59,158,245,.16),rgba(59,158,245,.03));border:1px solid rgba(59,158,245,.3)}
+.dc-tld{background:linear-gradient(148deg,rgba(109,200,75,.13),rgba(109,200,75,.02));border:1px solid rgba(109,200,75,.3)}
+.dc-tdr{background:linear-gradient(148deg,rgba(232,67,90,.13),rgba(232,67,90,.02));border:1px solid rgba(232,67,90,.3)}
+.dctitle{font-family:'Bricolage Grotesque',sans-serif;font-size:32px;font-weight:900;margin-bottom:3px}
+.dcname{font-size:12px;color:var(--muted);margin-bottom:26px;font-weight:500}
+.drow{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.drl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;min-width:58px;padding-top:2px}
+.drv{font-size:14px;color:var(--muted);line-height:1.55}
+.dpill{display:inline-block;padding:5px 14px;border-radius:20px;font-size:11.5px;font-weight:700;margin-top:18px}
+
+/* ═══ SLIDE 6 — BRANCH MODEL ═══ */
+#s6{padding:40px 60px}
+#s6 h2{margin-bottom:18px}
+.branch-wrap{width:100%;max-width:960px;position:relative}
+.branch-svg{width:100%;height:auto}
+.legend{display:flex;gap:32px;justify-content:center;margin-top:14px}
+.leg-item{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--muted)}
+
+/* ═══ SLIDE 7 — RELEASE SWIMLANES ═══ */
+#s7{padding:38px 72px}
+#s7 h2{margin-bottom:20px}
+.swim-wrap{width:100%;max-width:1020px;display:flex;flex-direction:column;gap:10px}
+.swim-lane{display:flex;align-items:center;gap:0;position:relative}
+.swim-label{width:100px;flex-shrink:0;text-align:right;padding-right:18px}
+.swim-name{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+.swim-role{font-size:11px;font-weight:500;color:var(--muted);margin-top:2px}
+.swim-track{flex:1;display:flex;align-items:center;gap:0;position:relative;padding:10px 0}
+.swim-track::before{content:'';position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(255,255,255,.08);z-index:0}
+.snode{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;z-index:1}
+.sball{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid;background:var(--navy);margin-bottom:7px;transition:transform .2s}
+.slbl{font-family:'Bricolage Grotesque',sans-serif;font-size:11.5px;font-weight:800;text-align:center;line-height:1.3;text-transform:uppercase;letter-spacing:.04em}
+.sconn{flex:0 0 18px;height:2px;background:rgba(255,255,255,.15);z-index:0;margin-bottom:7px}
+.handoff-arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;margin-left:106px;color:rgba(255,255,255,.22);font-size:13px;height:8px}
+
+/* ═══ SLIDE 8 — BUG LIFECYCLE ═══ */
+#s8{padding:38px 72px}
+#s8 h2{margin-bottom:18px}
+.bug-wrap{width:100%;max-width:1000px}
+.bug-flow-row{display:flex;align-items:flex-start;gap:0;margin-bottom:20px}
+.bnode{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center}
+.bball{border-radius:14px;padding:14px 12px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;border:1.5px solid;display:block;width:100%}
+.bowner{font-size:11px;color:var(--muted);line-height:1.5}
+.bconn{flex:0 0 24px;display:flex;flex-direction:column;align-items:center;padding-top:14px;color:rgba(255,255,255,.28);font-size:18px}
+.b-new{background:rgba(59,158,245,.18);border-color:rgba(59,158,245,.5);color:var(--blue)}
+.b-assigned{background:rgba(245,166,35,.16);border-color:rgba(245,166,35,.42);color:var(--yellow)}
+.b-inprog{background:rgba(109,200,75,.16);border-color:rgba(109,200,75,.42);color:var(--green)}
+.b-rft{background:rgba(232,67,90,.16);border-color:rgba(232,67,90,.42);color:var(--pink)}
+.b-done{background:rgba(109,200,75,.26);border-color:rgba(109,200,75,.6);color:var(--green)}
+.bug-context{display:flex;gap:16px;width:100%}
+.bctx{flex:1;border-radius:14px;padding:16px 18px;font-size:13px;line-height:1.6;color:var(--muted)}
+.bctx strong{color:#fff;display:block;font-size:13.5px;margin-bottom:4px}
+.bctx-dev{background:rgba(59,158,245,.07);border:1px solid rgba(59,158,245,.18)}
+.bctx-rel{background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.18)}
+.bctx-alt{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
+.btag{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:10px;margin-right:6px;margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
+
+/* ═══ SLIDE 9 — TOOLS ECOSYSTEM ═══ */
+#s9{padding:36px 72px}
+#s9 h2{margin-bottom:20px}
+.eco-wrap{width:100%;max-width:980px}
+.eco-grid{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto;gap:14px 20px}
+.eco-card{border-radius:18px;padding:22px 24px;position:relative}
+.eco-jira{background:rgba(59,158,245,.14);border:1.5px solid rgba(59,158,245,.38);grid-column:2;grid-row:1}
+.eco-notion{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);grid-column:1;grid-row:1}
+.eco-testomatio{background:rgba(109,200,75,.1);border:1px solid rgba(109,200,75,.28);grid-column:3;grid-row:1}
+.eco-github{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.28);grid-column:1;grid-row:2}
+.eco-envs{background:rgba(232,67,90,.1);border:1px solid rgba(232,67,90,.28);grid-column:3;grid-row:2}
+.eco-integrations{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);grid-column:2;grid-row:2;border-radius:14px;padding:16px 20px}
+.eco-title{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.eco-items{display:flex;flex-direction:column;gap:5px}
+.eco-item{font-size:12.5px;color:var(--muted);display:flex;align-items:flex-start;gap:7px;line-height:1.4}
+.eco-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.eco-arrow{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px;padding:4px 0}
+.eco-arrow strong{color:rgba(255,255,255,.75)}
+
+/* ═══ SLIDE 7 — NUMBERED TIMELINE ═══ */
+#s7{padding:32px 56px}
+#s7 h2{margin-bottom:10px}
+.tl-wrap{width:100%;max-width:1040px}
+.tl-track{display:flex;align-items:flex-start;position:relative;padding-top:6px}
+.tl-track::before{content:'';position:absolute;left:24px;right:24px;top:30px;height:4px;background:linear-gradient(90deg,var(--blue),var(--yellow),var(--yellow),var(--pink),var(--pink),var(--blue),var(--green));z-index:0;border-radius:3px;opacity:.65}
+.tl-step{flex:1;display:flex;flex-direction:column;align-items:center;z-index:1;padding:0 3px}
+.tl-node{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;border:2.5px solid;background:var(--navy);margin-bottom:8px;position:relative;box-shadow:0 0 0 5px var(--navy)}
+.tl-sn{position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;font-size:8px;font-weight:900;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;z-index:3;border:1.5px solid var(--navy)}
+.tl-label{font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:800;text-align:center;line-height:1.3;margin-bottom:5px;max-width:80px}
+.tl-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+
+/* ═══ SLIDE 8 — NEW BUG LIFECYCLE ═══ */
+#s8{padding:30px 64px}
+#s8 h2{margin-bottom:12px}
+.blife{width:100%;max-width:980px}
+.brow{display:flex;align-items:center;gap:0;margin-bottom:4px}
+.bst{border-radius:10px;padding:9px 6px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;text-align:center;flex:1;border:1.5px solid;line-height:1.25;min-height:44px;display:flex;align-items:center;justify-content:center}
+.barr{flex:0 0 20px;font-size:13px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);flex-shrink:0}
+.barr-d{flex:0 0 100%;height:20px;display:flex;justify-content:flex-end;align-items:center;padding-right:calc((100% / 8) * 0.5);color:rgba(255,255,255,.28);font-size:18px}
+.bst-todo{background:rgba(59,158,245,.16);border-color:rgba(59,158,245,.45);color:var(--blue)}
+.bst-prog{background:rgba(245,166,35,.14);border-color:rgba(245,166,35,.42);color:var(--yellow)}
+.bst-review{background:rgba(245,166,35,.09);border-color:rgba(245,166,35,.28);color:rgba(245,166,35,.85)}
+.bst-rfq{background:rgba(232,67,90,.14);border-color:rgba(232,67,90,.38);color:var(--pink)}
+.bst-test{background:rgba(232,67,90,.1);border-color:rgba(232,67,90,.3);color:rgba(232,67,90,.85)}
+.bst-passed{background:rgba(109,200,75,.16);border-color:rgba(109,200,75,.42);color:var(--green)}
+.bst-rfr{background:rgba(109,200,75,.11);border-color:rgba(109,200,75,.3);color:rgba(109,200,75,.85)}
+.bst-close{background:rgba(109,200,75,.26);border-color:rgba(109,200,75,.65);color:var(--green);font-weight:900}
+.bst-reopen{background:rgba(59,158,245,.09);border-color:rgba(59,158,245,.22);color:rgba(59,158,245,.7);font-size:9.5px}
+.bst-hold{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.35);font-size:9.5px}
+.balt-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.balt-label{font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap}
+.balt-tag{font-size:10px;font-weight:700;padding:4px 11px;border-radius:8px;display:inline-block;white-space:nowrap}
+.breopen-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;padding-left:0}
+.breopen-arc{flex:1;height:14px;border:1.5px solid rgba(59,158,245,.3);border-bottom:none;border-radius:8px 8px 0 0;position:relative;margin:0 4px}
+.breopen-lbl{font-size:9.5px;color:rgba(59,158,245,.6);font-weight:700;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em}
+
+/* ═══ SLIDE 9 — TOOL WEB ═══ */
+.tw-wrap{width:100%;max-width:920px}
+.tw-canvas{position:relative;width:100%;height:300px}
+.tw-node{position:absolute;border-radius:13px;padding:9px 13px;transform:translate(-50%,-50%);min-width:112px;text-align:center;z-index:2;backdrop-filter:blur(4px)}
+.tw-icon{font-size:17px;margin-bottom:2px}
+.tw-title{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;margin-bottom:2px}
+.tw-desc{font-size:9.5px;color:var(--muted);line-height:1.35}
+
+/* ═══ SLIDE 10 — VERTICAL PRIORITY LIST ═══ */
+#s10{padding:28px 88px}
+#s10 h2{margin-bottom:10px}
+.vsteps{width:100%;max-width:820px;position:relative;padding-left:52px}
+.vsteps::before{content:'';position:absolute;left:18px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,var(--blue),var(--green),var(--yellow),var(--pink));opacity:.35;border-radius:2px}
+.vstep{display:flex;align-items:flex-start;gap:0;padding:7px 0;position:relative}
+.vstep-n{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:900;flex-shrink:0;border:2px solid;background:var(--navy);z-index:1;position:absolute;left:-52px}
+.vstep-body{flex:1;padding-top:5px;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:7px}
+.vstep:last-child .vstep-body{border-bottom:none}
+.vstep-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.08em;display:inline-block;margin-bottom:4px;margin-right:6px}
+.vstep-title{font-family:'Bricolage Grotesque',sans-serif;font-size:14.5px;font-weight:800;line-height:1.2;margin-bottom:2px;display:inline}
+.vstep-desc{font-size:11.5px;color:var(--muted);line-height:1.4;margin-top:2px}
+
+/* ═══ SLIDE 7 — TIMELINE RULER ═══ */
+.t-ruler{width:100%;max-width:1020px;padding-left:100px;margin-bottom:10px}
+.t-steps{display:flex;align-items:flex-start;position:relative;width:100%}
+.t-steps::after{content:'';position:absolute;top:16px;left:5%;right:5%;height:3px;background:linear-gradient(90deg,var(--blue),var(--yellow),var(--yellow),var(--pink),var(--green));border-radius:2px;z-index:0;opacity:.55}
+.t-step{flex:1;display:flex;flex-direction:column;align-items:center;z-index:1}
+.t-num{width:34px;height:34px;border-radius:50%;border:2.5px solid;background:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;margin-bottom:5px}
+.t-lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;line-height:1.3}
+
+/* ═══ SLIDE 9 — MIND MAP ═══ */
+.mm-wrap{width:100%;max-width:920px}
+.mm-canvas{position:relative;width:100%;height:310px}
+.mm-node{position:absolute;border-radius:14px;padding:10px 14px;transform:translate(-50%,-50%);min-width:118px;text-align:center;z-index:2}
+.mm-icon{font-size:18px;margin-bottom:3px}
+.mm-title{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;margin-bottom:2px}
+.mm-desc{font-size:10px;color:var(--muted);line-height:1.4}
+
+/* ═══ SLIDE 10 — STEPS GRID ═══ */
+#s10{padding:32px 72px}
+#s10 h2{margin-bottom:18px}
+.steps-grid{width:100%;max-width:960px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.step-card{border-radius:14px;padding:13px 18px;display:flex;align-items:flex-start;gap:14px;transition:background .18s}
+.step-n{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:900;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-phase{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:7px;text-transform:uppercase;letter-spacing:.08em;display:inline-block;margin-bottom:5px}
+.step-title{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;line-height:1.2;margin-bottom:3px}
+.step-desc{font-size:11.5px;color:var(--muted);line-height:1.45}
+.closing{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;color:rgba(255,255,255,.8);text-align:center;margin-top:14px}
+
+/* ════ SLIDE 7 — 2-ROW TIMELINE (SPACIOUS) ════ */
+#s7{padding:28px 64px}
+#s7 h2{margin-bottom:14px;font-size:clamp(28px,3vw,42px)}
+.tl2-wrap{width:100%;max-width:1040px;display:flex;flex-direction:column;gap:0}
+.tl2-row{display:flex;align-items:center;position:relative}
+.tl2-step{display:flex;flex-direction:column;align-items:center;flex:1;z-index:1}
+.tl2-node{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;border:3px solid;background:var(--navy);position:relative;box-shadow:0 0 0 7px var(--navy)}
+.tl2-sn{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;font-family:"Bricolage Grotesque",sans-serif;z-index:3;border:2px solid var(--navy)}
+.tl2-label{font-family:"Bricolage Grotesque",sans-serif;font-size:13.5px;font-weight:800;text-align:center;line-height:1.3;margin:11px 0 6px;max-width:96px}
+.tl2-badge{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:8px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.tl2-conn{flex:0 0 22px;height:4px;border-radius:2px;margin-bottom:60px}
+.tl2-corner{flex:0 0 42px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:60px;color:rgba(255,255,255,.25);font-size:20px;line-height:1.4}
+.tl2-spacer{flex:0 0 42px;margin-bottom:60px}
+
+/* ════ SLIDE 8 — BIG OPEN BUG FLOW ════ */
+#s8{padding:26px 52px}
+#s8 h2{margin-bottom:14px;font-size:clamp(26px,2.8vw,40px)}
+.bugflow{width:100%;max-width:1060px}
+.bfrow{display:flex;align-items:center;margin-bottom:0}
+.bfbox{flex:1;border-radius:18px;padding:18px 8px;text-align:center;border:2px solid;min-height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.bfbox-icon{font-size:26px}
+.bfbox-label{font-family:"Bricolage Grotesque",sans-serif;font-size:13.5px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;line-height:1.2}
+.bfarr{flex:0 0 28px;font-size:22px;text-align:center;color:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center}
+.bfgap{height:18px}
+.bfalt{margin-top:16px;padding:14px 18px;background:rgba(255,255,255,.035);border-radius:14px;border:1px solid rgba(255,255,255,.07)}
+.bfalt-title{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.bfalt-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.bfchip{font-size:11.5px;font-weight:700;padding:5px 13px;border-radius:10px;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.bfreopen{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bfreopen-line{flex:1;height:16px;border:2px dashed rgba(59,158,245,.28);border-bottom:none;border-radius:8px 8px 0 0}
+
+/* ════ SLIDE 9 — TOOLS WEB (SPACIOUS) ════ */
+#s9{padding:28px 56px}
+#s9 h2{margin-bottom:12px;font-size:clamp(26px,2.8vw,40px)}
+.tw-wrap{width:100%;max-width:960px}
+.tw-canvas{position:relative;width:100%;height:340px}
+.tw-node{position:absolute;border-radius:16px;padding:14px 18px;transform:translate(-50%,-50%);min-width:142px;text-align:center;z-index:2}
+.tw-icon{font-size:24px;margin-bottom:5px}
+.tw-title{font-family:"Bricolage Grotesque",sans-serif;font-size:15px;font-weight:800;margin-bottom:4px}
+.tw-desc{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* ════ SLIDE 7 — VERTICAL TIMELINE ════ */
+#s7{padding:24px 80px}
+#s7 h2{margin-bottom:12px;font-size:clamp(26px,2.8vw,38px)}
+.vt-outer{width:100%;max-width:900px;display:flex;gap:40px}
+.vt-line-col{display:flex;flex-direction:column;align-items:center;padding-top:6px}
+.vt-connector{flex:1;width:3px;background:linear-gradient(180deg,var(--blue),var(--yellow),var(--yellow),var(--pink),var(--yellow),var(--pink),var(--blue),var(--green));opacity:.55;border-radius:2px;min-height:8px}
+.vt-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Bricolage Grotesque",sans-serif;font-size:14px;font-weight:900;border:2.5px solid;background:var(--navy);flex-shrink:0}
+.vt-steps{flex:1;display:flex;flex-direction:column;gap:0}
+.vt-step{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.vt-step:last-child{border-bottom:none}
+.vt-icon{font-size:28px;flex-shrink:0;width:38px;text-align:center}
+.vt-info{flex:1}
+.vt-label{font-family:"Bricolage Grotesque",sans-serif;font-size:16px;font-weight:800;line-height:1.2}
+.vt-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:7px;text-transform:uppercase;letter-spacing:.05em;display:inline-block;margin-top:4px}
+
+/* ════ SLIDE 8 FIXES ════ */
+.bfgap-wide{height:56px}
+.bfnum{font-size:9px;font-weight:800;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+
+/* ════ SLIDE 9 SPACING ════ */
+.tw-canvas-wide{position:relative;width:100%;height:370px}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="deck">
+
+<!-- ══════ SLIDE 1 — COVER ══════ -->
+<div class="slide active" id="s1">
+  <svg width="94" height="94" viewBox="0 0 94 94" fill="none">
+    <circle cx="47" cy="47" r="43" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+    <path d="M27 47 C27 36.5 36 31 47 47 C58 63 67 57.5 67 47 C67 36.5 58 31 47 47 C36 63 27 57.5 27 47Z"
+          stroke="rgba(255,255,255,.9)" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <circle cx="47" cy="13" r="7" fill="#3B9EF5"/>
+    <circle cx="73" cy="25" r="5.5" fill="#6DC84B"/>
+    <circle cx="80" cy="52" r="5" fill="#F5A623"/>
+    <circle cx="61" cy="76" r="5.5" fill="#E8435A"/>
+    <circle cx="33" cy="76" r="5" fill="#3B9EF5"/>
+    <circle cx="14" cy="52" r="5.5" fill="#6DC84B"/>
+    <circle cx="21" cy="25" r="5" fill="#F5A623"/>
+  </svg>
+  <div class="label" style="margin-top:20px">PeerPlay · R&D</div>
+  <h1>New R&D &<br>Delivery Process</h1>
+  <div class="csub">Building Better, Shipping Smarter</div>
+  <div class="ctag">A unified process for Product · Development · QA</div>
+  <div class="cdots">
+    <div class="cdot" style="background:var(--blue)"></div>
+    <div class="cdot" style="background:var(--green)"></div>
+    <div class="cdot" style="background:var(--yellow)"></div>
+    <div class="cdot" style="background:var(--pink)"></div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 2 — VISION ══════ -->
+<div class="slide" id="s2">
+  <div class="label">The Foundation</div>
+  <h2>Why This Process?</h2>
+  <div class="vcols">
+    <div class="vc"><span class="vicon">🎯</span><div class="vtitle">Clarity</div><div class="vtext">Everyone knows what's being built, why it matters, and when it ships — no surprises.</div></div>
+    <div class="vc"><span class="vicon">⚡</span><div class="vtitle">Speed</div><div class="vtext">Dev & QA work in parallel from day one. No handoff delays. No waiting in queues.</div></div>
+    <div class="vc"><span class="vicon">🏆</span><div class="vtitle">Quality</div><div class="vtext">Every feature is tested before it reaches players. Ship with confidence, every time.</div></div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 3 — FEATURE FLOW ══════ -->
+<div class="slide" id="s3">
+  <div class="label">Feature Development</div>
+  <h2>From Idea to Feature</h2>
+  <div class="frow">
+    <div class="fstep">
+      <div class="fnode" style="background:rgba(59,158,245,.18);border-color:var(--blue)">📋</div>
+      <div class="flabel" style="color:var(--blue)">PRD</div>
+      <div class="fsub">Product defines goals, flows & acceptance criteria</div>
+    </div>
+    <div class="farr"><svg width="30" height="14" viewBox="0 0 30 14"><path d="M0 7H24M18 2L26 7L18 12" stroke="rgba(255,255,255,.28)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="fstep">
+      <div class="fnode" style="background:rgba(109,200,75,.18);border-color:var(--green)">🏗️</div>
+      <div class="flabel" style="color:var(--green)">TLD</div>
+      <div class="fsub">Dev defines architecture & technical approach</div>
+    </div>
+    <div class="farr"><svg width="30" height="14" viewBox="0 0 30 14"><path d="M0 7H24M18 2L26 7L18 12" stroke="rgba(255,255,255,.28)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="fstep">
+      <div class="fnode" style="background:rgba(245,166,35,.18);border-color:var(--yellow)">🗂️</div>
+      <div class="flabel" style="color:var(--yellow)">Stories</div>
+      <div class="fsub">Feature broken into testable business & tech topics</div>
+    </div>
+    <div class="farr"><svg width="30" height="14" viewBox="0 0 30 14"><path d="M0 7H24M18 2L26 7L18 12" stroke="rgba(255,255,255,.28)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="fstep">
+      <div class="fnode" style="background:rgba(232,67,90,.18);border-color:var(--pink);font-size:18px">🔧🧪</div>
+      <div class="flabel" style="color:var(--pink)">Dev + QA</div>
+      <div class="fsub">Parallel work with time estimates per subtask</div>
+    </div>
+    <div class="farr"><svg width="30" height="14" viewBox="0 0 30 14"><path d="M0 7H24M18 2L26 7L18 12" stroke="rgba(255,255,255,.28)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="fstep">
+      <div class="fnode" style="background:rgba(109,200,75,.24);border-color:var(--green)">🚀</div>
+      <div class="flabel" style="color:var(--green)">Deliver</div>
+      <div class="fsub">Feature passes E2E — ready for release</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 4 — STORY STRUCTURE ══════ -->
+<div class="slide" id="s4">
+  <div class="label">Story Breakdown</div>
+  <h2>How We Break Down Features</h2>
+  <div class="tree">
+    <!-- Story level (top level — no Epic) -->
+    <div class="t0">
+      <span style="font-size:21px">📖</span>
+      <span class="tbadge b-story">Story / Task</span>
+      <span class="ttext">Business or Technical Topic</span>
+      <span class="tsub">One complete topic — the top-level unit of work</span>
+    </div>
+    <!-- Dev Subtask -->
+    <div class="t1 tdev">
+      <span style="font-size:16px">🔧</span>
+      <span class="tbadge b-dev">Dev Subtask</span>
+      <span class="ttext">Technical implementation</span>
+      <span class="tsub">⏱ Time estimate here</span>
+    </div>
+    <!-- QA Subtask -->
+    <div class="t1 tqa">
+      <span style="font-size:16px">🧪</span>
+      <span class="tbadge b-qa">QA Subtask</span>
+      <span class="ttext">Test plan + validation</span>
+      <span class="tsub">⏱ Time estimate here</span>
+    </div>
+    <div class="callouts">
+      <div class="callout"><strong>Rule 1:</strong> Each Story = one business or technical topic. It is the top-level unit — not a subtask of anything else.</div>
+      <div class="callout"><strong>Rule 2:</strong> Time estimates live on the Dev & QA subtasks, not on the Story itself.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 5 — THE GOLDEN TRIO ══════ -->
+<div class="slide" id="s5">
+  <div class="label">⚡ The Golden Trio</div>
+  <h2>Three Documents. Zero Ambiguity.</h2>
+  <div style="font-size:13px;color:var(--muted);margin-bottom:22px;text-align:center">Product · Dev · QA each own a document — together they define what's built, how it's built, and how it's verified</div>
+  <div class="dcols">
+
+    <div class="dc dc-prd">
+      <div class="dctitle" style="color:var(--blue)">PRD</div>
+      <div class="dcname">Product Requirements Document</div>
+      <div class="drow"><span class="drl" style="color:var(--blue)">Owner</span><span class="drv">Product 🎯</span></div>
+      <div class="drow"><span class="drl" style="color:var(--blue)">What</span><span class="drv">Business goals, user flows, acceptance criteria</span></div>
+      <div class="drow"><span class="drl" style="color:var(--blue)">When</span><span class="drv">Before development begins</span></div>
+      <div class="drow"><span class="drl" style="color:var(--blue)">Lives in</span><span class="drv">Notion</span></div>
+      <span class="dpill" style="background:rgba(59,158,245,.2);color:var(--blue)">✓ Already in Practice</span>
+    </div>
+
+    <div class="dc dc-tld">
+      <div class="dctitle" style="color:var(--green)">TLD</div>
+      <div class="dcname">Technical Design Document</div>
+      <div class="drow"><span class="drl" style="color:var(--green)">Owner</span><span class="drv">Client · Dev 🔧</span></div>
+      <div class="drow"><span class="drl" style="color:var(--green)">What</span><span class="drv">Architecture, technical approach, edge cases, dependencies</span></div>
+      <div class="drow"><span class="drl" style="color:var(--green)">When</span><span class="drv">After PRD, before coding starts</span></div>
+      <div class="drow"><span class="drl" style="color:var(--green)">Lives in</span><span class="drv">Notion</span></div>
+      <span class="dpill" style="background:rgba(245,166,35,.2);color:var(--yellow)">🚀 Coming to PeerPlay</span>
+    </div>
+
+    <div class="dc dc-tdr">
+      <div class="dctitle" style="color:var(--pink)">TDR</div>
+      <div class="dcname">Test Design Review</div>
+      <div class="drow"><span class="drl" style="color:var(--pink)">Owner</span><span class="drv">QA 🧪</span></div>
+      <div class="drow"><span class="drl" style="color:var(--pink)">What</span><span class="drv">Test scenarios, edge case validation, acceptance sign-off criteria</span></div>
+      <div class="drow"><span class="drl" style="color:var(--pink)">When</span><span class="drv">After TLD, before testing begins</span></div>
+      <div class="drow"><span class="drl" style="color:var(--pink)">Lives in</span><span class="drv">Testomatio + Notion</span></div>
+      <span class="dpill" style="background:rgba(232,67,90,.18);color:var(--pink)">🚀 Coming to PeerPlay</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════ SLIDE 6 — BRANCH MODEL ══════ -->
+<div class="slide" id="s6">
+  <div class="label">Version Control</div>
+  <h2>Branch Model</h2>
+  <div class="branch-wrap">
+    <svg class="branch-svg" viewBox="0 0 880 330" xmlns="http://www.w3.org/2000/svg">
+      <!-- Lane guide lines -->
+      <line x1="110" y1="55"  x2="860" y2="55"  stroke="rgba(59,158,245,.12)"  stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="110" y1="145" x2="860" y2="145" stroke="rgba(59,158,245,.1)"   stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="110" y1="238" x2="860" y2="238" stroke="rgba(109,200,75,.12)"  stroke-width="1" stroke-dasharray="4,4"/>
+
+      <!-- Lane labels -->
+      <text x="100" y="50"  text-anchor="end" fill="rgba(59,158,245,.75)"  font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Feature</text>
+      <text x="100" y="64"  text-anchor="end" fill="rgba(59,158,245,.75)"  font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Branch 1</text>
+      <text x="100" y="140" text-anchor="end" fill="rgba(59,158,245,.6)"   font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Feature</text>
+      <text x="100" y="154" text-anchor="end" fill="rgba(59,158,245,.6)"   font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Branch 2</text>
+      <text x="100" y="234" text-anchor="end" fill="rgba(109,200,75,.8)"   font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Release</text>
+      <text x="100" y="248" text-anchor="end" fill="rgba(109,200,75,.8)"   font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Branch</text>
+      <text x="100" y="315" text-anchor="end" fill="rgba(232,67,90,.85)"   font-size="13" font-family="Plus Jakarta Sans,sans-serif" font-weight="800">Master</text>
+
+      <!-- MASTER LINE -->
+      <line x1="110" y1="308" x2="860" y2="308" stroke="#E8435A" stroke-width="3"/>
+
+      <!-- Feature Branch 1 — fork from master at x=165, arrives at y=55 at x=215 -->
+      <path d="M 165 308 C 165 265 215 100 215 55" stroke="#3B9EF5" stroke-width="2.5" fill="none"/>
+      <!-- FB1 horizontal line -->
+      <line x1="215" y1="55" x2="530" y2="55" stroke="#3B9EF5" stroke-width="2.5"/>
+      <!-- FB1 merges down to release branch at x=590, y=238 -->
+      <path d="M 530 55 C 560 55 590 155 590 238" stroke="#3B9EF5" stroke-width="2.5" fill="none" opacity=".9"/>
+
+      <!-- Feature Branch 2 — fork from master at x=230, arrives at y=145 at x=275 -->
+      <path d="M 230 308 C 230 278 275 185 275 145" stroke="#3B9EF5" stroke-width="2.5" fill="none" opacity=".7"/>
+      <!-- FB2 horizontal line -->
+      <line x1="275" y1="145" x2="500" y2="145" stroke="#3B9EF5" stroke-width="2.5" opacity=".7"/>
+      <!-- FB2 merges down to release at x=570, y=238 -->
+      <path d="M 500 145 C 528 145 568 200 568 238" stroke="#3B9EF5" stroke-width="2.5" fill="none" opacity=".7"/>
+
+      <!-- RELEASE BRANCH — starts at x=560, y=238, merges to master at x=810 -->
+      <line x1="560" y1="238" x2="800" y2="238" stroke="#6DC84B" stroke-width="2.5"/>
+      <path d="M 800 238 C 820 238 828 275 828 308" stroke="#6DC84B" stroke-width="2.5" fill="none"/>
+
+      <!-- ── NODES ── -->
+
+      <!-- Master create-branch nodes (outlined dark circles) -->
+      <circle cx="165" cy="308" r="13" fill="#1A1F36" stroke="#3B9EF5" stroke-width="2.5"/>
+      <line x1="165" y1="302" x2="165" y2="314" stroke="#3B9EF5" stroke-width="1.8"/>
+      <line x1="159" y1="302" x2="165" y2="298" stroke="#3B9EF5" stroke-width="1.8"/>
+
+      <circle cx="230" cy="308" r="13" fill="#1A1F36" stroke="#3B9EF5" stroke-width="2" opacity=".85"/>
+      <line x1="230" y1="302" x2="230" y2="314" stroke="#3B9EF5" stroke-width="1.8" opacity=".85"/>
+      <line x1="224" y1="302" x2="230" y2="298" stroke="#3B9EF5" stroke-width="1.8" opacity=".85"/>
+
+      <!-- FB1 commit nodes (filled blue) -->
+      <circle cx="300" cy="55" r="11" fill="#3B9EF5"/>
+      <circle cx="385" cy="55" r="11" fill="#3B9EF5"/>
+      <circle cx="470" cy="55" r="11" fill="#3B9EF5"/>
+
+      <!-- FB2 commit nodes -->
+      <circle cx="335" cy="145" r="11" fill="#3B9EF5" opacity=".75"/>
+      <circle cx="430" cy="145" r="11" fill="#3B9EF5" opacity=".75"/>
+
+      <!-- Merge points into release (where branches arrive) -->
+      <circle cx="568" cy="238" r="11" fill="#1A1F36" stroke="#6DC84B" stroke-width="2.2"/>
+      <circle cx="590" cy="238" r="11" fill="#1A1F36" stroke="#6DC84B" stroke-width="2.2"/>
+
+      <!-- Release testing commit nodes -->
+      <circle cx="650" cy="238" r="11" fill="#6DC84B"/>
+      <circle cx="730" cy="238" r="11" fill="#6DC84B"/>
+
+      <!-- Final merge node on master -->
+      <circle cx="828" cy="308" r="13" fill="#1A1F36" stroke="#6DC84B" stroke-width="2.5"/>
+      <!-- Merge arrows inside -->
+      <path d="M 823 311 A 7 7 0 1 1 830 304" stroke="#6DC84B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <polyline points="828,302 830,305 832,302" stroke="#6DC84B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </svg>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="leg-item">
+        <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1A1F36" stroke="#3B9EF5" stroke-width="2.2"/><line x1="12" y1="7" x2="12" y2="17" stroke="#3B9EF5" stroke-width="1.8"/><line x1="7" y1="7" x2="12" y2="4" stroke="#3B9EF5" stroke-width="1.8"/></svg>
+        Create branch
+      </div>
+      <div class="leg-item">
+        <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#3B9EF5"/></svg>
+        Commit
+      </div>
+      <div class="leg-item">
+        <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1A1F36" stroke="#6DC84B" stroke-width="2.2"/><path d="M 8 13 A 5 5 0 1 1 13 8" stroke="#6DC84B" stroke-width="1.8" fill="none" stroke-linecap="round"/><polyline points="12,6 14,9 16,6" stroke="#6DC84B" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+        Merge branch
+      </div>
+      <div class="leg-item"><span style="color:var(--pink);font-weight:700">━━</span> Master &nbsp;&nbsp; <span style="color:var(--blue);font-weight:700">━━</span> Feature &nbsp;&nbsp; <span style="color:var(--green);font-weight:700">━━</span> Release</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 7 — RELEASE TIMELINE ══════ -->
+<div class="slide" id="s7">
+  <div class="label">Release Process</div>
+  <h2>The Release Flow</h2>
+  <div class="vt-outer">
+
+    <!-- Left: number circles + connecting line -->
+    <div class="vt-line-col">
+      <div class="vt-num" style="border-color:var(--blue);color:var(--blue)">1</div>
+      <div class="vt-connector"></div>
+      <div class="vt-num" style="border-color:var(--yellow);color:var(--yellow)">2</div>
+      <div class="vt-connector"></div>
+      <div class="vt-num" style="border-color:var(--yellow);color:var(--yellow)">3</div>
+      <div class="vt-connector"></div>
+      <div class="vt-num" style="border-color:var(--pink);color:var(--pink)">4</div>
+      <div class="vt-connector"></div>
+      <div class="vt-num" style="border-color:var(--yellow);color:var(--yellow)">5</div>
+      <div class="vt-connector"></div>
+      <div class="vt-num" style="border-color:var(--pink);color:var(--pink)">6</div>
+      <div class="vt-connector"></div>
+      <div class="vt-num" style="border-color:var(--blue);color:var(--blue)">7</div>
+      <div class="vt-connector"></div>
+      <div class="vt-num" style="border-color:var(--green);color:var(--green);box-shadow:0 0 12px rgba(109,200,75,.3)">8</div>
+    </div>
+
+    <!-- Right: step content -->
+    <div class="vt-steps">
+
+      <div class="vt-step">
+        <span class="vt-icon">📋</span>
+        <div class="vt-info">
+          <div class="vt-label" style="color:var(--blue)">PRD Ready</div>
+          <div class="vt-badge" style="background:rgba(59,158,245,.15);color:var(--blue)">Product</div>
+        </div>
+      </div>
+
+      <div class="vt-step">
+        <span class="vt-icon">🌳</span>
+        <div class="vt-info">
+          <div class="vt-label" style="color:var(--yellow)">Branch from Master</div>
+          <div class="vt-badge" style="background:rgba(245,166,35,.15);color:var(--yellow)">Dev</div>
+        </div>
+      </div>
+
+      <div class="vt-step">
+        <span class="vt-icon">🔨🧪</span>
+        <div class="vt-info">
+          <div class="vt-label" style="color:var(--yellow)">Build on Dev Env + QA Testing in parallel</div>
+          <div class="vt-badge" style="background:rgba(245,166,35,.12);color:rgba(245,166,35,.85)">Dev + QA</div>
+        </div>
+      </div>
+
+      <div class="vt-step">
+        <span class="vt-icon">✅</span>
+        <div class="vt-info">
+          <div class="vt-label" style="color:var(--pink)">E2E Tests Complete on Dev</div>
+          <div class="vt-badge" style="background:rgba(232,67,90,.12);color:var(--pink)">QA</div>
+        </div>
+      </div>
+
+      <div class="vt-step">
+        <span class="vt-icon">📦</span>
+        <div class="vt-info">
+          <div class="vt-label" style="color:var(--yellow)">Release Candidate — features + bug fixes → Staging</div>
+          <div class="vt-badge" style="background:rgba(245,166,35,.15);color:var(--yellow)">Dev</div>
+        </div>
+      </div>
+
+      <div class="vt-step">
+        <span class="vt-icon">🔍</span>
+        <div class="vt-info">
+          <div class="vt-label" style="color:var(--pink)">Staging QA — E2E, Sanity, Smoke</div>
+          <div class="vt-badge" style="background:rgba(232,67,90,.12);color:var(--pink)">QA</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">Build number increments on each Staging fix</div>
+        </div>
+      </div>
+
+      <div class="vt-step">
+        <span class="vt-icon">👍</span>
+        <div class="vt-info">
+          <div class="vt-label" style="color:var(--blue)">Release Sign-off</div>
+          <div class="vt-badge" style="background:rgba(59,158,245,.15);color:var(--blue)">Product</div>
+        </div>
+      </div>
+
+      <div class="vt-step">
+        <span class="vt-icon">🚀</span>
+        <div class="vt-info">
+          <div class="vt-label" style="color:var(--green)">Production Build — Smoke test → Ship to players!</div>
+          <div class="vt-badge" style="background:rgba(109,200,75,.18);color:var(--green)">Dev + QA</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 8 — BUG LIFECYCLE ══════ -->
+<div class="slide" id="s8">
+  <div class="label">Quality</div>
+  <h2>Bug Life Cycle</h2>
+  <div class="bugflow">
+
+    <!-- REOPENED arc -->
+    <div class="bfreopen">
+      <span style="font-size:10px;font-weight:700;color:rgba(59,158,245,.5);white-space:nowrap;text-transform:uppercase;letter-spacing:.07em">&#x21BA; Reopened</span>
+      <div class="bfreopen-line"></div>
+      <span style="font-size:10px;color:rgba(59,158,245,.4);white-space:nowrap">from Close &#x2190;</span>
+    </div>
+
+    <!-- Row 1: steps 1-4 -->
+    <div class="bfrow">
+      <div class="bfbox" style="background:rgba(59,158,245,.13);border-color:rgba(59,158,245,.42)">
+        <span class="bfnum">Step 1</span>
+        <span class="bfbox-icon">📋</span>
+        <span class="bfbox-label" style="color:var(--blue)">To Do</span>
+      </div>
+      <div class="bfarr">&#x2192;</div>
+      <div class="bfbox" style="background:rgba(245,166,35,.12);border-color:rgba(245,166,35,.4)">
+        <span class="bfnum">Step 2</span>
+        <span class="bfbox-icon">🔨</span>
+        <span class="bfbox-label" style="color:var(--yellow)">In Progress</span>
+      </div>
+      <div class="bfarr">&#x2192;</div>
+      <div class="bfbox" style="background:rgba(245,166,35,.08);border-color:rgba(245,166,35,.28)">
+        <span class="bfnum">Step 3</span>
+        <span class="bfbox-icon">👀</span>
+        <span class="bfbox-label" style="color:rgba(245,166,35,.85)">In Review</span>
+      </div>
+      <div class="bfarr">&#x2192;</div>
+      <div class="bfbox" style="background:rgba(232,67,90,.13);border-color:rgba(232,67,90,.42)">
+        <span class="bfnum">Step 4</span>
+        <span class="bfbox-icon">🧪</span>
+        <span class="bfbox-label" style="color:var(--pink)">Ready for QA</span>
+      </div>
+      <!-- corner: right side, pointing down toward Testing -->
+      <div style="flex:0 0 44px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:96px;padding-bottom:0px">
+        <div style="width:20px;height:66px;border-right:3px solid rgba(232,67,90,.35);border-bottom:3px solid rgba(232,67,90,.35);border-radius:0 0 12px 0"></div>
+        <div style="margin-top:-3px;color:rgba(232,67,90,.5);font-size:14px;line-height:1">&#x25BC;</div>
+        <div style="font-size:8px;font-weight:800;color:rgba(232,67,90,.45);letter-spacing:.05em;margin-top:2px">STEP 5</div>
+      </div>
+    </div>
+
+    <!-- Visible gap between rows -->
+    <div style="height:56px"></div>
+
+    <!-- Row 2: steps 5-8 — Testing is directly below Ready for QA (right-aligned to corner) -->
+    <div class="bfrow" style="flex-direction:row-reverse">
+      <div class="bfbox" style="background:rgba(232,67,90,.1);border-color:rgba(232,67,90,.32)">
+        <span class="bfnum">Step 5</span>
+        <span class="bfbox-icon">🔬</span>
+        <span class="bfbox-label" style="color:rgba(232,67,90,.85)">Testing</span>
+      </div>
+      <div class="bfarr" style="transform:scaleX(-1)">&#x2192;</div>
+      <div class="bfbox" style="background:rgba(109,200,75,.13);border-color:rgba(109,200,75,.42)">
+        <span class="bfnum">Step 6</span>
+        <span class="bfbox-icon">✅</span>
+        <span class="bfbox-label" style="color:var(--green)">Passed QA</span>
+      </div>
+      <div class="bfarr" style="transform:scaleX(-1)">&#x2192;</div>
+      <div class="bfbox" style="background:rgba(109,200,75,.1);border-color:rgba(109,200,75,.3)">
+        <span class="bfnum">Step 7</span>
+        <span class="bfbox-icon">📦</span>
+        <span class="bfbox-label" style="color:rgba(109,200,75,.85)">Ready for Release</span>
+      </div>
+      <div class="bfarr" style="transform:scaleX(-1)">&#x2192;</div>
+      <div class="bfbox" style="background:rgba(109,200,75,.22);border-color:rgba(109,200,75,.62);box-shadow:0 0 16px rgba(109,200,75,.22)">
+        <span class="bfnum">Step 8</span>
+        <span class="bfbox-icon">✓</span>
+        <span class="bfbox-label" style="color:var(--green);font-size:16px">Close</span>
+      </div>
+      <div style="flex:0 0 44px"></div><!-- aligns with row 1 corner -->
+    </div>
+
+    <!-- Alt paths — subtle footnote -->
+    <div style="margin-top:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <span style="font-size:9.5px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.08em">Exit paths:</span>
+      <span style="font-size:10.5px;color:rgba(232,67,90,.55);padding:2px 8px;border:1px solid rgba(232,67,90,.2);border-radius:7px">❌ Not a Bug</span>
+      <span style="font-size:10.5px;color:rgba(245,166,35,.55);padding:2px 8px;border:1px solid rgba(245,166,35,.18);border-radius:7px">🔁 Duplicated</span>
+      <span style="font-size:10.5px;color:rgba(255,255,255,.35);padding:2px 8px;border:1px solid rgba(255,255,255,.1);border-radius:7px">❓ Cannot Reproduce</span>
+      <span style="font-size:10.5px;color:rgba(255,255,255,.3);padding:2px 8px;border:1px solid rgba(255,255,255,.08);border-radius:7px">🚫 Won't be Fixed</span>
+      <span style="color:rgba(255,255,255,.12);margin:0 2px">|</span>
+      <span style="font-size:10.5px;color:rgba(255,255,255,.25);padding:2px 8px;border:1px solid rgba(255,255,255,.07);border-radius:7px">⏸ On Hold</span>
+      <span style="font-size:10.5px;color:rgba(255,255,255,.25);padding:2px 8px;border:1px solid rgba(255,255,255,.07);border-radius:7px">📂 Backlog</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════ SLIDE 9 — TOOLS WEB ══════ -->
+<div class="slide" id="s9">
+  <div class="label">Tooling</div>
+  <h2>Our Tools Ecosystem</h2>
+  <div class="tw-wrap">
+    <div style="position:relative;width:100%;height:370px">
+
+      <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:1" viewBox="0 0 960 370" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <marker id="ah-b" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="rgba(59,158,245,.55)"/></marker>
+          <marker id="ah-g" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="rgba(109,200,75,.55)"/></marker>
+          <marker id="ah-y" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="rgba(245,166,35,.55)"/></marker>
+          <marker id="ah-p" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="rgba(232,67,90,.5)"/></marker>
+        </defs>
+        <!-- Notion (12%,15%) to Testomatio (88%,15%) — AI test gen arc -->
+        <path d="M 178 56 C 340 12 620 12 842 56" stroke="rgba(109,200,75,.42)" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#ah-g)"/>
+        <text x="510" y="10" text-anchor="middle" fill="rgba(109,200,75,.62)" font-size="11" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">AI generates tests from PRD &amp; TLD</text>
+        <!-- Notion to Jira (22%,88%) -->
+        <path d="M 172 78 C 155 185 192 300 207 318" stroke="rgba(59,158,245,.38)" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-b)"/>
+        <!-- Testomatio to Jira -->
+        <path d="M 842 78 C 800 195 360 310 230 320" stroke="rgba(109,200,75,.32)" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-g)"/>
+        <!-- GitHub (92%,50%) to Jira — PRs linked -->
+        <path d="M 883 185 C 830 260 370 318 238 322" stroke="rgba(245,166,35,.45)" stroke-width="2.2" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-y)"/>
+        <text x="610" y="258" text-anchor="middle" fill="rgba(245,166,35,.58)" font-size="11" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">PRs linked to tickets</text>
+        <!-- GitHub to Environments (79%,88%) -->
+        <path d="M 888 205 C 876 278 826 312 758 322" stroke="rgba(232,67,90,.38)" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-p)"/>
+        <!-- Bugs Bot (8%,50%) to Jira -->
+        <path d="M 77 188 C 95 258 168 308 200 320" stroke="rgba(109,200,75,.35)" stroke-width="2" fill="none" stroke-dasharray="5,4" marker-end="url(#ah-g)"/>
+      </svg>
+
+      <!-- Notion top-left -->
+      <div class="tw-node" style="left:12%;top:15%;background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.2)">
+        <div class="tw-icon">📝</div>
+        <div class="tw-title">Notion</div>
+        <div class="tw-desc">PRD · TLD<br>Planning docs</div>
+      </div>
+
+      <!-- Testomatio top-right -->
+      <div class="tw-node" style="left:88%;top:15%;background:rgba(109,200,75,.11);border:1.5px solid rgba(109,200,75,.34)">
+        <div class="tw-icon">🧪</div>
+        <div class="tw-title" style="color:var(--green)">Testomatio</div>
+        <div class="tw-desc">Test management<br>AI test gen</div>
+      </div>
+
+      <!-- GitHub middle-right -->
+      <div class="tw-node" style="left:92%;top:50%;background:rgba(245,166,35,.1);border:1.5px solid rgba(245,166,35,.32)">
+        <div class="tw-icon">💻</div>
+        <div class="tw-title" style="color:var(--yellow)">GitHub</div>
+        <div class="tw-desc">Branches · PRs<br>Code &amp; releases</div>
+      </div>
+
+      <!-- Environments bottom-right -->
+      <div class="tw-node" style="left:79%;top:88%;background:rgba(232,67,90,.1);border:1.5px solid rgba(232,67,90,.32)">
+        <div class="tw-icon">🖥️</div>
+        <div class="tw-title" style="color:var(--pink)">Environments</div>
+        <div class="tw-desc">Dev · Staging<br>Production</div>
+      </div>
+
+      <!-- Jira bottom-left — hub, more prominent -->
+      <div class="tw-node" style="left:22%;top:88%;background:rgba(59,158,245,.15);border:2px solid rgba(59,158,245,.5);box-shadow:0 0 26px rgba(59,158,245,.16)">
+        <div class="tw-icon">🎯</div>
+        <div class="tw-title" style="color:var(--blue)">Jira</div>
+        <div class="tw-desc">Stories · Bugs<br>Releases</div>
+      </div>
+
+      <!-- Bugs Bot middle-left -->
+      <div class="tw-node" style="left:8%;top:50%;background:rgba(109,200,75,.08);border:1.5px solid rgba(109,200,75,.26)">
+        <div class="tw-icon">🐛</div>
+        <div class="tw-title" style="color:var(--green)">Bugs Bot</div>
+        <div class="tw-desc">Slack → Jira<br>Bug reports</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 10 — STEPS TO GET THERE ══════ -->
+<div class="slide" id="s10">
+  <div class="label">Action Plan</div>
+  <h2>Steps to Get There</h2>
+  <div class="vsteps">
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--blue);color:var(--blue)">1</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(59,158,245,.15);color:var(--blue)">Setup</span>
+        <span class="vstep-title">Configure Jira Bug Workflow</span>
+        <div class="vstep-desc">New bug statuses: To Do → In Progress → In Review → Ready for QA → Testing → Passed QA → Ready for Release → Close</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--blue);color:var(--blue)">2</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(59,158,245,.15);color:var(--blue)">Setup</span>
+        <span class="vstep-title">Define Story / Task Structure in Jira</span>
+        <div class="vstep-desc">Story/Task as top unit · Dev Subtask + QA Subtask · Remove Epic level entirely</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--green);color:var(--green)">3</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(109,200,75,.15);color:var(--green)">Integrate</span>
+        <span class="vstep-title">TLD Template in Notion</span>
+        <div class="vstep-desc">Technical Design Doc template ready for Dev to use from the first feature under the new process</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--green);color:var(--green)">4</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(109,200,75,.15);color:var(--green)">Integrate</span>
+        <span class="vstep-title">Testomatio + Notion AI Integration</span>
+        <div class="vstep-desc">AI auto-generates test cases from PRD &amp; TLD — QA starts with a ready-made test plan</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--green);color:var(--green)">5</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(109,200,75,.15);color:var(--green)">Integrate</span>
+        <span class="vstep-title">GitHub ↔ Jira PR Linking</span>
+        <div class="vstep-desc">Every PR references a Jira story or bug ticket — no orphan code changes</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--yellow);color:var(--yellow)">6</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(245,166,35,.15);color:var(--yellow)">Execute</span>
+        <span class="vstep-title">Team Alignment Session</span>
+        <div class="vstep-desc">Walk Product, Dev &amp; QA through the full new process together — one shared understanding</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--yellow);color:var(--yellow)">7</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(245,166,35,.15);color:var(--yellow)">Execute</span>
+        <span class="vstep-title">First Feature Under New Process</span>
+        <div class="vstep-desc">TLD → Stories → Dev + QA parallel → Release · The real test of the process end-to-end</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--pink);color:var(--pink)">8</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(232,67,90,.15);color:var(--pink)">Improve</span>
+        <span class="vstep-title">Retrospective &amp; Lock It In</span>
+        <div class="vstep-desc">What worked, what didn't — refine and make the process permanent for every feature going forward</div>
+      </div>
+    </div>
+
+  </div>
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;color:rgba(255,255,255,.75);text-align:center;margin-top:14px">Same team. Clearer process. Better games. 🎮</div>
+</div>
+
+</div><!-- /deck -->
+
+<div class="nav">
+  <button class="nbtn" id="prevBtn" onclick="go(-1)" disabled>←</button>
+  <span class="counter" id="ctr">1 / 10</span>
+  <button class="nbtn" id="nextBtn" onclick="go(1)">→</button>
+</div>
+
+<script>
+const TOTAL=10;let cur=1,busy=false;
+function go(d){
+  if(busy)return;const n=cur+d;if(n<1||n>TOTAL)return;busy=true;
+  const f=document.getElementById('s'+cur),t=document.getElementById('s'+n);
+  t.style.transform=d>0?'translateX(56px)':'translateX(-56px)';
+  t.style.opacity='0';t.style.pointerEvents='none';
+  t.getBoundingClientRect();
+  f.style.transform=d>0?'translateX(-56px)':'translateX(56px)';
+  f.style.opacity='0';f.classList.remove('active');
+  t.style.transition='opacity .48s cubic-bezier(.4,0,.2,1),transform .48s cubic-bezier(.4,0,.2,1)';
+  f.style.transition='opacity .48s cubic-bezier(.4,0,.2,1),transform .48s cubic-bezier(.4,0,.2,1)';
+  t.style.transform='translateX(0)';t.style.opacity='1';t.style.pointerEvents='all';t.classList.add('active');
+  cur=n;ui();setTimeout(()=>{busy=false},500);
+}
+function ui(){
+  document.getElementById('ctr').textContent=cur+' / '+TOTAL;
+  document.getElementById('prevBtn').disabled=cur===1;
+  document.getElementById('nextBtn').disabled=cur===TOTAL;
+  document.getElementById('progress').style.width=((cur-1)/(TOTAL-1)*100)+'%';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);
+});
+ui();
+</script>
+</body>
+</html>

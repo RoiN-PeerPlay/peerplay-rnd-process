@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New R&D & Delivery Process — PeerPlay V6</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1A1F36;
+  --blue:#3B9EF5;--green:#6DC84B;--yellow:#F5A623;--pink:#E8435A;
+  --white:#fff;--muted:rgba(255,255,255,.52);
+  --card:rgba(255,255,255,.055);--border:rgba(255,255,255,.1);
+}
+html,body{width:100%;height:100%;background:var(--navy);overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif;color:#fff}
+
+#progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--blue),var(--green),var(--yellow),var(--pink));transition:width .4s ease;z-index:200}
+
+.deck{width:100vw;height:100vh;position:relative;overflow:hidden}
+
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:44px 88px;
+  opacity:0;transform:translateX(56px);
+  transition:opacity .48s cubic-bezier(.4,0,.2,1),transform .48s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all}
+.slide::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 700px 350px at 94% 6%,rgba(59,158,245,.07) 0%,transparent 60%),
+             radial-gradient(ellipse 500px 300px at 4% 96%,rgba(232,67,90,.055) 0%,transparent 55%)}
+
+.label{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,3.6vw,50px);font-weight:800;letter-spacing:-.025em;line-height:1.1;margin-bottom:32px}
+
+.nav{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;z-index:100;
+  background:rgba(255,255,255,.055);backdrop-filter:blur(24px);border:1px solid var(--border);border-radius:50px;padding:9px 18px}
+.nbtn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .18s}
+.nbtn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28)}
+.nbtn:disabled{opacity:.28;cursor:default}
+.counter{font-size:13px;font-weight:600;color:rgba(255,255,255,.65);min-width:48px;text-align:center}
+
+/* ═══ SLIDE 1 — COVER ═══ */
+#s1{text-align:center;gap:0}
+#s1 h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(38px,5vw,62px);font-weight:800;letter-spacing:-.03em;line-height:1.08;
+  background:linear-gradient(135deg,#fff 20%,rgba(255,255,255,.6) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:22px 0 14px}
+.csub{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:700;color:var(--blue);margin-bottom:20px}
+.ctag{font-size:15px;color:var(--muted);letter-spacing:.04em}
+.cdots{display:flex;justify-content:center;gap:10px;margin-top:36px}
+.cdot{width:10px;height:10px;border-radius:50%}
+
+/* ═══ SLIDE 2 — VISION ═══ */
+#s2 .vcols{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;width:100%;max-width:920px}
+.vc{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:40px 30px;text-align:center;position:relative;overflow:hidden}
+.vc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.vc:nth-child(1)::before{background:var(--blue)}
+.vc:nth-child(2)::before{background:var(--green)}
+.vc:nth-child(3)::before{background:var(--yellow)}
+.vicon{font-size:44px;margin-bottom:16px;display:block}
+.vtitle{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;margin-bottom:14px}
+.vc:nth-child(1) .vtitle{color:var(--blue)}.vc:nth-child(2) .vtitle{color:var(--green)}.vc:nth-child(3) .vtitle{color:var(--yellow)}
+.vtext{font-size:15px;color:var(--muted);line-height:1.7}
+
+/* ═══ SLIDE 3 — FEATURE FLOW (V4 layout, redesigned sub-text) ═══ */
+#s3{padding:20px 44px}
+#s3 h2{margin-bottom:18px}
+.fnode-v2{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:8px;border:2px solid}
+.flabel-v2{font-family:'Bricolage Grotesque',sans-serif;font-size:12.5px;font-weight:800;margin-bottom:5px}
+.fown-owner{font-size:8.5px;font-weight:800;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;display:inline-block;white-space:nowrap}
+.fown-with{font-size:9px;color:rgba(255,255,255,.4);line-height:1.4;text-align:center}
+
+/* Step description bullets under the flow */
+.flow-desc-row{display:flex;width:100%;max-width:1140px;margin-top:16px;gap:0}
+.flow-desc-col{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px}
+.flow-desc-spacer{flex:0 0 32px}
+.flow-desc-list{font-size:11px;color:rgba(255,255,255,.38);line-height:1.5;list-style:none;padding:0;text-align:center;width:100%}
+.flow-desc-list li{padding-left:0;position:relative;margin-bottom:2px}
+.flow-desc-list li::before{content:none}
+
+/* ═══ SLIDE 4 — GOLDEN TRIO ═══ */
+#s4{padding:36px 72px}
+#s4 h2{margin-bottom:8px}
+#s4 .dcols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%;max-width:1060px}
+.dc{border-radius:18px;padding:24px 22px;display:flex!important;flex-direction:column!important}
+.dc-prd{background:linear-gradient(148deg,rgba(59,158,245,.16),rgba(59,158,245,.03));border:1px solid rgba(59,158,245,.3)}
+.dc-tld{background:linear-gradient(148deg,rgba(109,200,75,.13),rgba(109,200,75,.02));border:1px solid rgba(109,200,75,.3)}
+.dc-tdr{background:linear-gradient(148deg,rgba(232,67,90,.13),rgba(232,67,90,.02));border:1px solid rgba(232,67,90,.3)}
+.dctitle{font-family:'Bricolage Grotesque',sans-serif;font-size:32px;font-weight:900;margin-bottom:3px}
+.dcname{font-size:12px;color:var(--muted);margin-bottom:26px;font-weight:500}
+.drow{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.drl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;min-width:58px;padding-top:2px}
+.drv{font-size:14px;color:var(--muted);line-height:1.55}
+.dpill{display:inline-block;padding:5px 14px;border-radius:20px;font-size:11.5px;font-weight:700;margin-top:auto!important}
+
+/* ═══ SLIDE 5 — STORY STRUCTURE (V4) ═══ */
+#s5 .tree{width:100%;max-width:860px}
+.t0{background:linear-gradient(135deg,rgba(59,158,245,.18),rgba(59,158,245,.04));border:1px solid rgba(59,158,245,.38);border-radius:16px;padding:20px 26px;display:flex;align-items:center;gap:13px;margin-bottom:7px}
+.t1{margin-left:44px;border-radius:14px;padding:14px 22px;display:flex;align-items:center;gap:11px;margin-bottom:7px;position:relative;min-height:44px}
+.t1.tdev{background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.3)}
+.t1.tqa{background:rgba(232,67,90,.11);border:1px solid rgba(232,67,90,.28)}
+.t1.tbug{background:rgba(232,67,90,.08);border:1px solid rgba(232,67,90,.2)}
+.t1.tart{background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.2)}
+.t1::before{content:'';position:absolute;left:-26px;top:50%;width:22px;height:1px;background:rgba(255,255,255,.2)}
+.tbadge{font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;flex-shrink:0}
+.b-story{background:rgba(59,158,245,.28);color:var(--blue)}
+.b-dev{background:rgba(245,166,35,.28);color:var(--yellow)}
+.b-qa{background:rgba(232,67,90,.28);color:var(--pink)}
+.b-bug{background:rgba(232,67,90,.22);color:var(--pink)}
+.b-art{background:rgba(245,166,35,.22);color:var(--yellow)}
+.ttext{font-size:15px;font-weight:600}
+.tsub{font-size:13px;color:var(--muted);margin-left:auto;padding-left:12px}
+
+/* Rules bulleted list for story breakdown */
+.rules-list{margin-top:22px;width:100%;max-width:860px;display:flex;flex-direction:column;gap:6px}
+.rule-item{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 16px;font-size:12.5px;color:var(--muted);line-height:1.5}
+.rule-item strong{color:#fff;flex-shrink:0;min-width:52px}
+.rule-item:nth-child(1){border-left:3px solid var(--blue)}
+.rule-item:nth-child(2){border-left:3px solid var(--yellow)}
+.rule-item:nth-child(3){border-left:3px solid var(--green)}
+.rule-item:nth-child(4){border-left:3px solid var(--pink)}
+.rule-item:nth-child(5){border-left:3px solid rgba(255,255,255,.25)}
+
+/* ═══ SLIDE 6 — BRANCH MODEL ═══ */
+#s6{padding:40px 60px}
+#s6 h2{margin-bottom:18px}
+.branch-wrap{width:100%;max-width:960px;position:relative}
+.branch-svg{width:100%;height:auto}
+.legend{display:flex;gap:32px;justify-content:center;margin-top:14px}
+.leg-item{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--muted)}
+
+/* ═══ SLIDE 7 — RELEASE FLOW (V4 banners + V5 milestone list) ═══ */
+#s7{padding:22px 52px}
+#s7 h2{margin-bottom:16px;font-size:clamp(26px,2.8vw,40px)}
+.s7c-wrap{width:100%;max-width:1080px}
+.s7c-zone{border-radius:14px;padding:14px 16px;display:flex;align-items:stretch;gap:0;margin-bottom:8px}
+/* Enhanced left banner */
+.s7c-banner{width:52px;flex-shrink:0;display:flex;align-items:stretch;margin-right:14px}
+.s7c-banner-inner{border-radius:10px;display:flex;align-items:center;justify-content:center;width:100%;min-height:70px}
+.s7c-banner-text{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.18em;white-space:nowrap}
+/* V5-style vertical milestone list */
+.s7c-steps{display:flex;flex-direction:column;flex:1;gap:0}
+.s7c-milestone{display:flex;align-items:center;gap:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.s7c-milestone:last-child{border-bottom:none}
+.s7c-ms-num{width:32px;height:32px;border-radius:50%;border:2px solid;background:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:900;flex-shrink:0}
+.s7c-ms-icon{font-size:20px;flex-shrink:0;width:28px;text-align:center}
+.s7c-ms-info{flex:1}
+.s7c-ms-label{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;line-height:1.2}
+.s7c-ms-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.05em;display:inline-block;margin-top:3px}
+.s7c-ms-note{font-size:10px;color:rgba(255,255,255,.38);margin-top:1px}
+
+/* ═══ SLIDE 9 — BUG LIFECYCLE (V4, modified) ═══ */
+#s9{padding:22px 36px;margin-top:2px}
+#s9 h2{margin-bottom:30px;font-size:clamp(24px,2.6vw,38px)}
+.bf1wrap{width:100%;max-width:1200px;margin-top:2px}
+.bf1row{display:flex;align-items:center;width:100%;gap:4px;overflow:visible}
+.bf1box{flex:1;border-radius:14px;padding:14px 5px;text-align:center;border:2px solid;min-height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.bf1icon{font-size:24px}
+.bf1label{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;line-height:1.25}
+.bf1arr{flex:0 0 15px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.18);font-size:15px;flex-shrink:0}
+.bf1close-and-fan{display:flex;flex-direction:row;align-items:center;flex-shrink:0;overflow:visible}
+.bf1-fan-svg{width:260px;flex-shrink:0;overflow:visible;display:block}
+
+/* ═══ SLIDE 10 — TOOLS ECOSYSTEM (Neural Hub redesign) ═══ */
+#s10{padding:16px 44px 10px}
+#s10 h2{margin-bottom:2px;font-size:clamp(24px,2.6vw,38px)}
+#s10 .s9-subtitle{font-size:13px;color:var(--muted);margin-bottom:10px;text-align:center;letter-spacing:.01em}
+#s10 .s9-svg-wrap{display:flex;justify-content:center;align-items:center;width:100%}
+
+@keyframes pulse-ring{
+  0%{transform:scale(1);opacity:.6}
+  70%{transform:scale(1.22);opacity:0}
+  100%{transform:scale(1.22);opacity:0}
+}
+@keyframes glow-breathe{
+  0%,100%{filter:drop-shadow(0 0 18px #A855F7) drop-shadow(0 0 6px #6C3DE8)}
+  50%{filter:drop-shadow(0 0 32px #C084FC) drop-shadow(0 0 12px #A855F7)}
+}
+@keyframes dash-flow-0{
+  0%{stroke-dashoffset:200}
+  100%{stroke-dashoffset:0}
+}
+@keyframes dash-flow-1{
+  0%{stroke-dashoffset:200}
+  100%{stroke-dashoffset:0}
+}
+@keyframes dash-flow-2{
+  0%{stroke-dashoffset:200}
+  100%{stroke-dashoffset:0}
+}
+@keyframes dash-flow-3{
+  0%{stroke-dashoffset:200}
+  100%{stroke-dashoffset:0}
+}
+.s9-claude-group{animation:glow-breathe 3s ease-in-out infinite}
+.s9-pulse-ring{transform-origin:450px 240px;animation:pulse-ring 2s ease-out infinite}
+.s9-pulse-ring-2{transform-origin:450px 240px;animation:pulse-ring 2s ease-out infinite 1s}
+.s9-spoke-0{stroke-dasharray:8 6;stroke-dashoffset:200;animation:dash-flow-0 2.4s linear infinite}
+.s9-spoke-1{stroke-dasharray:8 6;stroke-dashoffset:200;animation:dash-flow-1 2.4s linear infinite .5s}
+.s9-spoke-2{stroke-dasharray:8 6;stroke-dashoffset:200;animation:dash-flow-2 2.4s linear infinite 1s}
+.s9-spoke-3{stroke-dasharray:8 6;stroke-dashoffset:200;animation:dash-flow-3 2.4s linear infinite 1.5s}
+
+/* ═══ SLIDE 7 — milestone connector arrows ═══ */
+@keyframes dash-down{
+  0%{stroke-dashoffset:14}
+  100%{stroke-dashoffset:0}
+}
+.s7c-ms-connector{display:flex;justify-content:center;align-items:center;padding:0;line-height:0}
+
+/* ═══ SLIDE 8 — RELEASE PROCESS (animated 3-lane pipeline) ═══ */
+#s8{padding:20px 44px 14px}
+#s8 h2{margin-bottom:2px;font-size:clamp(24px,2.6vw,38px)}
+#s8 .s8-subtitle{font-size:13px;color:var(--muted);margin-bottom:14px;text-align:center;letter-spacing:.01em}
+#s8 .s8-pipeline{display:flex;align-items:stretch;gap:0;width:100%;max-width:1060px}
+
+/* Lane panels */
+.s8-lane{flex:1;border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;position:relative}
+.s8-lane-dev{background:rgba(29,78,216,0.12);border:1.5px solid rgba(96,165,250,0.35)}
+.s8-lane-staging{background:rgba(194,65,12,0.11);border:1.5px solid rgba(251,146,60,0.35)}
+.s8-lane-prod{background:rgba(21,128,61,0.11);border:1.5px solid rgba(74,222,128,0.35)}
+
+/* Lane header banners */
+.s8-lane-header{border-radius:10px;padding:7px 12px;text-align:center;margin-bottom:4px}
+.s8-lane-header-dev{background:linear-gradient(135deg,#1D4ED8,#60A5FA);box-shadow:0 0 16px rgba(96,165,250,0.25)}
+.s8-lane-header-staging{background:linear-gradient(135deg,#C2410C,#FB923C);box-shadow:0 0 16px rgba(251,146,60,0.25)}
+.s8-lane-header-prod{background:linear-gradient(135deg,#15803D,#4ADE80);box-shadow:0 0 16px rgba(74,222,128,0.25)}
+.s8-lane-title{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+
+/* Milestone cards */
+.s8-card{border-radius:12px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px;border:1px solid;position:relative;overflow:hidden}
+.s8-card::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.04) 50%,transparent 100%);background-size:200% 100%;animation:s8-shimmer 2.8s ease-in-out infinite}
+.s8-card-dev{background:rgba(29,78,216,0.18);border-color:rgba(96,165,250,0.28)}
+.s8-card-staging{background:rgba(194,65,12,0.18);border-color:rgba(251,146,60,0.28)}
+.s8-card-prod{background:rgba(21,128,61,0.18);border-color:rgba(74,222,128,0.28)}
+
+/* Stagger shimmer delays */
+.s8-card:nth-child(2){animation-delay:.4s}
+.s8-card:nth-child(3){animation-delay:.8s}
+.s8-card:nth-child(4){animation-delay:1.2s}
+
+@keyframes s8-shimmer{
+  0%{background-position:-200% 0}
+  60%,100%{background-position:200% 0}
+}
+
+/* Number circle */
+.s8-ms-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:900;flex-shrink:0;border:2px solid}
+.s8-ms-num-dev{background:rgba(29,78,216,0.6);border-color:#60A5FA;color:#fff}
+.s8-ms-num-staging{background:rgba(194,65,12,0.6);border-color:#FB923C;color:#fff}
+.s8-ms-num-prod{background:rgba(21,128,61,0.6);border-color:#4ADE80;color:#fff}
+
+.s8-ms-info{flex:1}
+.s8-ms-label{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;line-height:1.2;margin-bottom:2px}
+.s8-ms-label-dev{color:#93C5FD}
+.s8-ms-label-staging{color:#FDBA74}
+.s8-ms-label-prod{color:#86EFAC}
+.s8-ms-note{font-size:10px;color:rgba(255,255,255,0.42);line-height:1.4}
+
+/* Inter-lane animated arrow connectors */
+.s8-connector{flex:0 0 44px;display:flex;align-items:center;justify-content:center;position:relative}
+.s8-conn-svg{overflow:visible}
+@keyframes s8-dash-flow-0{0%{stroke-dashoffset:60}100%{stroke-dashoffset:0}}
+@keyframes s8-dash-flow-1{0%{stroke-dashoffset:60}100%{stroke-dashoffset:0}}
+
+/* ═══ SLIDE 11 — STEPS TO GET THERE ═══ */
+#s11{padding:28px 88px}
+#s11 h2{margin-bottom:10px}
+.vsteps{width:100%;max-width:820px;position:relative;padding-left:52px}
+.vsteps::before{content:'';position:absolute;left:18px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,var(--blue),var(--green),var(--yellow),var(--pink));opacity:.35;border-radius:2px}
+.vstep{display:flex;align-items:flex-start;gap:0;padding:11px 0;position:relative}
+.vstep-n{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:900;flex-shrink:0;border:2px solid;background:var(--navy);z-index:1;position:absolute;left:-52px}
+.vstep-body{flex:1;padding-top:5px;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:11px}
+.vstep:last-child .vstep-body{border-bottom:none}
+.vstep-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.08em;display:inline-block;margin-bottom:4px;margin-right:6px}
+.vstep-title{font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:800;line-height:1.2;margin-bottom:2px;display:inline}
+.vstep-desc{font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:2px}
+
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="deck">
+
+<!-- ══════ SLIDE 1 — COVER ══════ -->
+<div class="slide active" id="s1">
+  <svg width="94" height="94" viewBox="0 0 94 94" fill="none">
+    <circle cx="47" cy="47" r="43" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+    <path d="M27 47 C27 36.5 36 31 47 47 C58 63 67 57.5 67 47 C67 36.5 58 31 47 47 C36 63 27 57.5 27 47Z"
+          stroke="rgba(255,255,255,.9)" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <circle cx="47" cy="13" r="7" fill="#3B9EF5"/>
+    <circle cx="73" cy="25" r="5.5" fill="#6DC84B"/>
+    <circle cx="80" cy="52" r="5" fill="#F5A623"/>
+    <circle cx="61" cy="76" r="5.5" fill="#E8435A"/>
+    <circle cx="33" cy="76" r="5" fill="#3B9EF5"/>
+    <circle cx="14" cy="52" r="5.5" fill="#6DC84B"/>
+    <circle cx="21" cy="25" r="5" fill="#F5A623"/>
+  </svg>
+  <div class="label" style="margin-top:20px">PeerPlay · R&D</div>
+  <h1>New R&D &<br>Delivery Process</h1>
+  <div class="csub">Building Better, Shipping Smarter</div>
+  <div class="ctag">A unified process for Product · Development · QA</div>
+  <div class="cdots">
+    <div class="cdot" style="background:var(--blue)"></div>
+    <div class="cdot" style="background:var(--green)"></div>
+    <div class="cdot" style="background:var(--yellow)"></div>
+    <div class="cdot" style="background:var(--pink)"></div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 2 — VISION ══════ -->
+<div class="slide" id="s2">
+  <div class="label">The Foundation</div>
+  <h2>Why This Process?</h2>
+  <div class="vcols">
+    <div class="vc"><span class="vicon">🎯</span><div class="vtitle">Clarity</div><div class="vtext">Everyone knows what's being built, why it matters, and when it ships — no surprises.</div></div>
+    <div class="vc"><span class="vicon">⚡</span><div class="vtitle">Speed</div><div class="vtext">Dev & QA work in parallel from day one. No handoff delays. No waiting in queues.</div></div>
+    <div class="vc"><span class="vicon">🏆</span><div class="vtitle">Quality</div><div class="vtext">Every feature is tested before it reaches players. Ship with confidence, every time.</div></div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 3 — FEATURE FLOW (from V4 layout, redesigned description text) ══════ -->
+<div class="slide" id="s3">
+  <div class="label">Feature Development</div>
+  <h2>From Idea to Feature</h2>
+
+  <!-- Row 1: circles + arrows -->
+  <div style="display:flex;align-items:center;width:100%;max-width:1140px;gap:0">
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(59,158,245,.18);border-color:var(--blue)">&#x1F4CB;</div>
+    </div>
+    <div style="flex:0 0 32px;text-align:center;color:rgba(255,255,255,.22);font-size:18px">&#x2192;</div>
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(109,200,75,.18);border-color:var(--green)">&#x1F3D7;&#xFE0F;</div>
+    </div>
+    <div style="flex:0 0 32px;text-align:center;color:rgba(255,255,255,.22);font-size:18px">&#x2192;</div>
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(232,67,90,.18);border-color:var(--pink)">&#x1F9EA;</div>
+    </div>
+    <div style="flex:0 0 32px;text-align:center;color:rgba(255,255,255,.22);font-size:18px">&#x2192;</div>
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(245,166,35,.18);border-color:var(--yellow)">&#x1F5C2;&#xFE0F;</div>
+    </div>
+    <div style="flex:0 0 32px;text-align:center;color:rgba(255,255,255,.22);font-size:18px">&#x2192;</div>
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(232,67,90,.18);border-color:var(--pink);font-size:16px">&#x1F527;&#x1F9EA;</div>
+    </div>
+    <div style="flex:0 0 32px;text-align:center;color:rgba(255,255,255,.22);font-size:18px">&#x2192;</div>
+    <div style="flex:1;display:flex;justify-content:center">
+      <div class="fnode-v2" style="background:rgba(109,200,75,.24);border-color:var(--green)">&#x1F680;</div>
+    </div>
+  </div>
+
+  <!-- Row 2: labels + ownership -->
+  <div style="display:flex;width:100%;max-width:1140px;margin-top:10px">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--blue)">PRD</div>
+      <div class="fown-owner" style="background:rgba(59,158,245,.2);color:var(--blue)">Product</div>
+      <div class="fown-with">Review: Dev &amp; QA &amp; Art</div>
+    </div>
+    <div style="flex:0 0 32px"></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--green)">TLD</div>
+      <div class="fown-owner" style="background:rgba(109,200,75,.2);color:var(--green)">Dev Lead</div>
+      <div class="fown-with">Review: QA &amp; Product</div>
+    </div>
+    <div style="flex:0 0 32px"></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--pink)">TDR</div>
+      <div class="fown-owner" style="background:rgba(232,67,90,.2);color:var(--pink)">QA</div>
+      <div class="fown-with">Review: Dev &amp; Product</div>
+    </div>
+    <div style="flex:0 0 32px"></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--yellow)">Stories</div>
+      <div class="fown-owner" style="background:rgba(245,166,35,.2);color:var(--yellow)">Team</div>
+      <div class="fown-with">Breakdown session</div>
+    </div>
+    <div style="flex:0 0 32px"></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--pink)">Dev + QA</div>
+      <div class="fown-owner" style="background:rgba(232,67,90,.18);color:var(--pink)">Parallel</div>
+      <div class="fown-with">Dev builds · QA tests</div>
+    </div>
+    <div style="flex:0 0 32px"></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center">
+      <div class="flabel-v2" style="color:var(--green)">Deliver</div>
+      <div class="fown-owner" style="background:rgba(109,200,75,.2);color:var(--green)">QA Sign-off</div>
+      <div class="fown-with">E2E pass on Dev</div>
+    </div>
+  </div>
+
+  <!-- Row 3: compact bullet-point descriptions per step -->
+  <div class="flow-desc-row" style="margin-top:14px">
+    <div class="flow-desc-col">
+      <ul class="flow-desc-list">
+        <li>Business goals</li>
+        <li>User flows</li>
+        <li>Acceptance criteria</li>
+      </ul>
+    </div>
+    <div class="flow-desc-spacer"></div>
+    <div class="flow-desc-col">
+      <ul class="flow-desc-list">
+        <li>Architecture plan</li>
+        <li>Technical approach</li>
+        <li>Edge cases &amp; deps</li>
+      </ul>
+    </div>
+    <div class="flow-desc-spacer"></div>
+    <div class="flow-desc-col">
+      <ul class="flow-desc-list">
+        <li>Test scenarios</li>
+        <li>Validation criteria</li>
+        <li>Sign-off checklist</li>
+      </ul>
+    </div>
+    <div class="flow-desc-spacer"></div>
+    <div class="flow-desc-col">
+      <ul class="flow-desc-list">
+        <li>Story per topic</li>
+        <li>Dev &amp; QA subtasks</li>
+        <li>Time estimates</li>
+      </ul>
+    </div>
+    <div class="flow-desc-spacer"></div>
+    <div class="flow-desc-col">
+      <ul class="flow-desc-list">
+        <li>Dev builds feature</li>
+        <li>QA tests in parallel</li>
+        <li>No waiting in queues</li>
+      </ul>
+    </div>
+    <div class="flow-desc-spacer"></div>
+    <div class="flow-desc-col">
+      <ul class="flow-desc-list">
+        <li>Full E2E pass on Dev</li>
+        <li>QA sign-off required</li>
+        <li>Ready for release</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════ SLIDE 4 — THE GOLDEN TRIO (from peerplay-rnd-process.html) ══════ -->
+<div class="slide" id="s4">
+  <div class="label">⚡ The Golden Trio</div>
+  <h2>Three Documents. Zero Ambiguity.</h2>
+  <div style="font-size:13px;color:var(--muted);margin-bottom:22px;text-align:center">Product · Dev · QA each own a document — together they define what's built, how it's built, and how it's verified</div>
+  <div class="dcols" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%;max-width:1060px">
+
+    <div class="dc dc-prd">
+      <div class="dctitle" style="color:var(--blue)">PRD</div>
+      <div class="dcname">Product Requirements Document</div>
+      <div class="drow"><span class="drl" style="color:var(--blue)">Owner</span><span class="drv">Product 🎯</span></div>
+      <div class="drow"><span class="drl" style="color:var(--blue)">What</span><span class="drv">Business goals, user flows, acceptance criteria</span></div>
+      <div class="drow"><span class="drl" style="color:var(--blue)">When</span><span class="drv">Before development begins</span></div>
+      <span class="dpill" style="background:rgba(59,158,245,.2);color:var(--blue)">✓ Already in Practice</span>
+    </div>
+
+    <div class="dc dc-tld">
+      <div class="dctitle" style="color:var(--green)">TLD</div>
+      <div class="dcname">Technical Design Document</div>
+      <div class="drow"><span class="drl" style="color:var(--green)">Owner</span><span class="drv">Client · Dev 🔧</span></div>
+      <div class="drow"><span class="drl" style="color:var(--green)">What</span><span class="drv">Architecture, technical approach, edge cases, dependencies</span></div>
+      <div class="drow"><span class="drl" style="color:var(--green)">When</span><span class="drv">After PRD, before coding starts</span></div>
+      <span class="dpill" style="background:rgba(245,166,35,.2);color:var(--yellow)">🚀 Coming to PeerPlay</span>
+    </div>
+
+    <div class="dc dc-tdr">
+      <div class="dctitle" style="color:var(--pink)">TDR</div>
+      <div class="dcname">Test Design Review</div>
+      <div class="drow"><span class="drl" style="color:var(--pink)">Owner</span><span class="drv">QA 🧪</span></div>
+      <div class="drow"><span class="drl" style="color:var(--pink)">What</span><span class="drv">Test scenarios, edge case validation, acceptance sign-off criteria</span></div>
+      <div class="drow"><span class="drl" style="color:var(--pink)">When</span><span class="drv">After TLD, before testing begins</span></div>
+      <span class="dpill" style="background:rgba(232,67,90,.18);color:var(--pink)">🚀 Coming to PeerPlay</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════ SLIDE 5 — TASK STRUCTURE (from V4, with bulleted rules list) ══════ -->
+<div class="slide" id="s5">
+  <div class="label">Task Breakdown</div>
+  <h2>How We Break Down Features</h2>
+  <div class="tree">
+    <!-- Task level -->
+    <div class="t0">
+      <span style="font-size:21px">&#x1F4D6;</span>
+      <span class="tbadge b-story">Task</span>
+      <span class="ttext">Business or Technical Topic</span>
+      <span class="tsub">One complete idea — the single source of truth</span>
+    </div>
+    <!-- Dev Subtask -->
+    <div class="t1 tdev">
+      <span style="font-size:16px">&#x1F527;</span>
+      <span class="tbadge b-dev">Dev Sub-Task</span>
+    </div>
+    <!-- QA Subtask -->
+    <div class="t1 tqa">
+      <span style="font-size:16px">&#x1F9EA;</span>
+      <span class="tbadge b-qa">QA Sub-Task</span>
+    </div>
+    <!-- Bug / Task Bug -->
+    <div class="t1 tbug">
+      <span style="font-size:16px">&#x1F41B;</span>
+      <span class="tbadge b-bug">Bug / Task Bug</span>
+    </div>
+    <!-- Art / 3rd Party -->
+    <div class="t1 tart">
+      <span style="font-size:16px">&#x1F3A8;</span>
+      <span class="tbadge b-art">Art / 3rd Party</span>
+    </div>
+  </div>
+
+  <!-- Bulleted rules list -->
+  <div class="rules-list">
+    <div class="rule-item"><strong>Rule 1:</strong> The Task represents the full idea or feature — it is the single source of truth and is never a subtask of something else.</div>
+    <div class="rule-item"><strong>Rule 2:</strong> Sub-tasks define the implementation path — each sub-task describes how we get to the Task goal (Dev builds it, QA validates it).</div>
+    <div class="rule-item"><strong>Rule 3:</strong> Each sub-task must be independently deliverable and testable — no sub-task should depend on another being complete first.</div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 6 — BRANCH MODEL (from V5, unchanged) ══════ -->
+<div class="slide" id="s6">
+  <div class="label">Version Control</div>
+  <h2>Branch Model</h2>
+  <div class="branch-wrap">
+    <svg class="branch-svg" viewBox="0 0 880 330" xmlns="http://www.w3.org/2000/svg">
+      <!-- Lane guide lines -->
+      <line x1="110" y1="55"  x2="860" y2="55"  stroke="rgba(59,158,245,.12)"  stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="110" y1="145" x2="860" y2="145" stroke="rgba(59,158,245,.1)"   stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="110" y1="238" x2="860" y2="238" stroke="rgba(109,200,75,.12)"  stroke-width="1" stroke-dasharray="4,4"/>
+
+      <!-- Lane labels -->
+      <text x="100" y="50"  text-anchor="end" fill="rgba(59,158,245,.75)"  font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Feature</text>
+      <text x="100" y="64"  text-anchor="end" fill="rgba(59,158,245,.75)"  font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Branch 1</text>
+      <text x="100" y="140" text-anchor="end" fill="rgba(59,158,245,.6)"   font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Feature</text>
+      <text x="100" y="154" text-anchor="end" fill="rgba(59,158,245,.6)"   font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Branch 2</text>
+      <text x="100" y="234" text-anchor="end" fill="rgba(109,200,75,.8)"   font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Release</text>
+      <text x="100" y="248" text-anchor="end" fill="rgba(109,200,75,.8)"   font-size="12" font-family="Plus Jakarta Sans,sans-serif" font-weight="700">Branch</text>
+      <text x="100" y="315" text-anchor="end" fill="rgba(232,67,90,.85)"   font-size="13" font-family="Plus Jakarta Sans,sans-serif" font-weight="800">Master</text>
+
+      <!-- MASTER LINE -->
+      <line x1="110" y1="308" x2="860" y2="308" stroke="#E8435A" stroke-width="3"/>
+
+      <!-- Feature Branch 1 -->
+      <path d="M 165 308 C 165 265 215 100 215 55" stroke="#3B9EF5" stroke-width="2.5" fill="none"/>
+      <line x1="215" y1="55" x2="530" y2="55" stroke="#3B9EF5" stroke-width="2.5"/>
+      <path d="M 530 55 C 560 55 590 155 590 238" stroke="#3B9EF5" stroke-width="2.5" fill="none" opacity=".9"/>
+
+      <!-- Feature Branch 2 -->
+      <path d="M 230 308 C 230 278 275 185 275 145" stroke="#3B9EF5" stroke-width="2.5" fill="none" opacity=".7"/>
+      <line x1="275" y1="145" x2="500" y2="145" stroke="#3B9EF5" stroke-width="2.5" opacity=".7"/>
+      <path d="M 500 145 C 528 145 568 200 568 238" stroke="#3B9EF5" stroke-width="2.5" fill="none" opacity=".7"/>
+
+      <!-- RELEASE BRANCH -->
+      <line x1="560" y1="238" x2="800" y2="238" stroke="#6DC84B" stroke-width="2.5"/>
+      <path d="M 800 238 C 820 238 828 275 828 308" stroke="#6DC84B" stroke-width="2.5" fill="none"/>
+
+      <!-- Nodes -->
+      <circle cx="165" cy="308" r="13" fill="#1A1F36" stroke="#3B9EF5" stroke-width="2.5"/>
+      <line x1="165" y1="302" x2="165" y2="314" stroke="#3B9EF5" stroke-width="1.8"/>
+      <line x1="159" y1="302" x2="165" y2="298" stroke="#3B9EF5" stroke-width="1.8"/>
+
+      <circle cx="230" cy="308" r="13" fill="#1A1F36" stroke="#3B9EF5" stroke-width="2" opacity=".85"/>
+      <line x1="230" y1="302" x2="230" y2="314" stroke="#3B9EF5" stroke-width="1.8" opacity=".85"/>
+      <line x1="224" y1="302" x2="230" y2="298" stroke="#3B9EF5" stroke-width="1.8" opacity=".85"/>
+
+      <circle cx="300" cy="55" r="11" fill="#3B9EF5"/>
+      <circle cx="385" cy="55" r="11" fill="#3B9EF5"/>
+      <circle cx="470" cy="55" r="11" fill="#3B9EF5"/>
+
+      <circle cx="335" cy="145" r="11" fill="#3B9EF5" opacity=".75"/>
+      <circle cx="430" cy="145" r="11" fill="#3B9EF5" opacity=".75"/>
+
+      <circle cx="568" cy="238" r="11" fill="#1A1F36" stroke="#6DC84B" stroke-width="2.2"/>
+      <circle cx="590" cy="238" r="11" fill="#1A1F36" stroke="#6DC84B" stroke-width="2.2"/>
+
+      <circle cx="650" cy="238" r="11" fill="#6DC84B"/>
+      <circle cx="730" cy="238" r="11" fill="#6DC84B"/>
+
+      <circle cx="828" cy="308" r="13" fill="#1A1F36" stroke="#6DC84B" stroke-width="2.5"/>
+      <path d="M 823 311 A 7 7 0 1 1 830 304" stroke="#6DC84B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <polyline points="828,302 830,305 832,302" stroke="#6DC84B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </svg>
+
+    <div class="legend">
+      <div class="leg-item">
+        <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1A1F36" stroke="#3B9EF5" stroke-width="2.2"/><line x1="12" y1="7" x2="12" y2="17" stroke="#3B9EF5" stroke-width="1.8"/><line x1="7" y1="7" x2="12" y2="4" stroke="#3B9EF5" stroke-width="1.8"/></svg>
+        Create branch
+      </div>
+      <div class="leg-item">
+        <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#3B9EF5"/></svg>
+        Commit
+      </div>
+      <div class="leg-item">
+        <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1A1F36" stroke="#6DC84B" stroke-width="2.2"/><path d="M 8 13 A 5 5 0 1 1 13 8" stroke="#6DC84B" stroke-width="1.8" fill="none" stroke-linecap="round"/><polyline points="12,6 14,9 16,6" stroke="#6DC84B" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+        Merge branch
+      </div>
+      <div class="leg-item"><span style="color:var(--pink);font-weight:700">━━</span> Master &nbsp;&nbsp; <span style="color:var(--blue);font-weight:700">━━</span> Feature &nbsp;&nbsp; <span style="color:var(--green);font-weight:700">━━</span> Release</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 7 — RELEASE FLOW (V4 left banners + V5 vertical milestone list) ══════ -->
+<div class="slide" id="s7">
+  <div class="label">Release Process</div>
+  <h2>The Release Flow</h2>
+  <div class="s7c-wrap">
+
+    <!-- DEV ZONE — steps 1–4 -->
+    <div class="s7c-zone" style="background:rgba(59,158,245,.06);border:1px solid rgba(59,158,245,.2)">
+      <div class="s7c-banner">
+        <div class="s7c-banner-inner" style="background:rgba(59,158,245,.15);border:1.5px solid rgba(59,158,245,.35)">
+          <span class="s7c-banner-text" style="color:var(--blue)">Dev</span>
+        </div>
+      </div>
+      <div class="s7c-steps">
+        <div class="s7c-milestone">
+          <div class="s7c-ms-num" style="border-color:var(--blue);color:var(--blue)">1</div>
+          <span class="s7c-ms-icon">&#x1F333;</span>
+          <div class="s7c-ms-info">
+            <div class="s7c-ms-label" style="color:var(--blue)">Branch from Master</div>
+            <span class="s7c-ms-badge" style="background:rgba(59,158,245,.12);color:var(--blue)">Dev</span>
+            <div class="s7c-ms-note">Branch cut from master, synced continuously</div>
+          </div>
+        </div>
+        <div class="s7c-ms-connector">
+          <svg width="2" height="20" viewBox="0 0 2 20"><line x1="1" y1="0" x2="1" y2="20" stroke="rgba(59,158,245,0.5)" stroke-width="2" stroke-dasharray="4 3" style="animation:dash-down 0.8s linear infinite"/></svg>
+        </div>
+        <div class="s7c-milestone">
+          <div class="s7c-ms-num" style="border-color:var(--blue);color:var(--blue)">2</div>
+          <span class="s7c-ms-icon">&#x1F528;&#x1F9EA;</span>
+          <div class="s7c-ms-info">
+            <div class="s7c-ms-label" style="color:var(--blue)">Build on Dev + QA Testing in parallel</div>
+            <span class="s7c-ms-badge" style="background:rgba(59,158,245,.1);color:rgba(59,158,245,.85)">Dev + QA</span>
+            <div class="s7c-ms-note">Testing starts during development based on task breakdown</div>
+          </div>
+        </div>
+        <div class="s7c-ms-connector">
+          <svg width="2" height="20" viewBox="0 0 2 20"><line x1="1" y1="0" x2="1" y2="20" stroke="rgba(59,158,245,0.5)" stroke-width="2" stroke-dasharray="4 3" style="animation:dash-down 0.8s linear infinite 0.3s"/></svg>
+        </div>
+        <div class="s7c-milestone">
+          <div class="s7c-ms-num" style="border-color:var(--blue);color:var(--blue)">3</div>
+          <span class="s7c-ms-icon">&#x2705;</span>
+          <div class="s7c-ms-info">
+            <div class="s7c-ms-label" style="color:var(--blue)">E2E Tests Complete on Dev</div>
+            <span class="s7c-ms-badge" style="background:rgba(59,158,245,.12);color:var(--blue)">QA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STAGING ZONE — steps 5–6 -->
+    <div class="s7c-zone" style="background:rgba(245,166,35,.05);border:1px solid rgba(245,166,35,.22)">
+      <div class="s7c-banner">
+        <div class="s7c-banner-inner" style="background:rgba(245,166,35,.14);border:1.5px solid rgba(245,166,35,.32)">
+          <span class="s7c-banner-text" style="color:var(--yellow)">Staging</span>
+        </div>
+      </div>
+      <div class="s7c-steps">
+        <div class="s7c-milestone">
+          <div class="s7c-ms-num" style="border-color:var(--yellow);color:var(--yellow)">4</div>
+          <span class="s7c-ms-icon">&#x1F4E6;</span>
+          <div class="s7c-ms-info">
+            <div class="s7c-ms-label" style="color:var(--yellow)">Release Candidate &#x2192; Staging</div>
+            <span class="s7c-ms-badge" style="background:rgba(245,166,35,.15);color:var(--yellow)">Dev</span>
+          </div>
+        </div>
+        <div class="s7c-ms-connector">
+          <svg width="2" height="20" viewBox="0 0 2 20"><line x1="1" y1="0" x2="1" y2="20" stroke="rgba(245,166,35,0.5)" stroke-width="2" stroke-dasharray="4 3" style="animation:dash-down 0.8s linear infinite"/></svg>
+        </div>
+        <div class="s7c-milestone">
+          <div class="s7c-ms-num" style="border-color:var(--yellow);color:var(--yellow)">5</div>
+          <span class="s7c-ms-icon">&#x1F50D;</span>
+          <div class="s7c-ms-info">
+            <div class="s7c-ms-label" style="color:var(--yellow)">Staging QA &#x2014; E2E, Sanity, Smoke</div>
+            <span class="s7c-ms-badge" style="background:rgba(245,166,35,.12);color:var(--yellow)">QA</span>
+            <div class="s7c-ms-note">Build number increments on each fix</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTION ZONE — steps 7–8 -->
+    <div class="s7c-zone" style="background:rgba(109,200,75,.05);border:1px solid rgba(109,200,75,.22)">
+      <div class="s7c-banner">
+        <div class="s7c-banner-inner" style="background:rgba(109,200,75,.14);border:1.5px solid rgba(109,200,75,.32)">
+          <span class="s7c-banner-text" style="color:var(--green)">Production</span>
+        </div>
+      </div>
+      <div class="s7c-steps">
+        <div class="s7c-milestone">
+          <div class="s7c-ms-num" style="border-color:var(--green);color:var(--green)">6</div>
+          <span class="s7c-ms-icon">&#x1F44D;</span>
+          <div class="s7c-ms-info">
+            <div class="s7c-ms-label" style="color:var(--green)">Release Sign-off</div>
+            <span class="s7c-ms-badge" style="background:rgba(109,200,75,.15);color:var(--green)">Product</span>
+          </div>
+        </div>
+        <div class="s7c-ms-connector">
+          <svg width="2" height="20" viewBox="0 0 2 20"><line x1="1" y1="0" x2="1" y2="20" stroke="rgba(109,200,75,0.5)" stroke-width="2" stroke-dasharray="4 3" style="animation:dash-down 0.8s linear infinite"/></svg>
+        </div>
+        <div class="s7c-milestone">
+          <div class="s7c-ms-num" style="border-color:var(--green);color:var(--green);box-shadow:0 0 10px rgba(109,200,75,.3)">7</div>
+          <span class="s7c-ms-icon">&#x1F680;</span>
+          <div class="s7c-ms-info">
+            <div class="s7c-ms-label" style="color:var(--green)">Production Build &#x2014; Smoke test &#x2192; Ship!</div>
+            <span class="s7c-ms-badge" style="background:rgba(109,200,75,.18);color:var(--green)">Dev + QA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════ SLIDE 8 — RELEASE PROCESS (Animated 3-lane pipeline) ══════ -->
+<div class="slide" id="s8">
+  <div class="label">Release Engineering</div>
+  <h2>Release Process</h2>
+  <div class="s8-subtitle">From development to production — gated and traceable</div>
+
+  <div class="s8-pipeline">
+
+    <!-- ── DEV LANE ── -->
+    <div class="s8-lane s8-lane-dev">
+      <div class="s8-lane-header s8-lane-header-dev">
+        <div class="s8-lane-title">DEV</div>
+      </div>
+
+      <!-- Milestone 1 -->
+      <div class="s8-card s8-card-dev">
+        <div class="s8-ms-num s8-ms-num-dev">1</div>
+        <div class="s8-ms-info">
+          <div class="s8-ms-label s8-ms-label-dev">&#x1F333; Branch from Master</div>
+          <div class="s8-ms-note">Branch cut from master, synced continuously</div>
+        </div>
+      </div>
+
+      <!-- Milestone 2 -->
+      <div class="s8-card s8-card-dev">
+        <div class="s8-ms-num s8-ms-num-dev">2</div>
+        <div class="s8-ms-info">
+          <div class="s8-ms-label s8-ms-label-dev">&#x1F528;&#x1F9EA; Build on Dev + QA Testing in parallel</div>
+          <div class="s8-ms-note">Testing starts during development based on task breakdown</div>
+        </div>
+      </div>
+
+      <!-- Milestone 3 -->
+      <div class="s8-card s8-card-dev">
+        <div class="s8-ms-num s8-ms-num-dev">3</div>
+        <div class="s8-ms-info">
+          <div class="s8-ms-label s8-ms-label-dev">&#x2705; E2E Tests Complete on Dev</div>
+          <div class="s8-ms-note">Full end-to-end pass — QA sign-off required</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CONNECTOR: DEV → STAGING ── -->
+    <div class="s8-connector">
+      <svg class="s8-conn-svg" width="44" height="44" viewBox="0 0 44 44">
+        <defs>
+          <marker id="s8arr-ds" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L7,3.5 Z" fill="rgba(251,146,60,0.8)"/>
+          </marker>
+        </defs>
+        <line x1="2" y1="22" x2="36" y2="22"
+              stroke="rgba(251,146,60,0.7)" stroke-width="2"
+              stroke-dasharray="7 5" stroke-dashoffset="60"
+              marker-end="url(#s8arr-ds)"
+              style="animation:s8-dash-flow-0 1.8s linear infinite"/>
+      </svg>
+    </div>
+
+    <!-- ── STAGING LANE ── -->
+    <div class="s8-lane s8-lane-staging">
+      <div class="s8-lane-header s8-lane-header-staging">
+        <div class="s8-lane-title">STAGING</div>
+      </div>
+
+      <!-- Milestone 4 -->
+      <div class="s8-card s8-card-staging">
+        <div class="s8-ms-num s8-ms-num-staging">4</div>
+        <div class="s8-ms-info">
+          <div class="s8-ms-label s8-ms-label-staging">&#x1F4E6; Release Candidate &#x2192; Staging</div>
+          <div class="s8-ms-note">RC promoted from Dev to Staging environment</div>
+        </div>
+      </div>
+
+      <!-- Milestone 5 -->
+      <div class="s8-card s8-card-staging">
+        <div class="s8-ms-num s8-ms-num-staging">5</div>
+        <div class="s8-ms-info">
+          <div class="s8-ms-label s8-ms-label-staging">&#x1F50D; Staging QA — E2E, Sanity, Smoke</div>
+          <div class="s8-ms-note">Build number increments on each fix</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CONNECTOR: STAGING → PROD ── -->
+    <div class="s8-connector">
+      <svg class="s8-conn-svg" width="44" height="44" viewBox="0 0 44 44">
+        <defs>
+          <marker id="s8arr-sp" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L7,3.5 Z" fill="rgba(74,222,128,0.8)"/>
+          </marker>
+        </defs>
+        <line x1="2" y1="22" x2="36" y2="22"
+              stroke="rgba(74,222,128,0.7)" stroke-width="2"
+              stroke-dasharray="7 5" stroke-dashoffset="60"
+              marker-end="url(#s8arr-sp)"
+              style="animation:s8-dash-flow-1 1.8s linear infinite .5s"/>
+      </svg>
+    </div>
+
+    <!-- ── PRODUCTION LANE ── -->
+    <div class="s8-lane s8-lane-prod">
+      <div class="s8-lane-header s8-lane-header-prod">
+        <div class="s8-lane-title">PRODUCTION</div>
+      </div>
+
+      <!-- Milestone 6 -->
+      <div class="s8-card s8-card-prod">
+        <div class="s8-ms-num s8-ms-num-prod">6</div>
+        <div class="s8-ms-info">
+          <div class="s8-ms-label s8-ms-label-prod">&#x1F44D; Release Sign-off</div>
+          <div class="s8-ms-note">Product approves — gates the production push</div>
+        </div>
+      </div>
+
+      <!-- Milestone 7 -->
+      <div class="s8-card s8-card-prod">
+        <div class="s8-ms-num s8-ms-num-prod" style="box-shadow:0 0 10px rgba(74,222,128,0.4)">7</div>
+        <div class="s8-ms-info">
+          <div class="s8-ms-label s8-ms-label-prod">&#x1F680; Production Build — Smoke test &#x2192; Ship!</div>
+          <div class="s8-ms-note">Final smoke test, then release to players</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════ SLIDE 9 — BUG LIFECYCLE (from V4, modified: no Step labels, exit paths from Closed, 2px lower) ══════ -->
+<div class="slide" id="s9">
+  <div class="label">Quality</div>
+  <h2>Bug Life Cycle</h2>
+  <div class="bf1wrap">
+    <div class="bf1row">
+      <div class="bf1box" style="background:rgba(59,158,245,.13);border-color:rgba(59,158,245,.42)">
+        <span class="bf1icon">&#x1F4CB;</span>
+        <span class="bf1label" style="color:var(--blue)">To Do</span>
+      </div>
+      <div class="bf1arr">&#x2192;</div>
+      <div class="bf1box" style="background:rgba(245,166,35,.12);border-color:rgba(245,166,35,.4)">
+        <span class="bf1icon">&#x1F528;</span>
+        <span class="bf1label" style="color:var(--yellow)">In Progress</span>
+      </div>
+      <div class="bf1arr">&#x2192;</div>
+      <div class="bf1box" style="background:rgba(245,166,35,.08);border-color:rgba(245,166,35,.28)">
+        <span class="bf1icon">&#x1F440;</span>
+        <span class="bf1label" style="color:rgba(245,166,35,.85)">In Review</span>
+      </div>
+      <div class="bf1arr">&#x2192;</div>
+      <div class="bf1box" style="background:rgba(232,67,90,.13);border-color:rgba(232,67,90,.42)">
+        <span class="bf1icon">&#x1F9EA;</span>
+        <span class="bf1label" style="color:var(--pink)">Ready for QA</span>
+      </div>
+      <div class="bf1arr">&#x2192;</div>
+      <div class="bf1box" style="background:rgba(232,67,90,.1);border-color:rgba(232,67,90,.32)">
+        <span class="bf1icon">&#x1F52C;</span>
+        <span class="bf1label" style="color:rgba(232,67,90,.85)">Testing</span>
+      </div>
+      <div class="bf1arr">&#x2192;</div>
+      <div class="bf1box" style="background:rgba(109,200,75,.13);border-color:rgba(109,200,75,.42)">
+        <span class="bf1icon">&#x2705;</span>
+        <span class="bf1label" style="color:var(--green)">Passed QA</span>
+      </div>
+      <div class="bf1arr">&#x2192;</div>
+      <div class="bf1box" style="background:rgba(109,200,75,.1);border-color:rgba(109,200,75,.3)">
+        <span class="bf1icon">&#x1F4E6;</span>
+        <span class="bf1label" style="color:rgba(109,200,75,.85)">Ready for Release</span>
+      </div>
+      <div class="bf1arr" style="color:rgba(232,67,90,.7);font-size:18px">&#x2192;</div>
+      <!-- Close block + fan SVG side by side -->
+      <div class="bf1close-and-fan">
+        <div class="bf1box" style="background:rgba(109,200,75,.22);border-color:rgba(109,200,75,.62);box-shadow:0 0 14px rgba(109,200,75,.2);flex:none;width:100px">
+          <span class="bf1icon">&#x2713;</span>
+          <span class="bf1label" style="color:var(--green);font-size:11px">Close</span>
+          <span style="font-size:9px;color:rgba(109,200,75,.5);margin-top:2px">final status</span>
+        </div>
+        <!-- Fan SVG: arrows from left edge (x=0, y=center) fanning right to resolution boxes -->
+        <svg class="bf1-fan-svg" viewBox="0 0 260 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="fan-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="rgba(109,200,75,0.55)"/>
+            </marker>
+          </defs>
+          <!-- Resolution boxes: x=70, width=180, height=22, gap=8 -->
+          <rect x="70" y="4"   width="180" height="22" rx="5" fill="rgba(232,67,90,0.07)"  stroke="rgba(232,67,90,0.4)"  stroke-width="1"/>
+          <text x="160" y="20" text-anchor="middle" fill="rgba(232,67,90,0.9)"  font-family="sans-serif" font-size="11" font-weight="600">Not a Bug</text>
+
+          <rect x="70" y="34"  width="180" height="22" rx="5" fill="rgba(245,166,35,0.07)" stroke="rgba(245,166,35,0.4)" stroke-width="1"/>
+          <text x="160" y="50" text-anchor="middle" fill="rgba(245,166,35,0.9)" font-family="sans-serif" font-size="11" font-weight="600">Duplicated</text>
+
+          <rect x="70" y="64"  width="180" height="22" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <text x="160" y="80" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-family="sans-serif" font-size="11" font-weight="600">Cannot Reproduce</text>
+
+          <rect x="70" y="94"  width="180" height="22" rx="5" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+          <text x="160" y="110" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="sans-serif" font-size="11" font-weight="600">Won't be Fixed</text>
+
+          <rect x="70" y="124" width="180" height="22" rx="5" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.13)" stroke-width="1"/>
+          <text x="160" y="140" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="sans-serif" font-size="11" font-weight="600">On Hold</text>
+
+          <rect x="70" y="154" width="180" height="22" rx="5" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.13)" stroke-width="1"/>
+          <text x="160" y="170" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="sans-serif" font-size="11" font-weight="600">Backlog</text>
+
+          <!-- Dotted fan arrows from (0, 95) → left edge of each box (70, center_y) -->
+          <line x1="0" y1="95" x2="68" y2="15"  stroke="rgba(109,200,75,0.55)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#fan-arr)"/>
+          <line x1="0" y1="95" x2="68" y2="45"  stroke="rgba(109,200,75,0.5)"  stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#fan-arr)"/>
+          <line x1="0" y1="95" x2="68" y2="75"  stroke="rgba(109,200,75,0.45)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#fan-arr)"/>
+          <line x1="0" y1="95" x2="68" y2="105" stroke="rgba(109,200,75,0.4)"  stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#fan-arr)"/>
+          <line x1="0" y1="95" x2="68" y2="135" stroke="rgba(109,200,75,0.35)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#fan-arr)"/>
+          <line x1="0" y1="95" x2="68" y2="165" stroke="rgba(109,200,75,0.3)"  stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#fan-arr)"/>
+        </svg>
+      </div>
+    </div><!-- /bf1row -->
+  </div><!-- /bf1wrap -->
+</div>
+
+<!-- ══════ SLIDE 10 — TOOLS ECOSYSTEM (Neural Hub redesign) ══════ -->
+<div class="slide" id="s10">
+  <div class="label">Tooling</div>
+  <h2>Tools Ecosystem</h2>
+  <div class="s9-subtitle">Claude as the Intelligent Orchestrator — connecting every tool through MCP</div>
+  <div class="s9-svg-wrap">
+    <svg viewBox="0 0 900 440" width="900" height="440" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+      <defs>
+        <!-- Claude center gradient -->
+        <radialGradient id="g-claude" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#A855F7"/>
+          <stop offset="100%" stop-color="#6C3DE8"/>
+        </radialGradient>
+        <!-- PLAN gradient (purple) -->
+        <linearGradient id="g-plan" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#7C3AED"/>
+          <stop offset="100%" stop-color="#C084FC"/>
+        </linearGradient>
+        <!-- BUILD gradient (cyan) -->
+        <linearGradient id="g-build" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#0891B2"/>
+          <stop offset="100%" stop-color="#22D3EE"/>
+        </linearGradient>
+        <!-- TEST gradient (green) -->
+        <linearGradient id="g-test" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#059669"/>
+          <stop offset="100%" stop-color="#34D399"/>
+        </linearGradient>
+        <!-- TRACK gradient (amber) -->
+        <linearGradient id="g-track" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#D97706"/>
+          <stop offset="100%" stop-color="#FCD34D"/>
+        </linearGradient>
+        <!-- Glow filters -->
+        <filter id="f-claude" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur"/>
+          <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.66  0 0 0 0 0.2  0 0 0 0 0.97  0 0 0 1 0" result="colored"/>
+          <feMerge><feMergeNode in="colored"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="f-plan" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+          <feColorMatrix in="blur" type="matrix" values="0.49 0 0 0 0  0 0 0 0 0  0 0 0 0 0.93  0 0 0 0.7 0" result="colored"/>
+          <feMerge><feMergeNode in="colored"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="f-build" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+          <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.03  0 0 0 0 0.57  0 0 0 0 0.7  0 0 0 0.7 0" result="colored"/>
+          <feMerge><feMergeNode in="colored"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="f-test" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+          <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.02  0 0 0 0 0.59  0 0 0 0 0.41  0 0 0 0.7 0" result="colored"/>
+          <feMerge><feMergeNode in="colored"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="f-track" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+          <feColorMatrix in="blur" type="matrix" values="0.85 0 0 0 0  0 0 0 0 0.47  0 0 0 0 0  0 0 0 0.7 0" result="colored"/>
+          <feMerge><feMergeNode in="colored"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- ── SPOKE GLOW LINES (thick, low opacity, behind dashed) ── -->
+      <!-- PLAN spoke glow: center(450,220) → PLAN node center(175,110) -->
+      <line x1="450" y1="220" x2="240" y2="130" stroke="#C084FC" stroke-width="6" stroke-opacity="0.15"/>
+      <!-- BUILD spoke glow: center → BUILD node center(725,110) -->
+      <line x1="450" y1="220" x2="660" y2="130" stroke="#22D3EE" stroke-width="6" stroke-opacity="0.15"/>
+      <!-- TEST spoke glow: center → TEST node center(725,340) -->
+      <line x1="450" y1="220" x2="660" y2="330" stroke="#34D399" stroke-width="6" stroke-opacity="0.15"/>
+      <!-- TRACK spoke glow: center → TRACK node center(175,340) -->
+      <line x1="450" y1="220" x2="240" y2="330" stroke="#FCD34D" stroke-width="6" stroke-opacity="0.15"/>
+
+      <!-- ── SPOKE ANIMATED DASHED LINES ── -->
+      <line x1="450" y1="220" x2="240" y2="130" stroke="#C084FC" stroke-width="2" stroke-opacity="0.65" class="s9-spoke-0"/>
+      <line x1="450" y1="220" x2="660" y2="130" stroke="#22D3EE" stroke-width="2" stroke-opacity="0.65" class="s9-spoke-1"/>
+      <line x1="450" y1="220" x2="660" y2="330" stroke="#34D399" stroke-width="2" stroke-opacity="0.65" class="s9-spoke-2"/>
+      <line x1="450" y1="220" x2="240" y2="330" stroke="#FCD34D" stroke-width="2" stroke-opacity="0.65" class="s9-spoke-3"/>
+
+      <!-- ── MCP LABELS ON SPOKES ── -->
+      <text x="318" y="162" fill="#C084FC" fill-opacity="0.75" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" letter-spacing="0.08em" text-anchor="middle">MCP</text>
+      <text x="570" y="162" fill="#22D3EE" fill-opacity="0.75" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" letter-spacing="0.08em" text-anchor="middle">MCP</text>
+      <text x="570" y="292" fill="#34D399" fill-opacity="0.75" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" letter-spacing="0.08em" text-anchor="middle">MCP</text>
+      <text x="318" y="292" fill="#FCD34D" fill-opacity="0.75" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" letter-spacing="0.08em" text-anchor="middle">MCP</text>
+
+      <!-- ══ PILLAR NODES ══ -->
+
+      <!-- PLAN node: top-left, centered at (175, 110) — taller to fit vertical list -->
+      <g filter="url(#f-plan)">
+        <rect x="110" y="45" width="140" height="118" rx="14" fill="url(#g-plan)" fill-opacity="0.92"/>
+      </g>
+      <text x="180" y="74" fill="white" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="800" text-anchor="middle" letter-spacing="0.06em">PLAN</text>
+      <text x="125" y="94" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– Notion</text>
+      <text x="125" y="110" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– Figma</text>
+      <text x="125" y="126" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– Calendar</text>
+
+      <!-- BUILD node: top-right, centered at (725, 110) — taller to fit vertical list -->
+      <g filter="url(#f-build)">
+        <rect x="660" y="45" width="140" height="126" rx="14" fill="url(#g-build)" fill-opacity="0.92"/>
+      </g>
+      <text x="730" y="74" fill="white" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="800" text-anchor="middle" letter-spacing="0.06em">BUILD</text>
+      <text x="675" y="94" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– GitHub</text>
+      <text x="675" y="110" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– Dev</text>
+      <text x="675" y="126" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– Staging</text>
+      <text x="675" y="142" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– Prod</text>
+
+      <!-- TEST node: bottom-right, centered at (725, 345) — taller to fit vertical list -->
+      <g filter="url(#f-test)">
+        <rect x="660" y="285" width="140" height="118" rx="14" fill="url(#g-test)" fill-opacity="0.92"/>
+      </g>
+      <text x="730" y="314" fill="white" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="800" text-anchor="middle" letter-spacing="0.06em">TEST</text>
+      <text x="675" y="334" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– Testomatio</text>
+      <text x="675" y="350" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– Bugs Bot</text>
+      <text x="675" y="366" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– Slack</text>
+
+      <!-- TRACK node: bottom-left, centered at (175, 340) — taller to fit vertical list -->
+      <g filter="url(#f-track)">
+        <rect x="110" y="285" width="140" height="102" rx="14" fill="url(#g-track)" fill-opacity="0.92"/>
+      </g>
+      <text x="180" y="314" fill="white" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="800" text-anchor="middle" letter-spacing="0.06em">TRACK</text>
+      <text x="125" y="334" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– Jira</text>
+      <text x="125" y="350" fill="rgba(255,255,255,0.92)" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="500" text-anchor="start">– BigQuery</text>
+
+      <!-- ══ CLAUDE CENTER NODE ══ -->
+      <!-- Pulse rings -->
+      <circle cx="450" cy="220" r="80" fill="none" stroke="#A855F7" stroke-width="2" stroke-opacity="0.6" class="s9-pulse-ring"/>
+      <circle cx="450" cy="220" r="80" fill="none" stroke="#A855F7" stroke-width="1.5" stroke-opacity="0.4" class="s9-pulse-ring-2"/>
+
+      <!-- Main Claude circle with glow -->
+      <g class="s9-claude-group">
+        <circle cx="450" cy="220" r="80" fill="url(#g-claude)" filter="url(#f-claude)"/>
+        <!-- Claude label -->
+        <text x="450" y="206" fill="white" font-family="Bricolage Grotesque, sans-serif" font-size="18" font-weight="800" text-anchor="middle">Claude AI</text>
+        <text x="450" y="224" fill="rgba(255,255,255,0.72)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" text-anchor="middle">Orchestrator</text>
+        <!-- MCP badge -->
+        <rect x="422" y="232" width="56" height="18" rx="9" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <text x="450" y="245" fill="white" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" text-anchor="middle" letter-spacing="0.1em">MCP</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════ SLIDE 11 — STEPS TO GET THERE (from V4) ══════ -->
+<div class="slide" id="s11">
+  <div class="label">Action Plan</div>
+  <h2>Steps to Get There</h2>
+  <div class="vsteps">
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--blue);color:var(--blue)">1</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(59,158,245,.15);color:var(--blue)">Setup</span>
+        <span class="vstep-title">Configure Jira Bug Workflow</span>
+        <div class="vstep-desc">New bug statuses: To Do &#x2192; In Progress &#x2192; In Review &#x2192; Ready for QA &#x2192; Testing &#x2192; Passed QA &#x2192; Ready for Release &#x2192; Close</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--blue);color:var(--blue)">2</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(59,158,245,.15);color:var(--blue)">Setup</span>
+        <span class="vstep-title">Define Story / Task Structure in Jira</span>
+        <div class="vstep-desc">Story/Task as top-level unit &#x2022; Dev Subtask + QA Subtask &#x2022; Estimates on subtasks only</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--blue);color:var(--blue)">3</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(59,158,245,.15);color:var(--blue)">Setup</span>
+        <span class="vstep-title">Define Master Branch as Source of Truth</span>
+        <div class="vstep-desc">Master is the single stable base &#x2014; all feature branches are cut from master and synced with it continuously via fast-forward merges</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--blue);color:var(--blue)">4</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(59,158,245,.15);color:var(--blue)">Setup</span>
+        <span class="vstep-title">Define Release Branch &amp; Process</span>
+        <div class="vstep-desc">Release branch cut from master at code-freeze &#x2022; Only hotfixes merged in &#x2022; Tagged on ship &#x2022; Merged back to master post-release</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--green);color:var(--green)">5</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(109,200,75,.15);color:var(--green)">Integrate</span>
+        <span class="vstep-title">Set Up CI/CD Pipeline</span>
+        <div class="vstep-desc">Automated build &amp; test on every PR &#x2022; Deploy to Dev on merge to master &#x2022; Staging &amp; Production gated behind passing checks</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--green);color:var(--green)">6</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(109,200,75,.15);color:var(--green)">Integrate</span>
+        <span class="vstep-title">TLD Template in Notion</span>
+        <div class="vstep-desc">Technical Design Doc template ready for Dev to use from day one</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--green);color:var(--green)">7</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(109,200,75,.15);color:var(--green)">Integrate</span>
+        <span class="vstep-title">Testomatio + Notion AI Integration</span>
+        <div class="vstep-desc">AI auto-generates test cases from PRD &amp; TLD &#x2014; QA starts with a ready-made test plan</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--green);color:var(--green)">8</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(109,200,75,.15);color:var(--green)">Integrate</span>
+        <span class="vstep-title">GitHub &#x2194; Jira PR Linking</span>
+        <div class="vstep-desc">Every PR references a Jira task or bug &#x2014; no orphan code changes</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--yellow);color:var(--yellow)">9</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(245,166,35,.15);color:var(--yellow)">Execute</span>
+        <span class="vstep-title">Team Alignment Session</span>
+        <div class="vstep-desc">Walk Product, Dev &amp; QA through the full new process together</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--yellow);color:var(--yellow)">10</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(245,166,35,.15);color:var(--yellow)">Execute</span>
+        <span class="vstep-title">First Feature Under New Process</span>
+        <div class="vstep-desc">Run end-to-end: PRD &#x2192; TLD &#x2192; TDR &#x2192; Tasks &#x2192; Dev+QA &#x2192; Release</div>
+      </div>
+    </div>
+
+    <div class="vstep">
+      <div class="vstep-n" style="border-color:var(--pink);color:var(--pink)">11</div>
+      <div class="vstep-body">
+        <span class="vstep-tag" style="background:rgba(232,67,90,.15);color:var(--pink)">Improve</span>
+        <span class="vstep-title">Retrospective &amp; Lock It In</span>
+        <div class="vstep-desc">What worked, what didn't &#x2014; refine and make the process permanent</div>
+      </div>
+    </div>
+
+  </div>
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;color:rgba(255,255,255,.75);text-align:center;margin-top:14px">Same team. Clearer process. Better games. &#x1F3AE;</div>
+</div>
+
+</div><!-- /deck -->
+
+<div class="nav">
+  <button class="nbtn" id="prevBtn" onclick="go(-1)" disabled>←</button>
+  <span class="counter" id="ctr">1 / 11</span>
+  <button class="nbtn" id="nextBtn" onclick="go(1)">→</button>
+</div>
+
+<script>
+const TOTAL=11;let cur=1,busy=false;
+function go(d){
+  if(busy)return;const n=cur+d;if(n<1||n>TOTAL)return;busy=true;
+  const f=document.getElementById('s'+cur),t=document.getElementById('s'+n);
+  t.style.transform=d>0?'translateX(56px)':'translateX(-56px)';
+  t.style.opacity='0';t.style.pointerEvents='none';
+  t.getBoundingClientRect();
+  f.style.transform=d>0?'translateX(-56px)':'translateX(56px)';
+  f.style.opacity='0';f.classList.remove('active');
+  t.style.transition='opacity .48s cubic-bezier(.4,0,.2,1),transform .48s cubic-bezier(.4,0,.2,1)';
+  f.style.transition='opacity .48s cubic-bezier(.4,0,.2,1),transform .48s cubic-bezier(.4,0,.2,1)';
+  t.style.transform='translateX(0)';t.style.opacity='1';t.style.pointerEvents='all';t.classList.add('active');
+  cur=n;ui();setTimeout(()=>{busy=false},500);
+}
+function ui(){
+  document.getElementById('ctr').textContent=cur+' / '+TOTAL;
+  document.getElementById('prevBtn').disabled=cur===1;
+  document.getElementById('nextBtn').disabled=cur===TOTAL;
+  document.getElementById('progress').style.width=((cur-1)/(TOTAL-1)*100)+'%';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);
+});
+ui();
+</script>
+</body>
+</html>
